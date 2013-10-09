@@ -8,11 +8,13 @@ width: 960px;
 }
 
 #piediv {
-position: relative;
-float:left;	
+position: absolute;
+top:80px;
+left:720px;
+aafloat:left;	
 width: 280px;
 height:700px;
-background-color: #eee;
+aabackground-color: #eee;
 }
 
 #pie1div {
