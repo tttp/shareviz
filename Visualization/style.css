@@ -21,12 +21,15 @@ aabackground-color: #eee;
 width:100%;
 min-height: 200px;	
 padding:10px;
+opacity:0.7;
 }
 
 #pie2div {
 width:100%;	
 min-height: 200px;	
 padding:10px;
+position:relative;
+left:-30px;
 }
 
 #timelinediv {
