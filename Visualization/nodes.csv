@@ -1,0 +1,46 @@
+Code,Name,Lat,Lon,country code,country
+Aac,Aachen,50.8,6.1,DE,Germany
+Bon,Bonn,50.7,7.1,DE,Germany
+Dus,Dusseldorf,51.2,6.8,DE,Germany
+Pra,Prague,50.1,14.4,CZ,Czech Republic
+Par,Paris,48.9,2.4,FR,France
+Ber,Berlin,52.5,13.4,DE,Germany
+Ams,Amsterdam,52.3708305359,4.9040098190,NL,Netherlands
+War,Warsaw,52.2,21.0,PL,Poland
+Bru,Brussels,50.9,4.4,BE,Belgium
+Gäv,Gävleborg,61.3,16.2,SE,Sweden
+Bol,Bollnäs,61.3,16.4,SE,Sweden
+Ova,Ovanåker,61.6,15.6,SE,Sweden
+Ock,Ockelbo,60.9,16.7,SE,Sweden
+Hud,Hudiksvall,61.7,17.1,SE,Sweden
+Lju,Ljusdal,61.8,16.1,SE,Sweden
+San,Sandviken,60.6,16.8,SE,Sweden
+Vas,Vasterbotten,65.3,16.5,SE,Sweden
+Lyc,Lycksele,64.6,18.7,SE,Sweden
+Nor,Norsjo,64.9,19.5,SE,Sweden
+Ske,Skelleftea,64.8,21.0,SE,Sweden
+Str,Stromsund,63.9,15.6,SE,Sweden
+Ost,Ostersund,63.2,14.6,SE,Sweden
+Mun,Munich,48.1,11.6,DE,Germany
+Tam,Tampere,61.5,23.8,FI,Finland
+Oul,Oulu,65.0,25.5,FI,Finland
+Hel,Helsinki,60.2,24.9,FI,Finland
+Kut,Kutna Hora,50.0,15.3,CZ,Czech Republic
+Bra,Brandys nad Labem,50.2,14.7,CZ,Czech Republic
+Pod,Podebrady,50.1,15.1,CZ,Czech Republic
+Bze,Bzenec,49.0,17.3,CZ,Czech Republic
+Vie,Vienna,48.2,16.4,AT,Austria
+Lub,Lublin,51.2,22.6,PL,Poland
+Zav,Zaventem,50.9,4.5,BE,Belgium
+Wet,Wetteren,51.0,3.9,BE,Belgium
+Sit,Sittard-Geleen,51.0,5.8,NL,Netherlands
+Lim,Limburg,50.4,8.1,DE,Germany
+Zaa,Zaanstad,52.4,4.8,NL,Netherlands
+Utr,Utrecht,52.0,5.4,NL,Netlands
+Lyo,Lyon,45.8,4.8,FR,France
+Pau,Pau,43.3,-0.4,FR,France
+Nan,Nantes,47.2,-1.6,FR,France
+She,Sheffield,53.4,-1.5,GB,United Kingdom
+Hul,Hull,53.7,-0.3,GB,United Kingdom
+Brd,Bradford,53.8,-1.8,GB,United Kingdom
+Man,Manchester,53.5,-2.2,GB,United Kingdom

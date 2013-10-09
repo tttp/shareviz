@@ -1,0 +1,98 @@
+{
+ "name": "topics",
+ "children": [
+  {
+   "name": "Education",
+   "children": [
+    {"name": "visit1", "size": 1},
+    {"name": "visit2", "size": 3},
+	{"name": "visit2", "size": 7},
+	{"name": "visit3", "size": 9}    
+   ]
+  },
+  {
+   "name": "Integration Support",
+   "children": [
+    {"name": "visit1", "size": 1},
+    {"name": "visit2", "size": 4},
+	{"name": "visit1", "size": 5},
+	{"name": "visit1", "size": 6},
+	{"name": "visit1", "size": 7},
+	{"name": "visit1", "size": 8},
+	{"name": "visit3", "size": 9}    
+   ]
+  },
+  {
+   "name": "Volunteering",
+   "children": [
+    {"name": "visit1", "size": 1},
+    {"name": "visit2", "size": 3},
+	{"name": "visit2", "size": 4},
+	{"name": "visit2", "size": 8},
+	{"name": "visit3", "size": 9}    
+   ]
+  },
+  {
+   "name": "Health",
+   "children": [
+    {"name": "visit1", "size": 1},
+    {"name": "visit2", "size": 3},
+	{"name": "visit2", "size": 6},
+	{"name": "visit2", "size": 7},
+	{"name": "visit2", "size": 8},
+	{"name": "visit3", "size": 9}    
+   ]
+  },
+  {
+   "name": "Housing",
+   "children": [
+    {"name": "visit1", "size": 3},
+    {"name": "visit2", "size": 7},
+	{"name": "visit3", "size": 8}    
+   ]
+  },
+  {
+   "name": "Language-learning",
+   "children": [
+    {"name": "visit1", "size": 3},
+	{"name": "visit3", "size": 5}    
+   ]
+  },
+  {
+   "name": "Community development",
+   "children": [
+    {"name": "visit1", "size": 3},
+	{"name": "visit1", "size": 4},
+	{"name": "visit1", "size": 5},
+    {"name": "visit2", "size": 6},
+	{"name": "visit3", "size": 9}    
+   ]
+  },
+  {
+   "name": "City of Sanctuary",
+   "children": [
+	{"name": "visit3", "size": 4}    
+   ]
+  },
+  {
+   "name": "City asylum & refugee services",
+   "children": [
+    {"name": "visit2", "size": 5},
+	{"name": "visit3", "size": 9}    
+   ]
+  },
+  {
+   "name": "Partnerships & arrival planning",
+   "children": [
+    {"name": "visit1", "size": 1},
+	{"name": "visit1", "size": 3},
+	{"name": "visit1", "size": 4},
+	{"name": "visit1", "size": 5},
+	{"name": "visit1", "size": 6},
+	{"name": "visit1", "size": 7},
+    {"name": "visit2", "size": 8},
+	{"name": "visit3", "size": 9}    
+   ]
+  }
+ ]
+}

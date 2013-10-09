@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<!--script src="http://d3js.org/colorbrewer.v1.min.js"></script-->
+<script src="http://d3js.org/queue.v1.min.js"></script>
+
+<div id="mapdiv"></div>
+<div id="piediv">
+	<div id="pie1div">
+<form></form>
+	</div>
+    <div id="pie2div">
+	</div>
+</div>
+<div id="timelinediv">
+</div>
+
+<script>
+
+var active= null,
+    width = 960,
+    height = 700,
+	width1 = 200,
+    height1 = 200;
+
+  //equirectangular fits better on a screen (more width than height) than mercator()
+  var projection = d3.geo.equirectangular()
+    .center([13,52]) //theorically, 50°7′2.23″N 9°14′51.97″E
+    .scale(width*1.11)
+    .translate([width / 2, height / 2]);
+//    .translate([width / 2 - 320, height / 2 + 700]);
+
+
+var svg = d3.select("#mapdiv").append("svg")
+    .attr("class", "map")
+    .attr("width", width)
+    .attr("height", height);
+	
+var svg1 = d3.select("body").append("svg")
+    .attr("class", "pie1")
+    .attr("width", width1)
+    .attr("height", height1);
+
+svg.append("rect")
+    .attr("class", "ocean")
+    .attr("width", width)
+    .attr("height", height)
+    .on("click", reset);
+
+var g = svg.append("g");
+
+
+  //Countries paths
+var path = d3.geo.path().projection(projection);
+
+var feature=null;
+
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
+// color based on how many signatures as a % of the quota. Anything above 150% is the same color
+var color = d3.scale.linear()
+        .clamp(true)
+        .domain([0, 0.9,1,1.5])
+        .range(["red","#e8eab8","lightgreen","#3a6033"])
+        .interpolate(d3.interpolateHcl);
+
+//Let's load the data that will be user for the choropleth
+var dataset,europe,places,visitnodes;
+var lastdate = "2013-09-08";
+
+var thisdate1 = "20130908";
+var thisdate2 = "20130908";
+
+queue()
+  .defer (function (callback) {
+    d3.json("full.json", function(error, json) {
+      if (error) {console.warn(error);callback();}
+      dataset = json;
+      callback();
+    });
+  })
+  .defer (function(callback) {
+    d3.json("europe50b.json", function(error, json) {
+      europe=json;
+      callback();
+    });
+  })
+  .defer (function(callback) {
+    d3.json("places.json", function(error, json) {
+      places=json;
+      callback();
+    });
+  })
+  .defer (function(callback) {
+    d3.csv("nodes.csv",function(error, csv) {
+	  visitnodes=csv; 
+	  callback(); 
+	  });
+  })
+  .defer (function(callback) {
+    d3.csv("flows.csv",function(error, csv) {
+	  visitflows=csv; 
+	  callback(); 
+	  });
+  })
+  .defer (function(callback) {
+    d3.tsv("data.tsv",function(error, csv) {
+	  participants=csv; 
+	  callback(); 
+	  });
+  })
+  .defer (function(callback) {
+    d3.json("topics.json", function(error, json) {
+      topics=json;
+      callback();
+    });
+  })
+  .defer (function(callback) {
+    d3.csv("timeline.csv", function(error, tcsv) {
+      timelinedata=tcsv;
+      callback();
+    });
+  })
+  .defer (function(callback) {
+    d3.json("topics.json", function(error, json) {
+      topicsdata=json;
+      callback();
+    });
+  })
+  .await(function (){
+     map(europe);
+  });
+  
+  
+ //Set some vars
+ var arc = d3.geo.greatArc().precision(3) //3);
+ var arcs = svg.append("g").attr("id", "arcs");
+ 
+ var nodeDataByCode = {}, links = [];
+        var year = '2008';
+		var year = '2008';
+        var maxMagnitude = d3.max(visitflows, function(d) { return parseFloat(d[year])});
+		//var maxMagnitude = 50;
+        var magnitudeFormat = d3.format(",.0f");
+		
+		var arcWidth = d3.scale.linear().domain([1, maxMagnitude]).range([.1, 7]);
+        var minColor = '#f0f0f0', maxColor = 'rgb(8, 48, 107)';
+        var arcColor = d3.scale.log().domain([1, maxMagnitude]).range([minColor, maxColor]);
+        var arcOpacity = d3.scale.log().domain([1, maxMagnitude]).range([0.3, 1]);
+		var useGreatCircles = true;
+
+var strokeFun = function(d) { return arcColor(d.magnitude); };
+
+
+function map( json ) {	
+  var countries = topojson.feature(json, json.objects.countries);
+
+  feature = g.selectAll(".country")
+    .data(countries.features)
+    .enter().append("path")
+    .attr("class", function(d) {
+ return "country " + d.id; })
+    .attr("d", path)
+  	.on("mouseover", function(d) { 
+    	d3.select(this)
+      .classed("over",true)
+	    //comment the following line to disable tooltip on mouseover 
+     	//tooltipin(d);
+	})
+	.on("mouseout", function(d) { 
+  	d3.select(this).style("opacity","1")
+      .classed("over",false)
+  	//tooltipout(d);
+	})
+	.on("click", click)
+	.attr("fill", function (d) {return "#ccc";})
+	.transition()        
+  .duration(3000) 
+	.attr("fill", function(d) { return "#ccc"; })
+  .attr("d", path)
+
+
+// visits nodes
+var centroids = svg.append("g").attr("id", "centroids");
+
+function nodeCoords(node) { 
+          var lon = parseFloat(node.Lon), lat = parseFloat(node.Lat);
+          if (isNaN(lon) || isNaN(lat)) return null;
+          return [lon, lat]; 
+        }
+
+        visitnodes.forEach(function(node) {
+			//alert('hi');
+          node.coords = nodeCoords(node);
+		  //alert(nodeCoords(node));
+          node.projection = node.coords ? projection(node.coords) : undefined;
+          nodeDataByCode[node.Code] = node;
+		  //alert(nodeDataByCode[node.Code].coords);
+        });
+		
+//end nodes part
+
+//Visit flows
+visitflows.forEach(function(flow) {
+          var o = nodeDataByCode[flow.Origin], co = o.coords, po = o.projection;
+          var d = nodeDataByCode[flow.Dest], cd = d.coords, pd = d.projection;
+          var magnitude = parseFloat(flow[year]);
+		  //alert(magnitude);
+          if (co  &&  cd  &&  !isNaN(magnitude)) {
+            links.push({
+              source: co, target: cd,
+              magnitude: magnitude,
+              origin:o, dest:d,
+              originp: po, destp:pd 
+            });
+          }
+        });
+//end flows
+
+//drawTotal();
+//drawCities();
+
+
+
+//pie
+
+var width2 = 250,
+    height2 = 280,
+    radius2 = Math.min(width2, height2) / 2;
+
+var colorpie = d3.scale.category20();
+
+var pie = d3.layout.pie()
+    .value(function(d) { return d.count; })
+    .sort(null);
+
+var arc2 = d3.svg.arc()
+    //.innerRadius(radius - 150)
+	.innerRadius(0)
+    .outerRadius(radius2 - 20);
+
+var svg2 = d3.select("#pie1div").append("svg")
+    .attr("width", width2)
+    .attr("height", height2)
+  .append("g")
+    .attr("transform", "translate(" + width2 / 2 + "," + height2 / 2 + ")");
+
+var path2 = svg2.selectAll("path");
+
+d3.tsv("data.tsv", type, function(error, data) {
+  var catByVisit = d3.nest()
+      .key(function(d) { return d.visit; })
+      .entries(data)
+      .reverse();
+
+  var label = d3.select("form").selectAll("label")
+      .data(catByVisit)
+    .enter().append("label");
+
+  label.append("input")
+      .attr("type", "radio")
+      .attr("name", "visit")
+      .attr("value", function(d) { return d.key; })
+      .on("change", change)
+    .filter(function(d, i) { return !i; })
+      .each(change)
+      .property("checked", true);
+
+  label.append("span")
+      .text(function(d) { return d.key; });
+
+  function change(cat) {
+    var data0 = path2.data(),
+        data1 = pie(cat.values);
+
+    path2 = path2.data(data1, key);
+
+    path2.enter().append("path")
+        .each(function(d, i) { this._current = findNeighborArc(i, data0, data1, key) || d; })
+		.style("stroke", "#fff")
+        .attr("fill", function(d) { return colorpie(d.data.cat); })
+      .append("title")
+        .text(function(d) { return d.data.cat; });
+
+    path2.exit()
+        .datum(function(d, i) { return findNeighborArc(i, data1, data0, key) || d; })
+      .transition()
+        .duration(750)
+        .attrTween("d", arcTween)
+        .remove();
+
+    path2.transition()
+        .duration(750)
+        .attrTween("d", arcTween);
+  }
+});
+
+function key(d) {
+  return d.data.cat;
+}
+
+function type(d) {
+  d.count = +d.count;
+  return d;
+}
+
+function findNeighborArc(i, data0, data1, key) {
+  var d;
+  return (d = findPreceding(i, data0, data1, key)) ? {startAngle: d.endAngle, endAngle: d.endAngle}
+      : (d = findFollowing(i, data0, data1, key)) ? {startAngle: d.startAngle, endAngle: d.startAngle}
+      : null;
+}
+
+// Find the element in data0 that joins the highest preceding element in data1.
+function findPreceding(i, data0, data1, key) {
+  var m = data0.length;
+  while (--i >= 0) {
+    var k = key(data1[i]);
+    for (var j = 0; j < m; ++j) {
+      if (key(data0[j]) === k) return data0[j];
+    }
+  }
+}
+
+// Find the element in data0 that joins the lowest following element in data1.
+function findFollowing(i, data0, data1, key) {
+  var n = data1.length, m = data0.length;
+  while (++i < n) {
+    var k = key(data1[i]);
+    for (var j = 0; j < m; ++j) {
+      if (key(data0[j]) === k) return data0[j];
+    }
+  }
+}
+
+function arcTween(d) {
+  var i = d3.interpolate(this._current, d);
+  this._current = i(0);
+  return function(t) { return arc2(i(t)); };
+}
+
+//end pie
+
+//topics pie/sunburst
+
+var widthsun = 250,
+    heightsun = 280,
+    radiussun = Math.min(widthsun, heightsun) / 2,
+    colorsun = d3.scale.category20c();
+
+var svgsun = d3.select("#pie2div").append("svg")
+    .attr("width", widthsun)
+    .attr("height", heightsun)
+  .append("g")
+    .attr("transform", "translate(" + widthsun / 2 + "," + heightsun * .52 + ")");
+
+var partition = d3.layout.partition()
+    .sort(null)
+    .size([2 * Math.PI, radiussun * radiussun])
+    .value(function(d) { return 1; });
+
+var arcsun = d3.svg.arc()
+    .startAngle(function(d) { return d.x; })
+    .endAngle(function(d) { return d.x + d.dx; })
+    .innerRadius(function(d) { return d.children ? 0 : Math.sqrt(d.y); })
+    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+
+//d3.json("topics.json", function(error, topicsdata) {
+  var pathsun = svgsun.datum(topicsdata).selectAll("path")
+      .data(partition.nodes)
+    .enter().append("path")
+      .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
+      .attr("d", arcsun)
+      .style("stroke", "#fff")
+      .style("fill", function(d) { return colorsun((d.children ? d : d.parent).name); })
+	  .style("opacity", function(d) { return d.children ? 1 : 0.5; })
+      .style("fill-rule", "evenodd")
+      .each(stash);
+
+/*
+  d3.selectAll("input").on("change", function change() {
+    var value = this.value === "count"
+        ? function() { return 1; }
+        : function(d) { return d.size; };
+
+    pathsun
+        .data(partition.value(value).nodes)
+      .transition()
+        .duration(1500)
+        .attrTween("d", arcTweenSun);
+  });
+  */
+  
+//});
+
+// Stash the old values for transition.
+function stash(d) {
+  d.x0 = d.x;
+  d.dx0 = d.dx;
+}
+
+// Interpolate the arcs in data space.
+function arcTweenSun(a) {
+  var i = d3.interpolate({x: a.x0, dx: a.dx0}, a);
+  return function(t) {
+    var b = i(t);
+    a.x0 = b.x;
+    a.dx0 = b.dx;
+    return arcsun(b);
+  };
+}
+
+//end topics vis
+
+
+//timeline
+
+var margintime = {top: 10, right: 10, bottom: 100, left: 40},
+    margin2time = {top: 30, right: 10, bottom: 20, left: 40},
+    widthtime = 960 - margintime.left - margintime.right,
+    heighttime = 100 - margintime.top - margintime.bottom,
+	height2time = 100 - margin2time.top - margin2time.bottom;
+	//height2 = 100 - margin2.bottom;
+
+var parseDate = d3.time.format("%Y%m%d").parse;
+
+var xtime = d3.time.scale().range([0, widthtime]),
+    x2time = d3.time.scale().range([0, widthtime]),
+    ytime = d3.scale.linear().range([heighttime, 0]),
+    y2time = d3.scale.linear().range([height2time, 0]);
+
+var xAxis = d3.svg.axis().scale(xtime).orient("bottom"),
+    xAxis2 = d3.svg.axis().scale(x2time).orient("bottom"),
+    yAxis = d3.svg.axis().scale(ytime).orient("left");
+
+var brush = d3.svg.brush()
+    .x(x2time)
+    .on("brush", brushed);
+
+var area2 = d3.svg.area()
+    .x(function(d) { return x2time(d.date); })
+    .y0(0)
+    .y1(function(d) { return 10; });
+
+var svgtime = d3.select("#timelinediv").append("svg")
+    .attr("width", widthtime + margintime.left + margintime.right)
+    .attr("height", heighttime + margintime.top + margintime.bottom);
+
+svgtime.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("width", widthtime)
+    .attr("height", heighttime);
+
+var context = svgtime.append("g")
+    .attr("transform", "translate(" + margin2time.left + "," + margin2time.top + ")");
+
+
+  timelinedata.forEach(function(d) {
+	d.date1 = d.date;
+    d.date = parseDate(d.date);
+    d.price = +d.price;
+  });
+
+  xtime.domain(d3.extent(timelinedata.map(function(d) { return d.date; })));
+  ytime.domain([0, 1]);
+  x2time.domain(xtime.domain());
+  y2time.domain(ytime.domain());
+			
+var eventcircle = context.selectAll('circle.dot')
+                //.data(function(d, i){return d})
+				.data(timelinedata)
+                .enter().append("circle")
+                .attr("class", "dot")
+                //.attr("cx", X)
+                //.attr("cy", Y)
+				.attr("transform", function(d) {return "translate(" + xtime(d.date) + "," + 0 + ")"; })
+            .attr("r", function(d) {return d.type == "visit" ? 5 : 9 })
+			.attr("fill", function(d) {return d.type == "visit" ? "#aaa" : "#469" })
+			.on("mouseover", function(d,i) {
+				//alert(d.date);
+				tooltipin(d);
+            d3.select(this).transition().duration(300).style("fill","#ffbb00"); })
+        .on("mouseout", function(d,i) {
+			tooltipout(d);
+            d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? "#aaa" : "#469" }); });
+					
+			
+  context.append("g")
+      .attr("class", "x axis")
+      //.attr("transform", "translate(0," + height2 + ")")
+	  .attr("transform", "translate(0," + 10 + ")")
+      .call(xAxis2);
+
+  context.append("g")
+      .attr("class", "x brush")
+      .call(brush)
+    .selectAll("rect")
+      .attr("y", +10)
+      .attr("height", height2time - 30);
+
+
+function brushed() {
+  x.domain(brush.empty() ? x2.domain() : brush.extent());
+  //alert(brush.extent());
+  focus.select("path").attr("d", area);
+  focus.select(".x.axis").call(xAxis);
+}
+
+//timeline
+
+
+
+
+drawNodes();
+drawFlows();
+
+
+
+function drawTotal () {
+      var total = 0;
+      d3.map(dataset.paper).forEach(function(k,v){total += v;});
+      d3.map(dataset.eci[lastdate]).forEach(function(k,v){total += v;});
+      var title = g.append("text")
+        .attr("class", "title")
+        .attr("transform", "scale(2)")
+        .attr("x", 80)
+        .attr("y", 200)
+  	    .transition()        
+          .attr("x", 30)
+          .attr("y", 90)
+          .text(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'"))
+          .duration(2000) 
+          .attr("transform", "scale(1)")
+      	  .style("fill", "#666");
+}
+
+function getiso (feature) {
+  var id=feature.id.toLowerCase();
+  if (id == "gb") return "uk";
+  if (id == "gr") return "el";
+  return id;
+}
+
+//Some functions to recover data about each country for the tooltips
+function getquota(id){
+		if(dataset.quota[id] != null){
+	  	return dataset.quota[id];
+		} else {
+	    return "0";
+    }
+}
+
+
+function getsignatures(id, type){
+  if(dataset.eci[lastdate][id] == null)
+	   return "0";
+
+	  var online = dataset.eci[lastdate][id];
+    if (type == "online") 
+      return online;
+	  var paper = dataset.paper[id];
+    if (type == "paper") 
+      return paper;
+    // by default returns both
+    return online + paper;
+}
+
+
+//Function for showing the tooltip. It can be used for onmouseover actions or for click actions	
+function tooltipin(d){
+	
+  if (d.type=="event") {
+    //var title = d.properties.name + " "+ percentage+ "%";
+    var body= "Event";
+  } else {
+    //var title = d.properties.name;
+    var body = "Visit";
+  } 
+  
+	div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            div .html("<h2>"+d.date+"</h2><div class='body'>" +body +"</div>")  
+                .style("left", (d3.event.pageX + 20) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px"); 	
+}
+
+//Function for hiding the tooltip.	
+function tooltipout(d){
+	div.transition()        
+                .duration(500)      
+                .style("opacity", 0);	
+}
+
+function click(d) {
+  	
+  if (active === d){ 
+  
+  	arcs.selectAll("path")
+	.style("opacity",0.0)
+	.transition().duration(2000)
+	.style("opacity",0.3)
+	
+  return reset();}
+  
+  if (getquota(getiso(d)) == 0)  return reset ();
+
+  g.selectAll(".active").classed("active", false);
+  d3.select(this).classed("active", active = d);
+  arcs.selectAll(".active").classed("active", false);
+
+  var b = path.bounds(d);
+  g.transition().duration(750).attr("transform",
+      "translate(" + projection.translate() + ")"
+      + "scale(" + 0.75 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height) + ")"
+      + "translate(" + -(b[1][0] + b[0][0]) / 2 + "," + -(b[1][1] + b[0][1]) / 2 + ")");
+   //.classed("active", true)
+  g.selectAll(".city."+d.id)
+   .classed("active", true)
+   .style("opacity",0)
+   .transition().duration(750)
+	    .attr("r", function(d) {return (7-d.properties.rank)})
+     .style("opacity","0.5")
+
+  g.selectAll(".city-label."+d.id)
+   .classed("active", true)
+   //.style("opacity",0)
+   .transition().duration(750)
+     .style("opacity","0.5")
+
+g.selectAll(".city-label")
+   .classed("active", true)
+   //.style("opacity",0)
+   .transition().duration(750)
+     .style("opacity","0.5")
+	 
+arcs.selectAll("path")
+.style("opacity",0)
+
+
+
+
+}
+
+
+function drawPie(){
+
+var width = 250,
+    height = 280,
+    radius = Math.min(width, height) / 2;
+
+var color = d3.scale.category20();
+
+var pie = d3.layout.pie()
+    .value(function(d) { return d.count; })
+    .sort(null);
+
+var arc = d3.svg.arc()
+    //.innerRadius(radius - 150)
+	.innerRadius(0)
+    .outerRadius(radius - 20);
+
+var svg = d3.select("#pie1div").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+var path = svg.selectAll("path");
+
+  var catByVisit = d3.nest()
+      .key(function(d) { return d.visit; })
+      .entries(participants)
+      .reverse();	
+	  
+var label = d3.select("form").selectAll("label")
+      .data(catByVisit)
+    .enter().append("label");
+
+  label.append("input")
+      .attr("type", "radio")
+      .attr("name", "visit")
+      .attr("value", function(d) { return d.key; })
+      .on("change", change)
+    .filter(function(d, i) { return !i; })
+      .each(change)
+      .property("checked", true);
+
+  label.append("span")
+      .text(function(d) { return d.key; });
+	
+}
+
+
+function drawNodes() {
+//Cities dots
+
+g.selectAll(".city")
+    .data(visitnodes)
+  .enter().append("circle")
+	  .attr("r",function(d){return 3})
+    .attr("cx", function(d) { return projection(nodeCoords(d))[0];})
+    //.attr("cy", function(d) {  alert(projection([d.Lat,d.Lon])[1]);return projection([d.Lat,d.Lon])[1];})
+	.attr("cy", function(d) { return projection(nodeCoords(d))[1];})
+    .attr("class", function (d) {return "city capital "+d.Code})
+	
+g.selectAll(".city-label")
+    .data(visitnodes)
+  .enter().append("text")
+    .attr("class", function (d) {return "city-label capital "+d.Code})
+    .attr("transform", function(d) { return "translate(" + projection(nodeCoords(d)) + ")"; })
+    .attr("dy", "-.8em")
+    .text(function(d) { return d.Name; });
+
+}
+//End draw nodes
+
+
+function splitPath(path) {
+          var avgd = 0, i, d;
+          var c, pc, dx, dy;
+          var points = path.split("L");
+          if (points.length < 200000) return path;
+          var newpath = [ points[0] ];
+          var coords = points.map(function(d, i) {
+            return d.substr(i > 0 ? 0 : 1).split(","); // remove M and split
+          });
+
+          // calc avg dist between points
+          for (i = 1; i < coords.length; i++) {
+            pc = coords[i-1]; c = coords[i];
+            dx = c[0] - pc[0]; dy = c[1] - pc[1];
+            d = Math.sqrt(dx*dx + dy*dy);
+            c.push(d);  // push dist as last elem of c
+            avgd += d;
+          }
+          avgd /= coords.length - 1;
+
+          // for points with long dist from prev use M instead of L
+          for (i = 1; i < coords.length; i++) {
+            c = coords[i];
+            newpath.push((c[2] > 5 * avgd ? "M" : "L") + points[i]);
+          }
+          return newpath.join("");
+        }
+
+
+function drawFlows(){
+
+        var gradientNameFun = function(d) { return "grd"+d.origin.Code+d.dest.Code; };
+        var gradientRefNameFun = function(d) { return "url(#"+gradientNameFun(d)+")"; };
+
+        var defs = svg.append("svg:defs");
+
+        // see http://apike.ca/prog_svg_patterns.html
+		
+        defs.append("marker")
+          .attr("id", "arrowHead")
+          .attr("viewBox", "0 0 10 10")
+          .attr("refX", 10)
+          .attr("refY", 5)
+          .attr("orient", "auto")
+          //.attr("markerUnits", "strokeWidth")
+          .attr("markerUnits", "userSpaceOnUse")
+          .attr("markerWidth", 4*2)
+          .attr("markerHeight", 3*2)
+        .append("polyline")
+          .attr("points", "0,0 10,5 0,10 1,5")
+          .attr("fill", maxColor)
+          //.attr("opacity", 0.5)
+          ;
+		  
+
+/*
+        var gradient = defs.selectAll("linearGradient")
+          .data(links)
+        .enter()
+          .append("svg:linearGradient")
+            .attr("id", gradientNameFun)
+            .attr("gradientUnits", "userSpaceOnUse")
+            .attr("x1", function(d) { 
+              return d.originp[0]; })
+            .attr("y1", function(d) { return d.originp[1]; })
+            .attr("x2", function(d) { return d.destp[0]; })
+            .attr("y2", function(d) { return d.destp[1]; })
+            ;
+
+        gradient.append("svg:stop")
+            .attr("offset", "0%")
+            .attr("stop-color", minColor)
+            .attr("stop-opacity", .0);
+        gradient.append("svg:stop")
+            .attr("offset", "80%")
+            .attr("stop-color", strokeFun)
+            .attr("stop-opacity", 1.0);
+        gradient.append("svg:stop")
+            .attr("offset", "100%")
+            .attr("stop-color", strokeFun)
+            .attr("stop-opacity", 1.0);
+*/
+
+
+        var arcNodes = arcs.selectAll("path")
+          .data(links)
+        .enter().append("path")
+          //.attr("visibility", function(d) { return d.magnitude > 500 ? "visible" : "hidden"})
+          //.attr("stroke", gradientRefNameFun)
+		  .attr("stroke", "#444")
+		  .attr("class", "flows")
+          //.attr("stroke", "red")
+          //.attr("opacity", function(d) { return arcOpacity(d.magnitude); })
+          //.attr("stroke", strokeFun)
+          .attr("stroke-linecap", "round")
+		  .attr("opacity", .2)
+          //.attr("stroke-width", function(d) { return arcWidth(d.magnitude); })
+		  .attr("stroke-width", function(d) { return 1; })
+          .attr("d", function(d) { 
+            if (useGreatCircles){
+              //return splitPath(path(arc(d)));
+			  return path(arc(d));
+			} else {
+              return path({
+                type: "LineString",
+                coordinates: [d.source, d.target] 
+              }); 
+			}
+          })
+		  /*
+          .sort(function(a, b) {
+            var a = a.magnitude, b = b.magnitude;
+            if (isNaN(a)) if (isNaN(b)) return 0; else return -1; if (isNaN(b)) return 1;
+            return d3.ascending(a, b); 
+          });*/
+        arcNodes.on("mouseover", function(d) { 
+          d3.select(this)
+            .attr("stroke", "red")
+			.attr("opacity", 1)
+            .attr("marker-end", "url(#arrowHead)");
+        })
+        arcNodes.on("mouseout", function(d) {
+            d3.select(this)
+			  .attr("stroke", "#444")
+			  .attr("opacity", .2)
+              .attr("marker-end", "none")
+              //.attr("stroke", gradientRefNameFun); 
+			  })
+        ;
+
+
+	
+}
+
+
+
+
+function drawCities() {
+//Cities dots
+/*
+g.append("path")
+    .datum(topojson.feature(places, places.objects.places))
+    .attr("d", path)
+	.attr("r", "0.3px")
+    .attr("class", "cities")
+*/
+g.selectAll(".city")
+    .data(topojson.feature(places, places.objects.places).features)
+  .enter().append("circle")
+	  .attr("r",function(d){return (8-d.properties.rank)/4})
+    .attr("cx", function(d) {  return projection(d.geometry.coordinates)[0];})
+    .attr("cy", function(d) {  return projection(d.geometry.coordinates)[1];})
+    .attr("class", function (d) {return "city "+d.properties.iso+" "+d.properties.type})
+//    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+
+//Cities labels
+g.selectAll(".city-label")
+    .data(topojson.feature(places, places.objects.places).features)
+  .enter().append("text")
+    .attr("class", function (d) {return "city-label "+d.properties.iso+" "+d.properties.type})
+    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+    .attr("dy", "-.8em")
+    .text(function(d) { return d.properties.name; });
+}
+
+function drawCountriesLabel() {	
+  svg.selectAll(".place-label")
+    .attr("x", function(d) { return d.geometry.coordinates[0] > -1 ? 6 : -6; })
+    .style("text-anchor", function(d) { return d.geometry.coordinates[0] > -1 ? "start" : "end"; });
+
+//country label	
+  svg.selectAll(".country-label")
+    .data(topojson.feature(europe50b, europe50b.objects.countries).features)
+  .enter().append("text")
+    .attr("class", function(d) { return "country-label " + d.id; })
+    .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+    .attr("dy", ".35em")
+    .text(function(d) { return d.properties.name; });
+}	
+
+
+};
+
+
+function reset() {
+  g.selectAll(".active").classed("active", active = false);
+  g.transition().duration(750).attr("transform", "");
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>
