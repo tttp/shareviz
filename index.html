@@ -82,6 +82,7 @@ var thisdate2 = "20130908";
 
 //Some more variables for the interactions
 var selectedvisit = 9;
+var selecteddate = 20000101;
 
 queue()
   .defer (function (callback) {
@@ -226,8 +227,8 @@ visitflows.forEach(function(flow) {
               origin:o, dest:d,
               originp: po, destp:pd,
 			  visit: fvisit,
-			  date1: d.date1,
-			  date2: d.date2
+			  date1: flow.date1,
+			  date2: flow.date2
             });
           }
         });
@@ -548,8 +549,11 @@ var eventcircle = context.selectAll('circle.dot')
 				.attr("transform", function(d) {return "translate(" + xtime(d.date) + "," + 0 + ")"; })
             .attr("r", function(d) {return d.type == "visit" ? 5 : 9 })
 			.attr("fill", function(d) {return d.type == "visit" ? "#aaa" : "#469" })
+			.on("click", function(d,i) {
+				selecteddate = d.date1;
+				clickflow();
+				})
 			.on("mouseover", function(d,i) {
-				//alert(d.date);
 				tooltipin(d);
             d3.select(this).transition().duration(300).style("fill","#ffbb00"); 
 			selectedvisit = d.visit;
@@ -911,15 +915,15 @@ function drawFlows(){
 		  
         arcNodes.on("mouseover", function(d) { 
           d3.select(this)
-            .attr("stroke", "red")
-			.attr("opacity", 1)
-            .attr("marker-end", "url(#arrowHead)");
+            //.attr("stroke", "red")
+			//.attr("opacity", 1)
+            //.attr("marker-end", "url(#arrowHead)");
         })
         arcNodes.on("mouseout", function(d) {
             d3.select(this)
-			  .attr("stroke", "#444")
-			  .attr("opacity", .2)
-              .attr("marker-end", "none")
+			  //.attr("stroke", "#444")
+			  //.attr("opacity", .2)
+              //.attr("marker-end", "none")
               //.attr("stroke", gradientRefNameFun); 
 			  })
         ;
@@ -932,12 +936,20 @@ function changeflow(){
 //alert("test");
 //alert(selectedvisit);
 arcNodes
-.attr("stroke", function(d) {return d.visit == selectedvisit ? "#f90" : "#444"})
-.attr("opacity", function(d) {return d.visit == selectedvisit ? 1 : 0.2});	
+.attr("stroke", function(d) {return d.visit == selectedvisit ? "#f40" : "#444"})
+.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
+
+
+//d.date1 >= selecteddate
 
 //arcNodes
 //.attr("stroke", function(d) { return "#0f5"});
 
+}
+
+function clickflow(){
+arcNodes
+.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});	
 }
 
 function drawCities() {
