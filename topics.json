@@ -75,14 +75,34 @@
    ]
   },
   {
-   "name": "City asylum & refugee services",
+   "name": "City asylum",
    "children": [
     {"name": "visit5", "size": 5},
 	{"name": "visit9", "size": 9}    
    ]
   },
   {
-   "name": "Partnerships & arrival planning",
+   "name": "Refugee services",
+   "children": [
+    {"name": "visit5", "size": 5},
+	{"name": "visit9", "size": 9}    
+   ]
+  },
+  {
+   "name": "Partnerships",
+   "children": [
+    {"name": "visit1", "size": 1},
+	{"name": "visit3", "size": 3},
+	{"name": "visit4", "size": 4},
+	{"name": "visit5", "size": 5},
+	{"name": "visit6", "size": 6},
+	{"name": "visit7", "size": 7},
+    {"name": "visit8", "size": 8},
+	{"name": "visit9", "size": 9}    
+   ]
+  },
+  {
+   "name": "Arrival planning",
    "children": [
     {"name": "visit1", "size": 1},
 	{"name": "visit3", "size": 3},

@@ -322,29 +322,31 @@ drawCloud(topicsdata.children);
 });
 
 function drawCloud (data) {
-  var words = [];
+  var words = []
+    h=300,
+    w=h;
+
   d3.map(data).forEach(function(d) {
     words.push ({
      text : data[d].name,
      size: data[d].children.length
     });
   });
-  d3.layout.cloud().size([300, 300])
+  d3.layout.cloud().size([w, h])
       .words(words)
       .padding(2)
       .rotate(0)
-      .font("Impact")
-      .fontSize(function(d) { return 7+d.size*2; })
+      .fontSize(function(d) { return 11+d.size*1.5; })
       .on("end", draw)
       .start();
 
   function draw(words) {
     d3.select("#mapdiv").append("svg")
         .attr("id", "wordcloud")
-        .attr("width", 300)
-        .attr("height", 300)
+        .attr("width", w)
+        .attr("height", h)
       .append("g")
-        .attr("transform", "translate(150,150)")
+        .attr("transform", "translate("+w/2+","+h/2+")")
       .selectAll("text")
         .data(words)
       .enter().append("text")
