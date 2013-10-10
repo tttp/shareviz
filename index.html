@@ -507,7 +507,7 @@ var eventcircle = context.selectAll('circle.dot')
 			.attr("fill", function(d) {return d.type == "visit" ? "#aaa" : "#469" })
 			.on("click", function(d,i) {
 				selecteddate = d.date1;
-				changeflow;
+				clickflow();
 				})
 			.on("mouseover", function(d,i) {
 				tooltipin(d);
@@ -893,13 +893,19 @@ function changeflow(){
 //alert(selectedvisit);
 arcNodes
 .attr("stroke", function(d) {return d.visit == selectedvisit ? "#f40" : "#444"})
-.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});	
+.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
+
 
 //d.date1 >= selecteddate
 
 //arcNodes
 //.attr("stroke", function(d) { return "#0f5"});
 
+}
+
+function clickflow(){
+arcNodes
+.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});	
 }
 
 function drawCities() {
