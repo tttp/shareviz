@@ -1,6 +1,12 @@
 @charset "utf-8";
 /* CSS Document */
 
+#wordcloud {
+  position:absolute;
+  top:0;
+  left:0;
+}
+
 #mapdiv {
 position: relative;
 float:left;	

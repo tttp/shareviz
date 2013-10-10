@@ -5,6 +5,8 @@
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="./d3.layout.cloud.js"></script>
+
 <!--script src="http://d3js.org/colorbrewer.v1.min.js"></script-->
 <script src="http://d3js.org/queue.v1.min.js"></script>
 
@@ -12,6 +14,7 @@
 </div>
 <div id="mapdiv"></div>
 <div id="piediv">
+
 	<div id="pie1div">
 <form id="pieform"><b>Visit n°:</b><br /></form>
 	</div>
@@ -267,6 +270,8 @@ d3.tsv("data.tsv", type, function(error, data) {
       .entries(data)
       .reverse();
 
+drawCloud(topicsdata.children);
+
   var label = d3.select("form").selectAll("label")
       .data(catByVisit)
     .enter().append("label");
@@ -286,6 +291,7 @@ d3.tsv("data.tsv", type, function(error, data) {
   function change(cat) {
  
 	selectedvisit = cat.key;
+
 	changesun();
 	changeflow();
 
@@ -313,6 +319,44 @@ d3.tsv("data.tsv", type, function(error, data) {
         .attrTween("d", arcTween);
   }
 });
+
+function drawCloud (data) {
+  var words = [];
+  d3.map(data).forEach(function(d) {
+    words.push ({
+     text : data[d].name,
+     size: data[d].children.length
+    });
+  });
+  d3.layout.cloud().size([300, 300])
+      .words(words)
+      .padding(2)
+      .rotate(0)
+      .font("Impact")
+      .fontSize(function(d) { return 7+d.size*2; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("#mapdiv").append("svg")
+        .attr("id", "wordcloud")
+        .attr("width", 300)
+        .attr("height", 300)
+      .append("g")
+        .attr("transform", "translate(150,150)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return "#333";})
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+}
 
 function key(d) {
   return d.data.cat;
