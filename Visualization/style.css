@@ -17,6 +17,11 @@ height:700px;
 aabackground-color: #eee;
 }
 
+#pieform {
+position: relative;
+left: -30px;	
+}
+
 #pie1div {
 width:100%;
 min-height: 200px;	
@@ -34,7 +39,7 @@ left:-30px;
 
 #timelinediv {
 clear: both;
-width: 100%;
+width: 960px;
 font-size: 11px;
 background-color:#eee;	
 }

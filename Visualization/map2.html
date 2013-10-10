@@ -13,7 +13,7 @@
 <div id="mapdiv"></div>
 <div id="piediv">
 	<div id="pie1div">
-<form></form>
+<form id="pieform"><b>Visit n°:</b><br /></form>
 	</div>
     <div id="pie2div">
 	</div>
@@ -77,6 +77,9 @@ var lastdate = "2013-09-08";
 var thisdate1 = "20130908";
 var thisdate2 = "20130908";
 
+//Some more variables for the interactions
+var selectedvisit = 9;
+
 queue()
   .defer (function (callback) {
     d3.json("full.json", function(error, json) {
@@ -137,7 +140,7 @@ queue()
      map(europe);
   });
   
-  
+
  //Set some vars
  var arc = d3.geo.greatArc().precision(3) //3);
  var arcs = svg.append("g").attr("id", "arcs");
@@ -211,13 +214,15 @@ visitflows.forEach(function(flow) {
           var o = nodeDataByCode[flow.Origin], co = o.coords, po = o.projection;
           var d = nodeDataByCode[flow.Dest], cd = d.coords, pd = d.projection;
           var magnitude = parseFloat(flow[year]);
+		  var fvisit = flow.visit;
 		  //alert(magnitude);
           if (co  &&  cd  &&  !isNaN(magnitude)) {
             links.push({
               source: co, target: cd,
               magnitude: magnitude,
               origin:o, dest:d,
-              originp: po, destp:pd 
+              originp: po, destp:pd,
+			  visit: fvisit
             });
           }
         });
@@ -226,7 +231,8 @@ visitflows.forEach(function(flow) {
 //drawTotal();
 //drawCities();
 
-
+drawNodes();
+drawFlows();
 
 //pie
 
@@ -276,6 +282,11 @@ d3.tsv("data.tsv", type, function(error, data) {
       .text(function(d) { return d.key; });
 
   function change(cat) {
+ 
+	selectedvisit = cat.key;
+	changesun();
+	//changeflow();
+
     var data0 = path2.data(),
         data1 = pie(cat.values);
 
@@ -349,6 +360,14 @@ function arcTween(d) {
 
 //topics pie/sunburst
 
+function changesun(){
+//alert(selectedvisit);	
+pathsun
+.transition()
+.duration(500)
+.style("opacity", function(d) { return d.children ? 0.9 : (d.name == "visit" + selectedvisit ? 1 : 0); });
+}
+
 var widthsun = 250,
     heightsun = 280,
     radiussun = Math.min(widthsun, heightsun) / 2,
@@ -379,7 +398,7 @@ var arcsun = d3.svg.arc()
       .attr("d", arcsun)
       .style("stroke", "#fff")
       .style("fill", function(d) { return colorsun((d.children ? d : d.parent).name); })
-	  .style("opacity", function(d) { return d.children ? 1 : 0.5; })
+	  .style("opacity", function(d) { return d.children ? 0.9 : (d.name == "visit" + selectedvisit ? 1 : 0); })
       .style("fill-rule", "evenodd")
       .each(stash);
 
@@ -486,7 +505,10 @@ var eventcircle = context.selectAll('circle.dot')
 			.on("mouseover", function(d,i) {
 				//alert(d.date);
 				tooltipin(d);
-            d3.select(this).transition().duration(300).style("fill","#ffbb00"); })
+            d3.select(this).transition().duration(300).style("fill","#ffbb00"); 
+			selectedvisit = d.visit;
+			changeflow();
+			})
         .on("mouseout", function(d,i) {
 			tooltipout(d);
             d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? "#aaa" : "#469" }); });
@@ -517,10 +539,8 @@ function brushed() {
 
 
 
-
-drawNodes();
-drawFlows();
-
+//drawNodes();
+//drawFlows();
 
 
 function drawTotal () {
@@ -812,7 +832,8 @@ function drawFlows(){
         .enter().append("path")
           //.attr("visibility", function(d) { return d.magnitude > 500 ? "visible" : "hidden"})
           //.attr("stroke", gradientRefNameFun)
-		  .attr("stroke", "#444")
+		  //.attr("stroke", function(d) { return d.visit == selectedvisit ? "#0f5" : "#444"})
+		  .attr("stroke", function(d) { return "#444"})
 		  .attr("class", "flows")
           //.attr("stroke", "red")
           //.attr("opacity", function(d) { return arcOpacity(d.magnitude); })
@@ -838,6 +859,9 @@ function drawFlows(){
             if (isNaN(a)) if (isNaN(b)) return 0; else return -1; if (isNaN(b)) return 1;
             return d3.ascending(a, b); 
           });*/
+		  
+		//arcNodes.attr("stroke", function(d) { return d.visit == selectedvisit ? "#0f5" : "#444"});
+		  
         arcNodes.on("mouseover", function(d) { 
           d3.select(this)
             .attr("stroke", "red")
@@ -853,12 +877,19 @@ function drawFlows(){
 			  })
         ;
 
-
 	
 }
 
 
+function changeflow(){
+//alert("test");
+//alert(selectedvisit);
+arcNodes.attr("stroke", function(d) {alert(d.visit);return d.visit == selectedvisit ? "#0f5" : "#444"});	
 
+//arcNodes
+//.attr("stroke", function(d) { return "#0f5"});
+
+}
 
 function drawCities() {
 //Cities dots
