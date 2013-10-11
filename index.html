@@ -13,6 +13,7 @@
 <div id="timelinediv">
 </div>
 <div id="mapdiv"></div>
+<div id="cloud"></div>
 <div id="piediv">
     <div id="pie2div">
 	</div>
@@ -294,13 +295,12 @@ var visittitle = titlebox.append("text")
 
 function drawCloud (data) {
   var words = []
-    h=300,
-    w=h;
+    h=180,
+    w=300;
   var wvisits = [];
 
   d3.map(data).forEach(function(d) {
 	d3.map(data[d].children).forEach(function(c) {
-	  //alert(data[d].children[c].name);
 	  wvisits.push(data[d].children[c].name);	
 	});
 	words.push ({
@@ -308,8 +308,6 @@ function drawCloud (data) {
      size: data[d].children.length,
 	 visits: wvisits
     });
-	//alert(words[d].text);
-	//alert(words[d].visits);
 	wvisits = [];
   });
   
@@ -319,12 +317,12 @@ function drawCloud (data) {
       .words(words)
       .padding(2)
       .rotate(0)
-      .fontSize(function(d) { return 11+d.size*1.5; })
+      .fontSize(function(d) { return 11+d.size*1.2; })
       .on("end", draw)
       .start();
 	  
   function draw(words) {
-    wcloud = d3.select("#mapdiv").append("svg")
+    wcloud = d3.select("#cloud").append("svg")
         .attr("id", "wordcloud")
         .attr("width", w)
         .attr("height", h)
