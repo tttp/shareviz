@@ -14,10 +14,6 @@
 </div>
 <div id="mapdiv"></div>
 <div id="piediv">
-
-	<div id="pie1div">
-<form id="pieform"><b>Visit n°:</b><br /></form>
-	</div>
     <div id="pie2div">
 	</div>
 </div>
@@ -140,6 +136,12 @@ queue()
       callback();
     });
   })
+  .defer (function(callback) {
+    d3.json("categories.json", function(error, json) {
+      categories=json;
+      callback();
+    });
+  })
   .await(function (){
      map(europe);
   });
@@ -240,87 +242,9 @@ visitflows.forEach(function(flow) {
 
 drawNodes();
 drawFlows();
-
-//pie
-
-var width2 = 250,
-    height2 = 280,
-    radius2 = Math.min(width2, height2) / 2;
-
-var colorpie = d3.scale.category20();
-
-var pie = d3.layout.pie()
-    .value(function(d) { return d.count; })
-    .sort(null);
-
-var arc2 = d3.svg.arc()
-    //.innerRadius(radius - 150)
-	.innerRadius(0)
-    .outerRadius(radius2 - 20);
-
-var svg2 = d3.select("#pie1div").append("svg")
-    .attr("width", width2)
-    .attr("height", height2)
-  .append("g")
-    .attr("transform", "translate(" + width2 / 2 + "," + height2 / 2 + ")");
-
-var path2 = svg2.selectAll("path");
-
-d3.tsv("data.tsv", type, function(error, data) {
-  var catByVisit = d3.nest()
-      .key(function(d) { return d.visit; })
-      .entries(data)
-      .reverse();
-
 drawCloud(topicsdata.children);
 
-  var label = d3.select("form").selectAll("label")
-      .data(catByVisit)
-    .enter().append("label");
 
-  label.append("input")
-      .attr("type", "radio")
-      .attr("name", "visit")
-      .attr("value", function(d) { return d.key; })
-      .on("change", change)
-    .filter(function(d, i) { return !i; })
-      .each(change)
-      .property("checked", true);
-
-  label.append("span")
-      .text(function(d) { return d.key; });
-
-  function change(cat) {
- 
-	selectedvisit = cat.key;
-
-	changesun();
-	changeflow();
-
-    var data0 = path2.data(),
-        data1 = pie(cat.values);
-
-    path2 = path2.data(data1, key);
-
-    path2.enter().append("path")
-        .each(function(d, i) { this._current = findNeighborArc(i, data0, data1, key) || d; })
-		.style("stroke", "#fff")
-        .attr("fill", function(d) { return colorpie(d.data.cat); })
-      .append("title")
-        .text(function(d) { return d.data.cat; });
-
-    path2.exit()
-        .datum(function(d, i) { return findNeighborArc(i, data1, data0, key) || d; })
-      .transition()
-        .duration(750)
-        .attrTween("d", arcTween)
-        .remove();
-
-    path2.transition()
-        .duration(750)
-        .attrTween("d", arcTween);
-  }
-});
 
 function drawCloud (data) {
   var words = []
@@ -358,6 +282,7 @@ function drawCloud (data) {
         .attr("id", "wordcloud")
         .attr("width", w)
         .attr("height", h)
+		.style("fill", function(d, i) { return "#666";})
       .append("g")
         .attr("transform", "translate("+w/2+","+h/2+")")
       .selectAll("text")
@@ -365,7 +290,7 @@ function drawCloud (data) {
       .enter().append("text")
         .style("font-size", function(d) {return d.size + "px"; })
         .style("font-family", "Impact")
-        .style("fill", function(d, i) { return "#333";})
+        //.style("fill", function(d, i) { return "#333";})
         .attr("text-anchor", "middle")
         .attr("transform", function(d) {
           return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
@@ -444,7 +369,7 @@ var svgsun = d3.select("#pie2div").append("svg")
 var partition = d3.layout.partition()
     .sort(null)
     .size([2 * Math.PI, radiussun * radiussun])
-    .value(function(d) { return 1; });
+    .value(function(d) { return d.size; });
 
 var arcsun = d3.svg.arc()
     .startAngle(function(d) { return d.x; })
@@ -453,7 +378,7 @@ var arcsun = d3.svg.arc()
     .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
 //d3.json("topics.json", function(error, topicsdata) {
-  var pathsun = svgsun.datum(topicsdata).selectAll("path")
+  var pathsun = svgsun.datum(categories).selectAll("path")
       .data(partition.nodes)
     .enter().append("path")
       .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
@@ -563,20 +488,22 @@ var eventcircle = context.selectAll('circle.dot')
                 //.attr("cy", Y)
 				.attr("transform", function(d) {return "translate(" + xtime(d.date) + "," + 0 + ")"; })
             .attr("r", function(d) {return d.type == "visit" ? 5 : 9 })
-			.attr("fill", function(d) {return d.type == "visit" ? "#fff" : "#469" })
+			.attr("fill", function(d) {return d.type == "visit" ? "#fff" : "#acf" })
 			.on("click", function(d,i) {
-				selecteddate = d.date1;
-				clickflow();
+				//selecteddate = d.date1;
+				//clickflow();
 				})
 			.on("mouseover", function(d,i) {
 				tooltipin(d);
-            d3.select(this).transition().duration(300).style("fill","#ffbb00"); 
+            d3.select(this).transition().duration(300).style("fill","#f40"); 
 			selectedvisit = d.visit;
-			changeflow();
+			selecteddate = d.date1;
+			//changeflow();
+			clickflow()
 			})
         .on("mouseout", function(d,i) {
 			tooltipout(d);
-            d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? "#fff" : "#469" }); });
+            d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? "#fff" : "#acf" }); });
 			
 			
 					
@@ -955,11 +882,13 @@ function drawFlows(){
 function changeflow(){
 //alert("test");
 //alert(selectedvisit);
+/*
 arcNodes
 .attr("stroke", function(d) {return d.visit == selectedvisit ? "#f40" : "#444"})
 .attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
+*/
 
-
+//changesun();
 //d.date1 >= selecteddate
 
 //arcNodes
@@ -968,16 +897,20 @@ arcNodes
 }
 
 function clickflow(){
+changesun();
+	
 arcNodes
+.attr("stroke", function(d) {return d.visit == selectedvisit ? "#f40" : "#444"})
 .attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});	
 
 eventcircle
 .attr("stroke", function(d) {return d.date1 <= selecteddate ? "#f40" : "#444"})
 //.attr("fill", function(d) {return d.date1 == selecteddate ? "#f40" : "#fff"})
-.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 2 : .7) : 0})
+.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 1 : 1) : 0})
 
 wcloud
-.attr("opacity", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? 1 : 0})
+.attr("opacity", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? 1 : 1})
+.attr("fill", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? "#f40" : "#666"})
 .style("font-size", function(d) {return d.size + "px"; });
 
 }
