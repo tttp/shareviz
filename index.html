@@ -245,6 +245,35 @@ drawFlows();
 drawCloud(topicsdata.children);
 
 
+var titlebox = d3.select("#mapdiv").append("svg")
+        .attr("id", "titlebox")
+        .attr("width", w)
+        .attr("height", h);
+		
+		/*
+      .append("g")
+        .attr("transform", "translate("+w/2+","+h/2+")")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+	  */
+
+
+var visittitle = titlebox.append("text")
+		.attr("transform", "translate("+50+","+20+")")
+        .attr("text-anchor", "left")  
+		.style("font-size", "20px" )
+		.style("fill", "#666" )
+        .style("font-family", "Impact") 
+        .text("Event/visit: ");
+
+  function drawtitle(text) {
+	  visittitle
+	  .text("Event/visit: " + text);
+  }
+
+
+
 
 function drawCloud (data) {
   var words = []
@@ -276,7 +305,7 @@ function drawCloud (data) {
       .fontSize(function(d) { return 11+d.size*1.5; })
       .on("end", draw)
       .start();
-
+	  
   function draw(words) {
     wcloud = d3.select("#mapdiv").append("svg")
         .attr("id", "wordcloud")
@@ -472,6 +501,7 @@ var context = svgtime.append("g")
 	d.date1 = d.date;
     d.date = parseDate(d.date);
     d.price = +d.price;
+  	d.name = d.name;
   });
 
   xtime.domain(d3.extent(timelinedata.map(function(d) { return d.date; })));
@@ -494,15 +524,16 @@ var eventcircle = context.selectAll('circle.dot')
 				//clickflow();
 				})
 			.on("mouseover", function(d,i) {
-				tooltipin(d);
+				//tooltipin(d);
             d3.select(this).transition().duration(300).style("fill","#f40"); 
 			selectedvisit = d.visit;
 			selecteddate = d.date1;
 			//changeflow();
-			clickflow()
+			drawtitle(d.name);
+			clickflow();
 			})
         .on("mouseout", function(d,i) {
-			tooltipout(d);
+			//tooltipout(d);
             d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? "#fff" : "#acf" }); });
 			
 			
