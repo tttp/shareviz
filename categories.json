@@ -1,0 +1,103 @@
+{
+ "name": "categories",
+ "children": [
+  {
+   "name": "LG-CS",
+   "fullname": "Local government - civil servant",
+   "children": [
+    {"name": "visit1", "size": 2},
+    {"name": "visit3", "size": 11},
+	{"name": "visit5", "size": 5},
+	{"name": "visit6", "size": 4},
+	{"name": "visit7", "size": 1},
+	{"name": "visit8", "size": 2},
+	{"name": "visit9", "size": 2}    
+   ]
+  },
+  {
+   "name": "LG-P",
+   "fullname": "Local government - political representative",
+   "children": [
+    {"name": "visit1", "size": 1},
+    {"name": "visit5", "size": 1},
+	{"name": "visit6", "size": 2}   
+   ]
+  },
+  {
+   "name": "NGO_CS",
+   "fullname": "NGO/other civil society",
+   "children": [
+    {"name": "visit1", "size": 1},
+    {"name": "visit4", "size": 3},
+	{"name": "visit5", "size": 2},
+	{"name": "visit6", "size": 2},
+	{"name": "visit7", "size": 3},
+	{"name": "visit8", "size": 6},
+	{"name": "visit9", "size": 4}   
+   ]
+  },
+  {
+   "name": "NGO_PO",
+   "fullname": "NGO Press Officer",
+   "children": [
+    {"name": "visit2", "size": 5}  
+   ]
+  },
+  {
+   "name": "U",
+   "fullname": "",
+   "children": [
+    {"name": "visit1", "size": 1},
+    {"name": "visit4", "size": 1}    
+   ]
+  },
+  {
+   "name": "J",
+   "fullname": "Journalist",
+   "children": [
+    {"name": "visit2", "size": 6},
+	{"name": "visit7", "size": 1}    
+   ]
+  },
+  {
+   "name": "IO",
+   "fullname": "International organization",
+   "children": [
+    {"name": "visit2", "size": 1}   
+   ]
+  },
+  {
+   "name": "GA-L",
+   "fullname": "Government agency - local branch",
+   "children": [
+	{"name": "visit3", "size": 2}, 
+	{"name": "visit7", "size": 2},
+	{"name": "visit8", "size": 2}   
+   ]
+  },
+  {
+   "name": "RG",
+   "fullname": "Regional/county government",
+   "children": [
+    {"name": "visit3", "size": 3}    
+   ]
+  },
+  {
+   "name": "CG",
+   "fullname": "Central government",
+   "children": [
+    {"name": "visit5", "size": 1},
+	{"name": "visit6", "size": 1},
+	{"name": "visit7", "size": 1},
+	{"name": "visit9", "size": 1}    
+   ]
+  },
+  {
+   "name": "ACM",
+   "fullname": "Associations for cities & municipalities - representative or membership bodies for local government",
+   "children": [
+    {"name": "visit7", "size": 2}   
+   ]
+  }
+ ]
+}
