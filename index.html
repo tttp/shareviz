@@ -381,7 +381,7 @@ function changesun(){
 pathsun
 .transition()
 .duration(500)
-.style("opacity", function(d) { return d.children ? 0.9 : (d.name == "visit" + selectedvisit ? 1 : 0); });
+.style("opacity", function(d) { return d.children ? 0.7 : (d.name == "visit" + selectedvisit ? 1 : 0); });
 }
 
 var widthsun = 250,
@@ -392,8 +392,19 @@ var widthsun = 250,
 var svgsun = d3.select("#pie2div").append("svg")
     .attr("width", widthsun)
     .attr("height", heightsun)
+	//.attr("transform", "translate(" + 0 + "," + (height - heightsun) + ")")
   .append("g")
+  //.attr("transform", "translate(" + 0 + "," + (height - heightsun) + ")")
     .attr("transform", "translate(" + widthsun / 2 + "," + heightsun * .52 + ")");
+	//.attr("transform", "translate(" + 0+ "," + 0 + ")");
+
+svgsun.append("text")
+.attr("transform", "translate(" + 0 + "," + 5 + ")")
+.attr("text-anchor", "middle")
+.style("font-size", "18px" )
+.style("fill", "#666" )
+.style("font-family", "Impact") 
+.text("Delegates");
 
 var partition = d3.layout.partition()
     .sort(null)
@@ -403,7 +414,7 @@ var partition = d3.layout.partition()
 var arcsun = d3.svg.arc()
     .startAngle(function(d) { return d.x; })
     .endAngle(function(d) { return d.x + d.dx; })
-    .innerRadius(function(d) { return d.children ? 0 : Math.sqrt(d.y); })
+    .innerRadius(function(d) { return d.children ? 60 : Math.sqrt(d.y); })
     .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
 
 //d3.json("topics.json", function(error, topicsdata) {
@@ -414,23 +425,21 @@ var arcsun = d3.svg.arc()
       .attr("d", arcsun)
       .style("stroke", "#fff")
       .style("fill", function(d) { return colorsun((d.children ? d : d.parent).name); })
-	  .style("opacity", function(d) { return d.children ? 0.9 : (d.name == "visit" + selectedvisit ? 1 : 0); })
+	  .style("opacity", function(d) { return d.children ? 0.7 : (d.name == "visit" + selectedvisit ? 1 : 0); })
       .style("fill-rule", "evenodd")
       .each(stash);
 
 /*
-  d3.selectAll("input").on("change", function change() {
-    var value = this.value === "count"
-        ? function() { return 1; }
-        : function(d) { return d.size; };
-
-    pathsun
-        .data(partition.value(value).nodes)
-      .transition()
-        .duration(1500)
-        .attrTween("d", arcTweenSun);
-  });
-  */
+//Sun text
+pathsun.append("svg:text")
+      .attr("transform", function(d) { return "rotate(" + (d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180 + ")"; })
+      .attr("x", function(d) { alert(d.y); return d.y; })
+      .attr("dx", "6") // margin
+      .attr("dy", ".35em") // vertical-align
+      //.attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner
+      .text(function(d) { return d.name; });
+	  
+	  */
   
 //});
 
