@@ -149,6 +149,7 @@ queue()
  var arc = d3.geo.greatArc().precision(3) //3);
  var arcs = svg.append("g").attr("id", "arcs");
  var arcNodes;
+ var wcloud;
  
  var nodeDataByCode = {}, links = [];
         var year = 'visit';
@@ -325,13 +326,25 @@ function drawCloud (data) {
   var words = []
     h=300,
     w=h;
+  var wvisits = [];
 
   d3.map(data).forEach(function(d) {
-    words.push ({
+	d3.map(data[d].children).forEach(function(c) {
+	  //alert(data[d].children[c].name);
+	  wvisits.push(data[d].children[c].name);	
+	});
+	words.push ({
      text : data[d].name,
-     size: data[d].children.length
+     size: data[d].children.length,
+	 visits: wvisits
     });
+	//alert(words[d].text);
+	//alert(words[d].visits);
+	wvisits = [];
   });
+  
+  	
+  
   d3.layout.cloud().size([w, h])
       .words(words)
       .padding(2)
@@ -341,7 +354,7 @@ function drawCloud (data) {
       .start();
 
   function draw(words) {
-    d3.select("#mapdiv").append("svg")
+    wcloud = d3.select("#mapdiv").append("svg")
         .attr("id", "wordcloud")
         .attr("width", w)
         .attr("height", h)
@@ -350,7 +363,7 @@ function drawCloud (data) {
       .selectAll("text")
         .data(words)
       .enter().append("text")
-        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-size", function(d) {return d.size + "px"; })
         .style("font-family", "Impact")
         .style("fill", function(d, i) { return "#333";})
         .attr("text-anchor", "middle")
@@ -550,7 +563,7 @@ var eventcircle = context.selectAll('circle.dot')
                 //.attr("cy", Y)
 				.attr("transform", function(d) {return "translate(" + xtime(d.date) + "," + 0 + ")"; })
             .attr("r", function(d) {return d.type == "visit" ? 5 : 9 })
-			.attr("fill", function(d) {return d.type == "visit" ? "#aaa" : "#469" })
+			.attr("fill", function(d) {return d.type == "visit" ? "#fff" : "#469" })
 			.on("click", function(d,i) {
 				selecteddate = d.date1;
 				clickflow();
@@ -563,7 +576,9 @@ var eventcircle = context.selectAll('circle.dot')
 			})
         .on("mouseout", function(d,i) {
 			tooltipout(d);
-            d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? "#aaa" : "#469" }); });
+            d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? "#fff" : "#469" }); });
+			
+			
 					
 			
   context.append("g")
@@ -675,10 +690,12 @@ function click(d) {
   	
   if (active === d){ 
   
-  	arcs.selectAll("path")
+  	//arcs.selectAll("path")
+	arcNodes
 	.style("opacity",0.0)
 	.transition().duration(2000)
-	.style("opacity",0.3)
+	.style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)})
+	//.style("opacity",0.3)
 	
   return reset();}
   
@@ -713,7 +730,8 @@ g.selectAll(".city-label")
    .transition().duration(750)
      .style("opacity","0.5")
 	 
-arcs.selectAll("path")
+//arcs.selectAll("path")
+arcNodes
 .style("opacity",0)
 
 
@@ -952,6 +970,16 @@ arcNodes
 function clickflow(){
 arcNodes
 .attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});	
+
+eventcircle
+.attr("stroke", function(d) {return d.date1 <= selecteddate ? "#f40" : "#444"})
+//.attr("fill", function(d) {return d.date1 == selecteddate ? "#f40" : "#fff"})
+.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 2 : .7) : 0})
+
+wcloud
+.attr("opacity", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? 1 : 0})
+.style("font-size", function(d) {return d.size + "px"; });
+
 }
 
 function drawCities() {
