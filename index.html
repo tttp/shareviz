@@ -701,7 +701,7 @@ function click(d) {
    .transition().duration(750)
 	    .attr("r", function(d) {return (7-d.properties.rank)})
      .style("opacity","0.5")
-
+/*
   g.selectAll(".city-label."+d.id)
    .classed("active", true)
    //.style("opacity",0)
@@ -713,7 +713,7 @@ g.selectAll(".city-label")
    //.style("opacity",0)
    .transition().duration(750)
      .style("opacity","0.5")
-	 
+*/	 
 //arcs.selectAll("path")
 arcNodes
 .style("opacity",0)
@@ -784,7 +784,7 @@ g.selectAll(".city")
     //.attr("cy", function(d) {  alert(projection([d.Lat,d.Lon])[1]);return projection([d.Lat,d.Lon])[1];})
 	.attr("cy", function(d) { return projection(nodeCoords(d))[1];})
     .attr("class", function (d) {return "city capital "+d.Code})
-	
+/*	
 g.selectAll(".city-label")
     .data(visitnodes)
   .enter().append("text")
@@ -792,7 +792,7 @@ g.selectAll(".city-label")
     .attr("transform", function(d) { return "translate(" + projection(nodeCoords(d)) + ")"; })
     .attr("dy", "-.8em")
     .text(function(d) { return d.Name; });
-
+*/
 }
 //End draw nodes
 
@@ -809,7 +809,7 @@ g.selectAll(".ecity")
 	.style("opacity", 0.5)
 	.style("fill", "#7c3")
     .attr("class", function (d) {return "ecity capital "+d.Code})
-	
+/*	
 g.selectAll(".ecity-label")
     .data(eventnodes)
   .enter().append("text")
@@ -817,7 +817,7 @@ g.selectAll(".ecity-label")
     .attr("transform", function(d) { return "translate(" + projection(nodeCoords(d)) + ")"; })
     .attr("dy", "-.8em")
     .text(function(d) { return d.Name; });
-
+*/
 }
 //End draw nodes
 
@@ -1016,15 +1016,16 @@ g.selectAll(".city")
 //    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
 
 //Cities labels
-g.selectAll(".city-label")
+/*g.selectAll(".city-label")
     .data(topojson.feature(places, places.objects.places).features)
   .enter().append("text")
     .attr("class", function (d) {return "city-label "+d.properties.iso+" "+d.properties.type})
     .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
     .attr("dy", "-.8em")
     .text(function(d) { return d.properties.name; });
-}
 
+*/
+}
 function drawCountriesLabel() {	
   svg.selectAll(".place-label")
     .attr("x", function(d) { return d.geometry.coordinates[0] > -1 ? 6 : -6; })
