@@ -336,7 +336,7 @@ d3.select("body")
 		//selecteddate = 20000101;
         }
 		if(d3.event.keyCode == 39){
-			switch(selectedvisit){
+			switch(parseInt(selectedvisit)){
 		case 0:
 		  selectedvisit = 10;	
 		  break;
@@ -395,6 +395,7 @@ function finddate(visitn){
 		if(d.visit == visitn){
 		selecteddate = d.date1;
 		selecteddate1 = d.date;
+		drawtitle(d.name);
 		}
 	});
 }
@@ -402,7 +403,7 @@ function finddate(visitn){
 var titlebox = d3.select("#mapdiv").append("svg")
         .attr("id", "titlebox")
         .attr("width", 900)
-        .attr("height", h);
+        .attr("height", 70);
 		
 		/*
       .append("g")
@@ -432,8 +433,10 @@ var visittitle = titlebox.append("text")
 
 function drawCloud (data) {
   var words = []
-    h=180,
-    w=300;
+    h=300,
+    w=200;
+    //h=180,
+    //w=300;
   var wvisits = [];
 
   d3.map(data).forEach(function(d) {
@@ -533,10 +536,12 @@ function changesun(){
 pathsun
 .transition()
 .duration(500)
-.style("opacity", function(d) { return d.children ? 0.7 : (d.name == "visit" + selectedvisit ? 1 : 0); });
+.style("opacity", function(d) {return d.children ? 0.7 : (d.name == "visit" + selectedvisit ? 1 : 0); });
 }
 
-var widthsun = 250,
+//var widthsun = 250,
+    //heightsun = 280,
+var widthsun = 200,
     heightsun = 280,
     radiussun = Math.min(widthsun, heightsun) / 2,
     colorsun = d3.scale.category20c();
@@ -547,7 +552,8 @@ var svgsun = d3.select("#pie2div").append("svg")
 	//.attr("transform", "translate(" + 0 + "," + (height - heightsun) + ")")
   .append("g")
   //.attr("transform", "translate(" + 0 + "," + (height - heightsun) + ")")
-    .attr("transform", "translate(" + widthsun / 2 + "," + heightsun * .52 + ")");
+    .attr("transform", "translate(" + (widthsun / 2) + "," + heightsun * .52 + ")");
+	//.attr("transform", "translate(" + 150 + "," + heightsun * .52 + ")");
 	//.attr("transform", "translate(" + 0+ "," + 0 + ")");
 
 //Sunburst title
@@ -637,8 +643,8 @@ var xAxis = d3.svg.axis().scale(xtime).orient("bottom"),
     yAxis = d3.svg.axis().scale(ytime).orient("left");
 
 var brush = d3.svg.brush()
-    .x(x2time)
-    .on("brush", brushed);
+    .x(x2time);
+    //.on("brush", brushed);
 
 var area2 = d3.svg.area()
     .x(function(d) { return x2time(d.date); })
@@ -687,7 +693,7 @@ var eventcircle = context.selectAll('circle.dot')
 				})
 			.on("mouseover", function(d,i) {
 				//tooltipin(d);
-            d3.select(this).transition().duration(300).style("fill",c_hoverdot); 
+            //d3.select(this).transition().duration(0).style("fill",c_hoverdot); 
 			selectedvisit = d.visit;
 			selecteddate = d.date1;
 			selecteddate1 = d.date;
@@ -696,8 +702,11 @@ var eventcircle = context.selectAll('circle.dot')
 			clickflow();
 			})
         .on("mouseout", function(d,i) {
+			clickflow();
 			//tooltipout(d);
-            d3.select(this).transition().duration(300).style("fill",function(d) {return d.type == "visit" ? c_visitdot : (d.type == "event" ? c_eventdot : c_limitdot) }); });
+            //d3.select(this).transition().duration(300)
+			//.style("fill",function(d) {return d.visit == selectedvisit ? "#f40" : (d.type == "visit" ? c_visitdot : (d.type == "event" ? c_eventdot : c_limitdot)) }); 
+			});
 			
 			
 					
@@ -712,6 +721,7 @@ var eventcircle = context.selectAll('circle.dot')
       .attr("class", "x brush")
       .call(brush)
     .selectAll("rect")
+	  //.x(x2time)
       .attr("y", +10)
 	  .attr("width", xtime(selecteddate1) + "px")
       .attr("height", 6);
@@ -1163,8 +1173,10 @@ arcNodes
 .style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
 
 eventcircle
+.style("fill",function(d) {return (d.visit == selectedvisit && d.type != "limit") ? c_hoverdot : (d.type == "visit" ? c_visitdot : (d.type == "event" ? c_eventdot : c_limitdot))}) 
+//.attr("fill", function(d) {return d.date1 == selecteddate ? "#f40" : ("#555") })
 .attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 0 : 0) : 0})
-.attr("stroke", function(d) {return d.date1 <= selecteddate ? "#f40" : "#444"});
+//.attr("stroke", function(d) {return d.date1 <= selecteddate ? "#f40" : "#444"});
 //.attr("fill", function(d) {return d.date1 == selecteddate ? "#f40" : "#fff"})
 //.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 1 : 1) : 0})
 
