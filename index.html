@@ -273,8 +273,8 @@ visitflows.forEach(function(flow) {
 //drawTotal();
 //drawCities();
 
-drawNodes();
 drawEventNodes();
+drawNodes();
 drawFlows();
 drawCloud(topicsdata.children);
 
@@ -421,12 +421,18 @@ var visittitle = titlebox.append("text")
 		.style("fill", "#666" )
         //.style("font-family", "Impact") 
 		.style("font-family", "Arial") 
-        .text("Event/visit: ");
+        .text("Share networks activities");
 
   function drawtitle(text) {
+	  if(text == "none selected"){
 	  visittitle
-	  .text("Event/visit: " + text);
+	  .text("Share networks activities");
+	  } else {
+		visittitle
+	  .text("Event/visit: " + text);  
+	  }
   }
+
 
 
 
@@ -541,9 +547,10 @@ pathsun
 
 //var widthsun = 250,
     //heightsun = 280,
-var widthsun = 200,
+var widthsun = 300,
     heightsun = 280,
-    radiussun = Math.min(widthsun, heightsun) / 2,
+	radiussun = 100,
+    //radiussun = Math.min(widthsun, heightsun) / 2,
     colorsun = d3.scale.category20c();
 
 var svgsun = d3.select("#pie2div").append("svg")
@@ -587,6 +594,36 @@ var arcsun = d3.svg.arc()
 	  .style("opacity", function(d) { return d.children ? 0.7 : (d.name == "visit" + selectedvisit ? 1 : 0); })
       .style("fill-rule", "evenodd")
       .each(stash);
+	  
+	  pathsun.on("mouseover", function(d) { 
+	//alert(d.Name);
+	(d.children && d.depth) ? nametooltipin(d.fullname) : null;
+    })
+	.on("mouseout", function(d) { 
+	//alert(d.Name);
+	tooltipout(d);
+    });
+	  
+	  svgsun.datum(categories).selectAll("text")
+	  .data(partition.nodes)
+    .enter().append("text")
+	.attr("class", "suntext")
+	.attr("text-anchor", function(d) {
+        return d.x + d.dx / 2 > Math.PI ? "end" : "start";
+      })
+      .attr("transform", function(d) {
+        var angle = (d.x + d.dx / 2) * 180 / Math.PI - 90;
+           //if (angle > 90) { angle = angle - 180; }
+         //alert(d.y);  
+        return "rotate(" + angle + ")translate(" + (d.y/1000  + 100)  + ")rotate(" + (angle > 90 ? -180 : 0) + ")"
+       })
+
+      .attr("dy", ".35em") // vertical-align
+	  .style("fill", function(d){ "#666" })
+      .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner
+      .text(function(d) {return d.children ? d.name : null; });
+	  
+
 
 /*
 //Sun text
@@ -638,8 +675,14 @@ var xtime = d3.time.scale().range([0, widthtime]),
     ytime = d3.scale.linear().range([heighttime, 0]),
     y2time = d3.scale.linear().range([height2time, 0]);
 
-var xAxis = d3.svg.axis().scale(xtime).orient("bottom"),
-    xAxis2 = d3.svg.axis().scale(x2time).orient("bottom"),
+var xAxis = d3.svg.axis()
+.scale(xtime)
+.tickFormat(d3.time.format("%H"))
+.orient("bottom"),
+    xAxis2 = d3.svg.axis()
+	.scale(x2time)
+	.tickFormat(d3.time.format("%m/%y"))
+	.orient("bottom"),
     yAxis = d3.svg.axis().scale(ytime).orient("left");
 
 var brush = d3.svg.brush()
