@@ -73,6 +73,7 @@ background-color:#eee;
   /*fill: #ddd;*/	
   stroke: white;
   stroke-width:0;
+  z-index: -1;
 }
 
 .over {
@@ -101,13 +102,16 @@ background-color:#eee;
   pointer-events: none;         
 }
 
+/*
 .city {
-  pointer-events: none;         
+  //pointer-events: none;         
   fill-opacity: .7;
   //stroke: #000;
   //stroke-width: 1px;
-  display:none;
+  //display:none;
+  z-index: 10;
 }
+
 
 .city.active {
   display:block;
@@ -118,6 +122,7 @@ background-color:#eee;
   fill-opacity: .5;
   display:block;
 }
+*/
 
 .city-label.active {
   display:block;
@@ -126,9 +131,9 @@ background-color:#eee;
 
 .tooltip {   
   position: absolute;           
-  width: 150px;                                   
-  padding: 2px;             
-  font: 12px sans-serif;        
+  //width: 150px;                                   
+  padding: 5px;             
+  font: 14px sans-serif;        
   background: #eee;   
   border: 0px;      
   border-radius: 5px;           
@@ -180,6 +185,7 @@ border-radius: 5px;
 
 .map {
   background:#EBF4FA;
+  z-index = -1;
 }
 
 .ocean {

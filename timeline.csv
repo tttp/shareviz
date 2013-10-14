@@ -1,4 +1,5 @@
 date,value,type,visit,name
+20120601,1,limit,0,none selected
 20120611,1,event,10,Look & Learn visit
 20120612,1,event,10,Look & Learn visit
 20120613,1,event,10,Look & Learn visit
@@ -16,15 +17,16 @@ date,value,type,visit,name
 20130508,1,event,12,A City Says Yes! Welcoming resettled refugees in Europe
 20130513,1,visit,5,SHARE City Exchange visit - Finnish delegation
 20130514,1,visit,5,SHARE City Exchange visit - Finnish delegation
-20130620,1,event,13,Refugee resettlement - Partnerships for a durable protection and reception
 20130613,1,visit,6,SHARE City Exchange visit - Czech delegation
 20130614,1,visit,6,SHARE City Exchange visit - Czech delegation
+20130620,1,event,13,Refugee resettlement - Partnerships for a durable protection and reception
 20130704,1,visit,7,SHARE City Exchange visit - Austrian-Polish delegation
 20130705,1,visit,7,SHARE City Exchange visit - Austrian-Polish delegation
 20130912,1,visit,8,SHARE City Exchange visit - Dutch-Belgian delegation
 20130913,1,visit,8,SHARE City Exchange visit - Dutch-Belgian delegation
 20130919,1,visit,9,SHARE City Exchange visit - French delegation
 20130920,1,visit,9,SHARE City Exchange visit - French delegation
+20131001,1,limit,100,none selected
 
 
 
