@@ -210,8 +210,9 @@ svg {
 }
 
 .brush .extent {
-  stroke: #fff;
-  fill-opacity: .125;
+  //stroke: #fff;
+  fill:#f40;
+  fill-opacity: .5;
   shape-rendering: crispEdges;
 }
 

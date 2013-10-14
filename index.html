@@ -92,6 +92,7 @@ var thisdate2 = "20130908";
 //Some more variables for the interactions
 var selectedvisit = 9;
 var selecteddate = 20000101;
+var selecteddate1;
 
 queue()
   .defer (function (callback) {
@@ -393,6 +394,7 @@ function finddate(visitn){
 	timelinedata.forEach(function(d) {
 		if(d.visit == visitn){
 		selecteddate = d.date1;
+		selecteddate1 = d.date;
 		}
 	});
 }
@@ -676,7 +678,7 @@ var eventcircle = context.selectAll('circle.dot')
                 .attr("class", "dot")
                 //.attr("cx", X)
                 //.attr("cy", Y)
-				.attr("transform", function(d) {return "translate(" + xtime(d.date) + "," + 0 + ")"; })
+				.attr("transform", function(d) {;return "translate(" + xtime(d.date) + "," + 0 + ")"; })
             .attr("r", function(d) {return d.type == "visit" ? 5 : (d.type == "event" ? 9 : 6) })
 			.attr("fill", function(d) {return d.type == "visit" ? c_visitdot : (d.type == "event" ? c_eventdot : c_limitdot) })
 			.on("click", function(d,i) {
@@ -688,6 +690,7 @@ var eventcircle = context.selectAll('circle.dot')
             d3.select(this).transition().duration(300).style("fill",c_hoverdot); 
 			selectedvisit = d.visit;
 			selecteddate = d.date1;
+			selecteddate1 = d.date;
 			//changeflow();
 			drawtitle(d.name);
 			clickflow();
@@ -705,12 +708,22 @@ var eventcircle = context.selectAll('circle.dot')
 	  .attr("transform", "translate(0," + 10 + ")")
       .call(xAxis2);
 
-  context.append("g")
+  var timelineselected = context.append("g")
       .attr("class", "x brush")
       .call(brush)
     .selectAll("rect")
       .attr("y", +10)
-      .attr("height", height2time - 30);
+	  .attr("width", xtime(selecteddate1) + "px")
+      .attr("height", 6);
+	  
+	  timelineselected
+	  .attr("width", xtime(selecteddate1) + "px");
+	  
+	  /*
+	  var brush = d3.svg.brush()
+    .x(x2time)
+    .on("brush", brushed);
+	  */
 
 
 function brushed() {
@@ -1139,6 +1152,9 @@ arcNodes
 
 function clickflow(){
 changesun();
+
+timelineselected
+	  .attr("width", xtime(selecteddate1) + "px");
 	
 arcNodes
 .attr("stroke", function(d) {return d.visit == selectedvisit ? c_selectedflow : (d.visit > 9 ? c_eventflow : c_visitflow)})
@@ -1147,9 +1163,10 @@ arcNodes
 .style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
 
 eventcircle
-.attr("stroke", function(d) {return d.date1 <= selecteddate ? "#f40" : "#444"})
+.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 0 : 0) : 0})
+.attr("stroke", function(d) {return d.date1 <= selecteddate ? "#f40" : "#444"});
 //.attr("fill", function(d) {return d.date1 == selecteddate ? "#f40" : "#fff"})
-.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 1 : 1) : 0})
+//.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 1 : 1) : 0})
 
 wcloud
 .attr("opacity", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? 1 : 1})
