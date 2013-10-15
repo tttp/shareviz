@@ -6,10 +6,11 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script src="./d3.layout.cloud.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <!--script src="http://d3js.org/colorbrewer.v1.min.js"></script-->
 <script src="http://d3js.org/queue.v1.min.js"></script>
-
+<div id="container">
 <div id="timelinediv">
 </div>
 <div id="mapdiv"></div>
@@ -18,14 +19,44 @@
     <div id="pie2div">
 	</div>
 </div>
+</div>
 
 <script>
 
 var active= null,
     width = 960,
+	//width = window.innerWidth,
+	//height = window.innerWidth/1.37,
     height = 700,
+	//height = window.innerHeight,
 	width1 = 200,
     height1 = 200;
+
+/*
+if(window.innerWidth > window.innerHeight){
+width = window.innerHeight*1.37;
+height = window.innerHeight;	
+}
+*/
+
+width = $("#mapdiv").width();
+$("#mapdiv").height(width/1.37);
+height = $("#mapdiv").height();
+
+//var sidewidth = width/4.8;
+//var sidewidth2 = width/3.2;
+//var sideheight2 = sidewidth2/1.07;
+var sidewidth2 = 300;
+var sideheight2 = 280;
+
+//$("#piediv").css({left:width-sidewidth2,top:80});
+if(width > 960){
+$("#piediv").css({left:width-sidewidth2,top:80});
+$("#cloud").css({left:width-270,top:450});
+}
+
+//top:80px;
+//left:720px;
 
   //equirectangular fits better on a screen (more width than height) than mercator()
   var projection = d3.geo.equirectangular()
@@ -42,8 +73,10 @@ var svg = d3.select("#mapdiv").append("svg")
 	
 var svg1 = d3.select("body").append("svg")
     .attr("class", "pie1")
-    .attr("width", width1)
-    .attr("height", height1);
+    //.attr("width", width1)
+	//.attr("width", sidewidth)
+	//.attr("height", sidewidth);
+    //.attr("height", height1);
 
 
 var ocean = svg.append("rect")
@@ -550,6 +583,9 @@ pathsun
 var widthsun = 300,
     heightsun = 280,
 	radiussun = 100,
+	//var widthsun = sidewidth2,
+    //heightsun = sideheight2,
+	//radiussun = sidewidth2/3,
     //radiussun = Math.min(widthsun, heightsun) / 2,
     colorsun = d3.scale.category20c();
 
@@ -661,10 +697,11 @@ function arcTweenSun(a) {
 
 //timeline
 
-var margintime = {top: 10, right: 10, bottom: 100, left: 40},
-    margin2time = {top: 30, right: 10, bottom: 20, left: 40},
-    widthtime = 960 - margintime.left - margintime.right,
-    heighttime = 100 - margintime.top - margintime.bottom,
+var margintime = {top: 10, right: 30, bottom: 70, left: 30},
+    margin2time = {top: 30, right: 30, bottom: 20, left: 30},
+    //widthtime = 960 - margintime.left - margintime.right,
+	widthtime = width - margintime.left - margintime.right,
+    heighttime = 70 - margintime.top - margintime.bottom,
 	height2time = 100 - margin2time.top - margin2time.bottom;
 	//height2 = 100 - margin2.bottom;
 
