@@ -53,6 +53,7 @@ var sideheight2 = 280;
 if(width > 960){
 $("#piediv").css({left:width-sidewidth2,top:80});
 $("#cloud").css({left:width-270,top:450});
+//$("#logo").css({left:width-270,top:750});
 }
 
 //top:80px;
@@ -71,8 +72,8 @@ var svg = d3.select("#mapdiv").append("svg")
     .attr("width", width)
     .attr("height", height);
 	
-var svg1 = d3.select("body").append("svg")
-    .attr("class", "pie1")
+//var svg1 = d3.select("body").append("svg")
+  //  .attr("class", "pie1")
     //.attr("width", width1)
 	//.attr("width", sidewidth)
 	//.attr("height", sidewidth);
@@ -114,8 +115,10 @@ var c_limitdot= "#999";
 var c_eventflow= "#490";
 var c_visitflow = "#666";
 //var c_selectedflow = "#f40";
-var c_selectedflow = "#000";
-var c_selectedflow1 = "#7c0";
+//var c_selectedflow = "#000";
+//var c_selectedflow1 = "#7c0";
+var c_selectedflow = "#f40";
+var c_selectedflow1 = "#f40";
 
 //Let's load the data that will be user for the choropleth
 var dataset,europe,places,visitnodes,eventnodes;
@@ -245,10 +248,10 @@ function map( json ) {
   	//tooltipout(d);
 	})
 	.on("click", click)
-	.attr("fill", function (d) {return "#ccc";})
+	.attr("fill", function (d) {return "#ddd";})
 	.transition()        
   .duration(3000) 
-	.attr("fill", function(d) { return "#ccc"; })
+	.attr("fill", function(d) { return "#ddd"; })
   .attr("d", path)
   
   
@@ -312,6 +315,9 @@ drawEventNodes();
 drawNodes();
 drawFlows();
 drawCloud(topicsdata.children);
+
+
+
 
 //Changing selected event with arrow keys
 d3.select("body")
@@ -476,6 +482,12 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("width", 900)
         .attr("height", 70)
 		.html("<span class=\"title1\">SHARE network activities</span>");
+		
+var logobox = d3.select("#mapdiv").append("div")
+        .attr("id", "logobox")
+        //.attr("width", 900)
+        //.attr("height", 70)
+		.html("<img width=\"150px\" src=\"img/sharelogo.png\">");
 		
 		
 		/*
@@ -982,13 +994,15 @@ function tooltipout(d){
 function click(d) {
   	
   if (active === d){ 
+  /*
   	//arcs.selectAll("path")
 	arcNodes
 	//.style("opacity",0.0)
 	.transition().duration(2000)
-	.attr("stroke", function(d) {return d.visit == selectedvisit ? c_selectedflow : (d.visit > 9 ? c_eventflow : c_visitflow)})
-	.style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
+	.attr("stroke", function(d) {return d.visit == selectedvisit ? (d.visit > 9 ? c_selectedflow1 : c_selectedflow) : (d.visit > 9 ? c_eventflow : c_visitflow)})
+	.style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 0.8 : 0.2)});
 	//.style("opacity",0.3);
+	*/
 	
   return reset();
   }
@@ -1194,8 +1208,8 @@ function drawFlows(){
           .attr("orient", "auto")
           //.attr("markerUnits", "strokeWidth")
           .attr("markerUnits", "userSpaceOnUse")
-          .attr("markerWidth", 4*2)
-          .attr("markerHeight", 3*2)
+          .attr("markerWidth", 4*4)
+          .attr("markerHeight", 3*4)
         .append("polyline")
           .attr("points", "0,0 10,5 0,10 1,5")
           .attr("fill", c_visitflow)
@@ -1210,11 +1224,27 @@ function drawFlows(){
           .attr("orient", "auto")
           //.attr("markerUnits", "strokeWidth")
           .attr("markerUnits", "userSpaceOnUse")
-          .attr("markerWidth", 4*2)
-          .attr("markerHeight", 3*2)
+          .attr("markerWidth", 4*4)
+          .attr("markerHeight", 3*4)
         .append("polyline")
           .attr("points", "0,0 10,5 0,10 1,5")
           .attr("fill", c_eventflow)
+          .attr("opacity", 1)
+          ;
+		  
+		  defs.append("marker")
+          .attr("id", "arrowHead3")
+          .attr("viewBox", "0 0 10 10")
+          .attr("refX", 10)
+          .attr("refY", 5)
+          .attr("orient", "auto")
+          //.attr("markerUnits", "strokeWidth")
+          .attr("markerUnits", "userSpaceOnUse")
+          .attr("markerWidth", 4*4)
+          .attr("markerHeight", 3*4)
+        .append("polyline")
+          .attr("points", "0,0 10,5 0,10 1,5")
+          .attr("fill", c_selectedflow)
           .attr("opacity", 1)
           ;
 		  
@@ -1328,10 +1358,12 @@ timelineselected
 	  .attr("width", xtime(selecteddate1) + "px");
 	
 arcNodes
+.transition().duration(1000)
 .attr("stroke", function(d) {return d.visit == selectedvisit ? (d.visit > 9 ? c_selectedflow1 : c_selectedflow) : (d.visit > 9 ? c_eventflow : c_visitflow)})
-//.attr("stroke-width", function(d) { return d.visit == selectedvisit ? 2 : 1; })
-//.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});	
-.style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? (d.visit > 9 ? 1 : 0.5) : 0.2)});
+.attr("stroke-width", function(d) { return d.visit == selectedvisit ? 2 : 1; })
+//.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
+.attr("marker-end", function(d) { return d.visit == selectedvisit ? "url(#arrowHead3)" :(d.visit > 9 ? "url(#arrowHead2)" : "url(#arrowHead)" )})	
+.style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? (d.visit > 9 ? 0.8 : 0.8) : 0.2)});
 
 eventcircle
 .style("fill",function(d) {return (d.visit == selectedvisit && d.type != "limit") ? c_hoverdot : (d.type == "visit" ? c_visitdot : (d.type == "event" ? c_eventdot : c_limitdot))}) 
@@ -1340,6 +1372,12 @@ eventcircle
 //.attr("stroke", function(d) {return d.date1 <= selecteddate ? "#f40" : "#444"});
 //.attr("fill", function(d) {return d.date1 == selecteddate ? "#f40" : "#fff"})
 //.attr("stroke-width", function(d) {return d.date1 <= selecteddate ? (d.date1 == selecteddate ? 1 : 1) : 0})
+
+/*
+arcNodes
+transition().duration(1000)
+.attr("stroke-width", function(d) { return d.visit == selectedvisit ? 2 : 1; })
+*/
 
 wcloud
 .attr("opacity", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? 1 : 1})

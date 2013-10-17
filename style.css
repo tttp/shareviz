@@ -1,5 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
+body {
+padding:0;
+margin:0;	
+}
 
 #cloud {
   position:absolute;
@@ -42,8 +46,14 @@ left:720px;
 //right:0px;
 //aafloat:left;	
 width: 280px;
-height:700px;
+//height:700px;
 aabackground-color: #eee;
+}
+
+#logobox {
+position:absolute;
+bottom: 10px;
+left: 20px;	
 }
 
 #pieform {
@@ -95,8 +105,9 @@ background-color:#ddd;
 
 .country {
   /*fill: #ddd;*/	
-  stroke: white;
-  stroke-width:0;
+  //stroke: white;
+  stroke: #eee;
+  stroke-width:.5;
   z-index: -1;
 }
 
@@ -221,6 +232,7 @@ border-radius: 5px;
 
 .ocean {
   fill:#EBF4FA;
+  //fill:#000;
 }
 
 .flows {
