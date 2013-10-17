@@ -202,7 +202,7 @@ queue()
 
  //Set some vars
  var arc = d3.geo.greatArc().precision(3) //3);
- var arcs = svg.append("g").attr("id", "arcs");
+ //var arcs = svg.append("g").attr("id", "arcs");
  var arcNodes;
  var wcloud;
  
@@ -254,6 +254,7 @@ function map( json ) {
 
 // visits nodes
 var centroids = svg.append("g").attr("id", "centroids");
+var arcs = g.append("g").attr("id", "arcs");
 
 function nodeCoords(node) { 
           var lon = parseFloat(node.Lon), lat = parseFloat(node.Lat);
@@ -424,19 +425,57 @@ d3.select("body")
     });
 	
 function finddate(visitn){
+	var sources = [];
+	var destinations = [];
+	var title = "";
+	var pnum = 0;
+	
 	timelinedata.forEach(function(d) {
 		if(d.visit == visitn){
 		selecteddate = d.date1;
 		selecteddate1 = d.date;
-		drawtitle(d.name);
+		title = d.name;
+		pnum = d.participants;
+		//drawtitle(d.name);
 		}
 	});
+	visitflows.forEach(function(d) {
+		if(d.visit == visitn){
+		
+			var thiscity = d.Origin;
+			visitnodes.forEach(function(d) {
+				if(d.Code == thiscity){	
+				if(sources.indexOf(" "+d.Name) == -1){
+				sources.push(" "+d.Name);
+				}}
+			});		
+			var thiscity1 = d.Dest;
+			visitnodes.forEach(function(d) {
+				if(d.Code == thiscity1){
+					if(destinations.indexOf(" "+d.Name) == -1){	
+				destinations.push(" "+d.Name);
+				}}
+			});
+		
+		}
+	});
+	drawtitle(visitn,title,sources,destinations,pnum);
+	var sources = [];
+	var destinations = [];
 }
 
-var titlebox = d3.select("#mapdiv").append("svg")
+/*var titlebox = d3.select("#mapdiv").append("svg")
         .attr("id", "titlebox")
         .attr("width", 900)
         .attr("height", 70);
+		*/
+		
+var titlebox = d3.select("#mapdiv").append("div")
+        .attr("id", "titlebox")
+        .attr("width", 900)
+        .attr("height", 70)
+		.html("<span class=\"title1\">SHARE network activities</span>");
+		
 		
 		/*
       .append("g")
@@ -446,7 +485,7 @@ var titlebox = d3.select("#mapdiv").append("svg")
       .enter().append("text")
 	  */
 
-
+/*
 var visittitle = titlebox.append("text")
 		.attr("transform", "translate("+50+","+20+")")
         .attr("text-anchor", "left")  
@@ -455,6 +494,17 @@ var visittitle = titlebox.append("text")
         //.style("font-family", "Impact") 
 		.style("font-family", "Arial") 
         .text("Share networks activities");
+		
+var visitinfo = titlebox.append("text")
+		.attr("transform", "translate("+50+","+50+")")
+        .attr("text-anchor", "left")  
+		.style("font-size", "14px" )
+		.style("fill", "#666" )
+        //.style("font-family", "Impact") 
+		.style("font-family", "Arial") 
+        .html("<br />Share networks activities");
+		
+		
 
   function drawtitle(text) {
 	  if(text == "none selected"){
@@ -463,6 +513,19 @@ var visittitle = titlebox.append("text")
 	  } else {
 		visittitle
 	  .text("Event/visit: " + text);  
+	  }
+  }
+  */
+  
+  function drawtitle(visitn, title, origin, dest, pnum){
+	  var image = "<img src=\"img/"+visitn+".jpg\" class=\"eventimage\">";
+	  
+	  if(visitn == 0 || visitn == 100){
+		titlebox
+		.html("<span class=\"title1\">"+title+"</span>");  
+	  } else {
+	titlebox
+		.html("<span class=\"title1\">"+title+"</span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br />"+image)  ; 
 	  }
   }
 
@@ -778,7 +841,7 @@ var eventcircle = context.selectAll('circle.dot')
 			selecteddate = d.date1;
 			selecteddate1 = d.date;
 			//changeflow();
-			drawtitle(d.name);
+			finddate(d.visit);
 			clickflow();
 			})
         .on("mouseout", function(d,i) {
@@ -921,7 +984,7 @@ function click(d) {
   if (active === d){ 
   	//arcs.selectAll("path")
 	arcNodes
-	.style("opacity",0.0)
+	//.style("opacity",0.0)
 	.transition().duration(2000)
 	.attr("stroke", function(d) {return d.visit == selectedvisit ? c_selectedflow : (d.visit > 9 ? c_eventflow : c_visitflow)})
 	.style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
@@ -962,8 +1025,9 @@ g.selectAll(".city-label")
      .style("opacity","0.5")
 */	 
 //arcs.selectAll("path")
-arcNodes
-.style("opacity",0)
+
+//arcNodes
+//.style("opacity",1)
 
 
 
@@ -1134,12 +1198,28 @@ function drawFlows(){
           .attr("markerHeight", 3*2)
         .append("polyline")
           .attr("points", "0,0 10,5 0,10 1,5")
-          .attr("fill", maxColor)
-          //.attr("opacity", 0.5)
+          .attr("fill", c_visitflow)
+          .attr("opacity", 1)
           ;
 		  
-
+		  defs.append("marker")
+          .attr("id", "arrowHead2")
+          .attr("viewBox", "0 0 10 10")
+          .attr("refX", 10)
+          .attr("refY", 5)
+          .attr("orient", "auto")
+          //.attr("markerUnits", "strokeWidth")
+          .attr("markerUnits", "userSpaceOnUse")
+          .attr("markerWidth", 4*2)
+          .attr("markerHeight", 3*2)
+        .append("polyline")
+          .attr("points", "0,0 10,5 0,10 1,5")
+          .attr("fill", c_eventflow)
+          .attr("opacity", 1)
+          ;
+		  
 /*
+
         var gradient = defs.selectAll("linearGradient")
           .data(links)
         .enter()
@@ -1165,8 +1245,8 @@ function drawFlows(){
             .attr("offset", "100%")
             .attr("stop-color", strokeFun)
             .attr("stop-opacity", 1.0);
-*/
 
+*/
 
         arcNodes = arcs.selectAll("path")
           .data(links)
@@ -1181,6 +1261,7 @@ function drawFlows(){
           //.attr("stroke", strokeFun)
           .attr("stroke-linecap", "round")
 		  .attr("opacity", .2)
+		  .attr("marker-end", function(d) { return d.visit > 9 ? "url(#arrowHead2)" : "url(#arrowHead)" })
           //.attr("stroke-width", function(d) { return arcWidth(d.magnitude); })
 		  .attr("stroke-width", function(d) { return 1; })
           .attr("d", function(d) { 

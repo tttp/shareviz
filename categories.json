@@ -72,7 +72,7 @@
   },
   {
    "name": "JC",
-   "fullname": "JC",
+   "fullname": "Job Centre",
    "children": [
     {"name": "visit2", "size": 2}    
    ]
@@ -88,14 +88,14 @@
   },
   {
    "name": "HA",
-   "fullname": "HA",
+   "fullname": "Housing Agency",
    "children": [
 	{"name": "visit13", "size": 8}   
    ]
   },
   {
    "name": "I",
-   "fullname": "International organization",
+   "fullname": "Independent Consultant",
    "children": [
 	{"name": "visit12", "size": 1}   
    ]

@@ -13,7 +13,17 @@
 #titlebox {
   position:absolute;
   top:15px;
-  left:-20px;
+  left:20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #666;
+  line-height:150%;
+  max-width:700px;
+  font-size: 13px;
+}
+
+.eventimage {
+max-width: 300px;
+max-height: 300px;	
 }
 
 #mapdiv {
@@ -74,6 +84,14 @@ background-color:#ddd;
   text-shadow: white 2px 2px;
 }
 
+.title1 {
+	font-size:20px;	
+	display:block;
+	background:white;
+  opacity:0.7;
+  border-radius:10px;
+  padding:5px;
+}
 
 .country {
   /*fill: #ddd;*/	
