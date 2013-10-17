@@ -99,6 +99,10 @@ var feature=null;
 var div = d3.select("body").append("div")   
     .attr("class", "tooltip")               
     .style("opacity", 0);
+	
+var cityprofile = d3.select("body").append("div")   
+    .attr("class", "cityprofile")               
+    .style("opacity", 0);
 
 // color based on how many signatures as a % of the quota. Anything above 150% is the same color
 var color = d3.scale.linear()
@@ -991,6 +995,31 @@ function tooltipout(d){
                 .style("opacity", 0);	
 }
 
+function cityprofilein(d){
+	
+	var pbody = "<b>Total population:</b> 551,800<br /><br /><b>Population density:</b> 4,000/sq mi<br /><br /><b>GDP (per inhabitant):</b> average income of £ 441 per week (2012)<br /><br /><b>Nationals:</b> 476,000<br /><br /><b>EU foreigners:</b> 9,000<br /><br /><b>Non-EU foreigners:</b> 50,000<br /><br /><b>Resettlement city?</b>  Yes<br /><br /><b>Year programme began:</b> 2004<br /><br /><b>Annual resettlement quota:</b> 90<br /><br /><b>Groups received:</b> Burmese  from Thailand, Iraqis  from Syria and  Jordan, Congolese  from Uganda, Ethiopians and Somalis from Kenya, Bhutanese from Nepal<br /><br /><b>Lead resettlement partners:</b> Sheffield City Council, British Refugee Council, Mulberry Practice (NHS)<br /><br />";
+if(d.Name == "Sheffield"){
+	cityprofile.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            cityprofile .html("<h2>"+d.Name+"</h2><div class='body'>" +pbody +"</div>")  
+                .style("left", (20) + "px")     
+                .style("top", (90) + "px")
+				.on("click", function(d) {
+					cityprofileout();	
+				})	
+}
+}
+
+function cityprofileout(){
+	cityprofile.transition()        
+                .duration(200)      
+                .style("opacity", 0);	
+}
+
+//var profileclose = document.getElementById('close');
+//profileclose.onclick = cityprofileout();
+
 function click(d) {
   	
   if (active === d){ 
@@ -1099,7 +1128,11 @@ var label = d3.select("form").selectAll("label")
 
 var fcitynodes;
 
-fcitynodes.on("mouseover", function(d) { 
+fcitynodes
+	.on("click", function(d) {
+	cityprofilein(d);	
+	})
+	.on("mouseover", function(d) { 
 	//alert(d.Name);
 	nametooltipin(d.Name);
     })
