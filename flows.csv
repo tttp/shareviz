@@ -1,4 +1,4 @@
-Origin,Dest,visitn,delegatesn,delegation country,date1,date2,visit
+ï»¿Origin,Dest,visitn,delegatesn,delegation country,date1,date2,visit
 Aac,She,1,6,North Rhine-Westphalia,20121011,20121012,1
 Aac,Hul,1,6,North Rhine-Westphalia,20121011,20121012,1
 Bon,She,1,6,North Rhine-Westphalia,20121011,20121012,1
@@ -11,9 +11,9 @@ Ber,She,2,12,Media Delegation,20130227,20130228,2
 Ams,She,2,12,Media Delegation,20130227,20130228,2
 War,She,2,12,Media Delegation,20130227,20130228,2
 Bru,She,2,12,Media Delegation,20130227,20130228,2
-Gäv,She,3,16,Sweden,20130325,20130326,3
-Gäv,Hul,3,16,Sweden,20130325,20130326,3
-Gäv,Brd,3,16,Sweden,20130325,20130326,3
+GÃ¤v,She,3,16,Sweden,20130325,20130326,3
+GÃ¤v,Hul,3,16,Sweden,20130325,20130326,3
+GÃ¤v,Brd,3,16,Sweden,20130325,20130326,3
 Bol,She,3,16,Sweden,20130325,20130326,3
 Bol,Hul,3,16,Sweden,20130325,20130326,3
 Bol,Brd,3,16,Sweden,20130325,20130326,3
