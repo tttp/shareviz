@@ -405,6 +405,7 @@ if(d.Name == "Sheffield"){
             cityprofile .html("<h2>"+d.Name+"</h2><div class='body'>" +pbody +"</div>")  
                 .style("left", (20) + "px")     
                 .style("top", (90) + "px")
+				.style("display", "block")
 				.on("click", function(d) {
 					cityprofileout();	
 				})	
@@ -413,7 +414,8 @@ if(d.Name == "Sheffield"){
 
 function cityprofileout(){
 	cityprofile.transition()        
-                .duration(200)      
+                .duration(200)
+				.style("display", "none")      
                 .style("opacity", 0);	
 }
 
