@@ -487,11 +487,12 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("height", 70)
 		.html("<span class=\"title1\">SHARE network activities</span>");
 		
-var logobox = d3.select("#mapdiv").append("div")
+//var logobox = d3.select("#mapdiv").append("div")
+var logobox = d3.select("body").append("div")
         .attr("id", "logobox")
         //.attr("width", 900)
         //.attr("height", 70)
-		.html("<img width=\"150px\" src=\"img/sharelogo.png\">");
+		.html("<img width=\"120px\" src=\"img/sharelogo.png\">");
 		
 		
 		/*
@@ -779,7 +780,7 @@ function arcTweenSun(a) {
 var margintime = {top: 10, right: 30, bottom: 70, left: 30},
     margin2time = {top: 30, right: 30, bottom: 20, left: 30},
     //widthtime = 960 - margintime.left - margintime.right,
-	widthtime = width - margintime.left - margintime.right,
+	widthtime = width - margintime.left - margintime.right - 160,
     heighttime = 70 - margintime.top - margintime.bottom,
 	height2time = 100 - margin2time.top - margin2time.bottom;
 	//height2 = 100 - margin2.bottom;
@@ -1135,9 +1136,11 @@ fcitynodes
 	.on("mouseover", function(d) { 
 	//alert(d.Name);
 	nametooltipin(d.Name);
+    d3.select(this).style("fill", c_selectedflow);
     })
 	.on("mouseout", function(d) { 
 	//alert(d.Name);
+	d3.select(this).style("fill", "#666");
 	tooltipout(d);
     });
 	
@@ -1155,6 +1158,7 @@ fcitynodes = g.selectAll(".city")
 	.attr("cy", function(d) { return projection(nodeCoords(d))[1];})
 	.style("fill", "#666")
     .attr("class", function (d) {return "city capital "+d.Code})
+	
 	
 /*	
 g.selectAll(".city-label")

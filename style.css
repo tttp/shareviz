@@ -50,11 +50,6 @@ width: 280px;
 aabackground-color: #eee;
 }
 
-#logobox {
-position:absolute;
-bottom: 10px;
-left: 20px;	
-}
 
 #pieform {
 position: relative;
@@ -81,10 +76,19 @@ left:-35px;
 #timelinediv {
 clear: both;
 //width: 960px;
-min-width: 960px;
+//min-width: 960px;
+min-width: 800px;
 //width: 100%;
 font-size: 11px;
 background-color:#ddd;	
+}
+
+#logobox {
+position:absolute;
+//bottom: 10px;
+//left: 20px;
+top: 10px;
+right: 10px;	
 }
 
 .title {
@@ -144,6 +148,8 @@ font-weight: bold;
 color: #666;
 }
 
+
+
 /*
 .city {
   //pointer-events: none;         
@@ -153,6 +159,7 @@ color: #666;
   //display:none;
   z-index: 10;
 }
+
 
 
 .city.active {
