@@ -1,7 +1,11 @@
-Code,Name,Lat,Lon,country code,country,date1,date2,event
-Cop,Copenhagen,55.7,12.6,DK,Denmark,Look & Learn visit
-Faa,Faaborg-Midfyn,55.2,10.4,DK,Denmark,Look & Learn visit
-Fax,Faxe,55.3,12.1,DK,Denmark,Look & Learn visit
-Nur,Nurnberg,49.5,11.1,DE,Germany,Symposium: Partnerships in the resettlement procedure
-Bru,Brussels,50.9,4.4,BE,Belgium,A City Says Yes! Welcoming resettled refugees in Europe
-Lyo,Lyon,45.8,4.8,FR,France,Refugee resettlement – Partnerships for a durable protection and reception
+Code,Name,Lat,Lon,country code,country,event,visit
+Cop,Copenhagen,55.7,12.6,DK,Denmark,Look & Learn visit,10
+Faa,Faaborg-Midfyn,55.2,10.4,DK,Denmark,Look & Learn visit,10
+Fax,Faxe,55.3,12.1,DK,Denmark,Look & Learn visit,10
+Nur,Nurnberg,49.5,11.1,DE,Germany,Symposium: Partnerships in the resettlement procedure,11
+Bru,Brussels,50.9,4.4,BE,Belgium,A City Says Yes! Welcoming resettled refugees in Europe,12
+Lyo,Lyon,45.8,4.8,FR,France,Refugee resettlement – Partnerships for a durable protection and reception,13
+She,Sheffield,53.4,-1.5,GB,United Kingdom,visit,0
+Hul,Hull,53.7,-0.3,GB,United Kingdom,visit,0
+Brd,Bradford,53.8,-1.8,GB,United Kingdom,visit,0
+Man,Manchester,53.5,-2.2,GB,United Kingdom,visit,0
