@@ -10,7 +10,7 @@
 
 <!--script src="http://d3js.org/colorbrewer.v1.min.js"></script-->
 <script src="http://d3js.org/queue.v1.min.js"></script>
-<div id="container">
+
 <div id="timelinediv">
 </div>
 <div id="mapdiv"></div>
@@ -18,13 +18,17 @@
 <div id="piediv">
     <div id="pie2div">
 	</div>
+	<div id="pie2legenddiv">
+    <img src="img/legend2.png" />
+	</div>
 </div>
-</div>
+
 
 <script>
 
 var active= null,
-    width = 960,
+    //width = 960,
+	width = 1280,
 	//width = window.innerWidth,
 	//height = window.innerWidth/1.37,
     height = 700,
@@ -51,9 +55,12 @@ var sideheight2 = 280;
 
 //$("#piediv").css({left:width-sidewidth2,top:80});
 if(width > 960){
-$("#piediv").css({left:width-sidewidth2,top:80});
-$("#cloud").css({left:width-270,top:450});
+$("#piediv").css({left:width-sidewidth2,top:60});
+//$("#cloud").css({left:width-270,top:450});
+//$("#cloud").css({left:width-285,top:700});
+//$("#cloud").css({left:width-265,top:90});
 //$("#logo").css({left:width-270,top:750});
+$("#cloud").css({left:20,top:460});
 }
 
 //top:80px;
@@ -132,7 +139,7 @@ var thisdate1 = "20130908";
 var thisdate2 = "20130908";
 
 //Some more variables for the interactions
-var selectedvisit = 9;
+var selectedvisit = 0;
 var selecteddate = 20000101;
 var selecteddate1;
 var selectedestinations = [];
@@ -488,7 +495,8 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("id", "titlebox")
         .attr("width", 900)
         .attr("height", 70)
-		.html("<span class=\"title1\">SHARE network activities</span>");
+		.html("<img width=\"250px\" src=\"img/sharelogo.png\">");
+		//.html("<span class=\"title1\">SHARE network activities</span>");
 		
 //var logobox = d3.select("#mapdiv").append("div")
 var logobox = d3.select("body").append("div")
@@ -555,7 +563,7 @@ var visitinfo = titlebox.append("text")
 
 function drawCloud (data) {
   var words = []
-    h=300,
+    h=280,
     w=200;
     //h=180,
     //w=300;
@@ -665,7 +673,7 @@ pathsun
     //heightsun = 280,
 var widthsun = 300,
     heightsun = 280,
-	radiussun = 100,
+	radiussun = 110,
 	//var widthsun = sidewidth2,
     //heightsun = sideheight2,
 	//radiussun = sidewidth2/3,
@@ -722,7 +730,8 @@ var arcsun = d3.svg.arc()
 	//alert(d.Name);
 	tooltipout(d);
     });
-	  
+
+/*	  
 	  svgsun.datum(categories).selectAll("text")
 	  .data(partition.nodes)
     .enter().append("text")
@@ -730,20 +739,45 @@ var arcsun = d3.svg.arc()
 	.attr("text-anchor", function(d) {
         return d.x + d.dx / 2 > Math.PI ? "end" : "start";
       })
-      .attr("transform", function(d) {
-        var angle = (d.x + d.dx / 2) * 180 / Math.PI - 90;
-           //if (angle > 90) { angle = angle - 180; }
-         //alert(d.y);  
-        return "rotate(" + angle + ")translate(" + (d.y/1000  + 100)  + ")rotate(" + (angle > 90 ? -180 : 0) + ")"
-       })
-
+      
+	  //.attr("transform", function(d, i) {return "translate(0, "+ i*3 +")"})
       .attr("dy", ".35em") // vertical-align
 	  .style("fill", function(d){ "#666" })
       .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner
       .text(function(d) {return d.children ? d.name : null; });
 	  
+	  */
 
+/*
+.attr("transform", function(d) {
+        var angle = (d.x + d.dx / 2) * 180 / Math.PI - 90;
+           //if (angle > 90) { angle = angle - 180; }
+         //alert(d.y);  
+        return "rotate(" + angle + ")translate(" + (d.y/1000  + 100)  + ")rotate(" + (angle > 90 ? -180 : 0) + ")"
+       })
+	   */	  
+/*
+var legend = svgsun.datum(categories)
+	  .data(partition.nodes)
+	  .append("svg")
+    .attr("class", "legend")
+    .attr("width", 300)
+    .attr("height", 300)
+    .selectAll("g")
+    .enter().append("g");
+    //.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
+legend.append("rect")
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", function(d) { return colorsun((d.children ? d : d.parent).name); });
+
+legend.append("text")
+    .attr("x", 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .text(function(d) { return d.name; });
+	*/
 /*
 //Sun text
 pathsun.append("svg:text")
@@ -1332,7 +1366,7 @@ function drawFlows(){
           //.attr("opacity", function(d) { return arcOpacity(d.magnitude); })
           //.attr("stroke", strokeFun)
           .attr("stroke-linecap", "round")
-		  .attr("opacity", .2)
+		  .attr("opacity", 0)
 		  //.attr("marker-end", function(d) { return d.visit > 9 ? "url(#arrowHead2)" : "url(#arrowHead)" })
           //.attr("stroke-width", function(d) { return arcWidth(d.magnitude); })
 		  .attr("stroke-width", function(d) { return 1; })
@@ -1402,15 +1436,15 @@ timelineselected
 //alert(selectedestinations);	  
 	  destnodes
 	  .transition().duration(1000)
-	  .attr("r",function(d){return selectedestinations.indexOf(d.Code) != -1 ? 20 : 0});
+	  .attr("r",function(d){return selectedvisit == 100 ? 20 : (selectedestinations.indexOf(d.Code) != -1 ? 20 : 0)});
 	
 arcNodes
 .transition().duration(1000)
-.attr("stroke", function(d) {return d.visit == selectedvisit ? (d.visit > 9 ? c_selectedflow1 : c_selectedflow) : (d.visit > 9 ? c_eventflow : c_visitflow)})
+.attr("stroke", function(d) {return selectedvisit == 100 ? (d.visit > 9 ? c_eventflow  : "#777") : (d.visit == selectedvisit ? (d.visit > 9 ? c_selectedflow1 : c_selectedflow) : (d.visit > 9 ? c_eventflow : c_visitflow))})
 .attr("stroke-width", function(d) { return d.visit == selectedvisit ? 2 : 1; })
 //.attr("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? 1 : 0.2)});
 //.attr("marker-end", function(d) { return d.visit == selectedvisit ? "url(#arrowHead3)" :(d.visit > 9 ? "url(#arrowHead2)" : "url(#arrowHead)" )})	
-.style("opacity", function(d) {return d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? (d.visit > 9 ? 0.8 : 0.8) : 0.2)});
+.style("opacity", function(d) {return selectedvisit == 100 ? 0.5 : (d.date1 > selecteddate ? 0 : (d.visit == selectedvisit ? (d.visit > 9 ? 0.8 : 0.8) : 0.2))});
 
 eventcircle
 .style("fill",function(d) {return (d.visit == selectedvisit && d.type != "limit") ? c_hoverdot : (d.type == "visit" ? c_visitdot : (d.type == "event" ? c_eventdot : c_limitdot))}) 
@@ -1485,7 +1519,6 @@ function reset() {
   g.selectAll(".active").classed("active", active = false);
   g.transition().duration(750).attr("transform", "");
 }
-
 
 
 
