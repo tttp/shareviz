@@ -1,31 +1,31 @@
 date,value,type,visit,participants,name
 20120601,1,limit,0,0,SHARE network activities
-20120611,1,event,10,7,Look & Learn visit
-20120612,1,event,10,7,Look & Learn visit
-20120613,1,event,10,7,Look & Learn visit
-20120614,1,event,10,7,Look & Learn visit
-20121011,1,visit,1,6,SHARE City Exchange visit - North Rhine Westphalia delegation
-20121012,1,visit,1,6,SHARE City Exchange visit - North Rhine Westphalia delegation
-20121115,1,event,11,17,Symposium: Partnership in the resettlement procedure
-20121116,1,event,11,17,Symposium: Partnership in the resettlement procedure
+20120611,1,event,10,7,'Look & Learn visit' in Denmark
+20120612,1,event,10,7,'Look & Learn visit' in Denmark
+20120613,1,event,10,7,'Look & Learn visit' in Denmark
+20120614,1,event,10,7,'Look & Learn visit' in Denmark
+20121011,1,visit,1,6,SHARE City Exchange Visit - North Rhine Westphalia delegation
+20121012,1,visit,1,6,SHARE City Exchange Visit - North Rhine Westphalia delegation
+20121115,1,event,11,17,Symposium: Partnerships in the Resettlement Procedure
+20121116,1,event,11,17,Symposium: Partnerships in the Resettlement Procedure
 20130227,1,visit,2,12,Reporting Resettlement - SHARE Media Visit
 20130228,1,visit,2,12,Reporting Resettlement - SHARE Media Visit
-20130325,1,visit,3,16,SHARE City Exchange visit - Swedish delegation
-20130326,1,visit,3,16,SHARE City Exchange visit - Swedish delegation
-20130411,1,visit,4,6,SHARE City Exchange visit - Munich delegation
-20130412,1,visit,4,6,SHARE City Exchange visit - Munich delegation
-20130508,1,event,12,90,A City Says Yes! Welcoming resettled refugees in Europe
-20130513,1,visit,5,9,SHARE City Exchange visit - Finnish delegation
-20130514,1,visit,5,9,SHARE City Exchange visit - Finnish delegation
-20130613,1,visit,6,9,SHARE City Exchange visit - Czech delegation
-20130614,1,visit,6,9,SHARE City Exchange visit - Czech delegation
-20130620,1,event,13,50,Refugee resettlement - Partnerships for a durable protection and reception
-20130704,1,visit,7,10,SHARE City Exchange visit - Austrian-Polish delegation
-20130705,1,visit,7,10,SHARE City Exchange visit - Austrian-Polish delegation
-20130912,1,visit,8,10,SHARE City Exchange visit - Dutch-Belgian delegation
-20130913,1,visit,8,10,SHARE City Exchange visit - Dutch-Belgian delegation
-20130919,1,visit,9,7,SHARE City Exchange visit - French delegation
-20130920,1,visit,9,7,SHARE City Exchange visit - French delegation
+20130325,1,visit,3,16,SHARE City Exchange Visit - Swedish delegation
+20130326,1,visit,3,16,SHARE City Exchange Visit - Swedish delegation
+20130411,1,visit,4,6,SHARE City Exchange Visit - Munich delegation
+20130412,1,visit,4,6,SHARE City Exchange Visit - Munich delegation
+20130508,1,event,12,90,'A City Says Yes!' Welcoming Resettled Refugees in Europe
+20130513,1,visit,5,9,SHARE City Exchange Visit - Finnish delegation
+20130514,1,visit,5,9,SHARE City Exchange Visit - Finnish delegation
+20130613,1,visit,6,9,SHARE City Exchange Visit - Czech delegation
+20130614,1,visit,6,9,SHARE City Exchange Visit - Czech delegation
+20130620,1,event,13,50,Refugee Resettlement - Partnerships for a Durable Protection and Reception
+20130704,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation
+20130705,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation
+20130912,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation
+20130913,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation
+20130919,1,visit,9,7,SHARE City Exchange Visit - French delegation
+20130920,1,visit,9,7,SHARE City Exchange Visit - French delegation
 20131001,1,limit,100,0,SHARE network activities
 
 
