@@ -23,7 +23,7 @@
 	</div>
 </div>
 
-
+<img src="img/share.svg" id="logo"/>
 <script>
 
 var active= null,
@@ -334,7 +334,10 @@ drawCloud(topicsdata.children);
 //Changing selected event with arrow keys
 d3.select("body")
     .on("keydown", function() {
-		
+	
+      if (selectedvisit == 0) {
+        drawLogo("small");
+      }	
         if(d3.event.keyCode == 37){
 		switch(parseInt(selectedvisit)){
 		case 0:
@@ -485,6 +488,8 @@ function finddate(visitn){
 	var destinations = [];
 }
 
+drawLogo();
+
 /*var titlebox = d3.select("#mapdiv").append("svg")
         .attr("id", "titlebox")
         .attr("width", 900)
@@ -495,9 +500,10 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("id", "titlebox")
         .attr("width", 900)
         .attr("height", 70)
-		.html("<img width=\"250px\" src=\"img/sharelogo.png\">");
-		//.html("<span class=\"title1\">SHARE network activities</span>");
+		.html("<span class=\"title1\">SHARE network activities</span>");
 		
+		
+		/*
 //var logobox = d3.select("#mapdiv").append("div")
 var logobox = d3.select("body").append("div")
         .attr("id", "logobox")
@@ -505,8 +511,6 @@ var logobox = d3.select("body").append("div")
         //.attr("height", 70)
 		.html("<img width=\"120px\" src=\"img/sharelogo.png\">");
 		
-		
-		/*
       .append("g")
         .attr("transform", "translate("+w/2+","+h/2+")")
       .selectAll("text")
@@ -889,6 +893,8 @@ var eventcircle = context.selectAll('circle.dot')
 				//clickflow();
 				})
 			.on("mouseover", function(d,i) {
+        if (selectedvisit == 0)
+          drawLogo("small");
 				//tooltipin(d);
             //d3.select(this).transition().duration(0).style("fill",c_hoverdot); 
 			selectedvisit = d.visit;
@@ -1430,6 +1436,11 @@ arcNodes
 function clickflow(){
 changesun();
 
+  if (selectedvisit == 100) 
+    drawLogo("big");
+  else 
+    drawLogo("small");
+
 timelineselected
 	  .attr("width", xtime(selecteddate1) + "px");
 
@@ -1461,6 +1472,8 @@ transition().duration(1000)
 */
 
 wcloud
+.transition()
+.duration(750)
 .attr("opacity", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? 1 : 1})
 .attr("fill", function(d) {return d.visits.indexOf("visit" + selectedvisit) > -1 ? "#f40" : "#666"})
 .style("font-size", function(d) {return d.size + "px"; });
@@ -1521,7 +1534,20 @@ function reset() {
 }
 
 
-
+function drawLogo(size) {
+  size = size || "big";
+  var logo = {width:120,height:37};
+  var $logo= d3.select("#logo");
+  if (size == "big") {
+    $logo.transition().duration(2000)
+     .style({right:"500px",top:"140px" })
+     .attr({width:logo.width*6,height:logo.height*6 });
+  } else {
+    $logo.transition().duration(2000)
+     .style({right:"10px",top:"10px" })
+     .attr({"height":logo.height,"width":logo.width})
+  }
+}
 
 </script>
 
