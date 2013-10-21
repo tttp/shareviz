@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <link href="style.css" rel="stylesheet" type="text/css">
-
-<body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="./d3.layout.cloud.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<style>
+#logo {
+  right:300px;
+  top:500px;
+}
+
+</style>
+
+<body>
 
 <!--script src="http://d3js.org/colorbrewer.v1.min.js"></script-->
 <script src="http://d3js.org/queue.v1.min.js"></script>
@@ -16,6 +22,9 @@
 <div id="mapdiv">
 </div>
 </div>
+
+
+<img src="img/share.svg" id="logo" height=37 width=120 />
 
 <script>
 
@@ -306,6 +315,8 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("width", 900)
         .attr("height", 70)
 		.html("<span class=\"title1\">SHARE network activities</span>");
+
+drawLogo("big");
 		
 //var logobox = d3.select("#mapdiv").append("div")
 var logobox = d3.select("body").append("div")
@@ -611,6 +622,20 @@ function reset() {
 
 
 
+function drawLogo(size) {
+  size = size || "big";
+  var logo = {width:120,height:37};
+  var $logo= d3.select("#logo");
+  if (size == "big") {
+    $logo.transition().duration(2000)
+     .style({right:"500px",top:"140px" })
+     .attr({width:logo.width*6,height:logo.height*6 });
+  } else {
+    $logo.transition().duration(2000)
+     .style({right:"10px",top:"10px" })
+     .attr({"height":logo.height,"width":logo.width})
+  }
+}
 
 
 </script>
