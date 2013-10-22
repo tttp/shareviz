@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <link href="style.css" rel="stylesheet" type="text/css">
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<style>
-#logo {
-  right:300px;
-  top:500px;
-}
-
-</style>
 
 <body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js?1.29.1"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.time.js?1.29.1"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.csv.js?1.29.1"></script>
+    
+<script src="./d3.layout.cloud.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <!--script src="http://d3js.org/colorbrewer.v1.min.js"></script-->
 <script src="http://d3js.org/queue.v1.min.js"></script>
-<div id="container">
-<div id="timelinediv">
-</div>
-<div id="mapdiv">
+<div id="container2">
+<div id="mapdivprofile"></div>
+<div id="sidediv">
+	<div id="barchart">
+
+	</div>
+    <div id="profilediv">
+	<h2>Click on a city to view its profile</h2>
+	</div>
 </div>
 </div>
 
-
-<img src="img/share.svg" id="logo" height=37 width=120 />
+<img src="img/share.svg" id="logo" height=37 width=120 /> 
 
 <script>
 
 var active= null,
-    width = 960,
+    width = 1100,
 	//width = window.innerWidth,
 	//height = window.innerWidth/1.37,
     height = 700,
@@ -44,9 +47,10 @@ height = window.innerHeight;
 }
 */
 
-width = $("#mapdiv").width();
-$("#mapdiv").height(width/1.37);
-height = $("#mapdiv").height();
+//width = $("#mapdiv").width();
+$("#mapdivprofile").height(width/1.37);
+$("#sidediv").height(width/1.37);
+height = $("#mapdivprofile").height();
 
 //var sidewidth = width/4.8;
 //var sidewidth2 = width/3.2;
@@ -65,7 +69,7 @@ var sideheight2 = 280;
 //    .translate([width / 2 - 320, height / 2 + 700]);
 
 
-var svg = d3.select("#mapdiv").append("svg")
+var svg = d3.select("#mapdivprofile").append("svg")
     .attr("class", "map")
     .attr("width", width)
     .attr("height", height);
@@ -97,8 +101,9 @@ var feature=null;
 var div = d3.select("body").append("div")   
     .attr("class", "tooltip")               
     .style("opacity", 0);
+
 	
-var cityprofile = d3.select("body").append("div")   
+var cityprofile = d3.select("#sidediv").append("div")   
     .attr("class", "cityprofile")               
     .style("opacity", 0);
 
@@ -240,13 +245,15 @@ function map( json ) {
     .attr("d", path)
   	.on("mouseover", function(d) { 
     	d3.select(this)
-      .classed("over",true)
+      //.classed("over",true)
+	  .attr("fill", "#cdf")
 	    //comment the following line to disable tooltip on mouseover 
      	//tooltipin(d);
 	})
 	.on("mouseout", function(d) { 
   	d3.select(this).style("opacity","1")
-      .classed("over",false)
+      //.classed("over",false)
+	  .attr("fill", "#ddd")
   	//tooltipout(d);
 	})
 	.on("click", click)
@@ -303,6 +310,112 @@ drawNodes();
 
 
 
+//Bar chart
+var wbar = 350,
+    hbar = 270,
+    pbar = [20, 50, 30, 20],
+    //x = d3.scale.ordinal().rangeRoundBands([0, w - p[1] - p[3]]),
+	xbar = d3.scale.ordinal().rangeRoundBands([0, wbar - pbar[1] - pbar[3]]),
+    ybar = d3.scale.linear().range([0, hbar - pbar[0] - pbar[2]]),
+    zbar = d3.scale.ordinal().range(["#f90", "#ccc", "#9cf"]),
+    parse = d3.time.format("%m/%Y").parse,
+    //format = d3.time.format("%b");
+	format = "test";
+
+var svgbar = d3.select("#barchart").append("svg:svg")
+    .attr("width", wbar)
+    .attr("height", hbar)
+  .append("svg:g")
+    //.attr("transform", "translate(" + p[3] + "," + (h - p[2]) + ")");
+	.attr("transform", "translate(" + (pbar[3] + 40) + "," + pbar[2] + ")");
+
+d3.csv("population.csv", function(population) {
+	
+	population.forEach(function(type) {
+	  var tot = parseInt(type.eu) + parseInt(type.euf) + parseInt(type.neuf);
+	  type.eu = (type.eu*100)/tot;
+	  type.euf = (type.euf*100)/tot;
+	  type.neuf = (type.neuf*100)/tot;
+	  //alert(tot);
+	  //alert(tot + " - " + eu + " - " + euf + " - " + neuf);	
+	});
+
+  // Transpose the data into layers by cause.
+  var causes = d3.layout.stack()(["eu", "euf", "neuf"].map(function(cause) {
+    return population.map(function(d) {
+      //return {x: parse(d.date), y: +d[cause]};
+	  return {x: d.date, y: +d[cause]};
+    });
+  }));
+
+  // Compute the x-domain (by date) and y-domain (by top).
+  xbar.domain(causes[0].map(function(d) { return d.x; }));
+  ybar.domain([0, d3.max(causes[causes.length - 1], function(d) { return d.y0 + d.y; })]);
+
+  // Add a group for each cause.
+  var cause = svgbar.selectAll("g.cause")
+      .data(causes)
+    .enter().append("svg:g")
+      .attr("class", "cause")
+      .style("fill", function(d, i) { return zbar(i); })
+	  .style("opacity", function(d, i) { return 0.9; })
+      .style("stroke", function(d, i) { return "#fff"; });
+	  //.style("stroke", function(d, i) { return d3.rgb(zbar(i)).darker(); });
+
+  // Add a rect for each date.
+  var rect = cause.selectAll("rect")
+      .data(Object)
+    .enter().append("svg:rect")
+      //.attr("x", function(d) { return x(d.x); })
+      //.attr("y", function(d) { return -y(d.y0) - y(d.y); })
+	  //.attr("y", function(d) { return x(d.y); })
+	  //.attr("y", function(d, i) { alert(i);return xbar(d.y); })
+	  .attr("y", function(d,i) { return i*25; })
+      //.attr("x", function(d) { return +y(d.y0) + y(d.y); })
+	  .attr("x", function(d) {return 40 + ybar(d.y0); })
+      //.attr("height", function(d) { return y(d.y); })
+      //.attr("width", x.rangeBand());
+	  .attr("width", function(d) { return ybar(d.y); })
+      //.attr("height", xbar.rangeBand());
+	  .attr("height", 20);
+
+  // Add a label per date.
+  var label = svgbar.selectAll("text")
+      .data(xbar.domain())
+    .enter().append("svg:text")
+      //.attr("y", function(d) {return xbar(d) + xbar.rangeBand() / 2; })
+	  .attr("y", function(d,i) {return i*25 + 6; })
+      .attr("x", 6)
+      .attr("text-anchor", "middle")
+      .attr("dy", ".71em")
+      .text(function(d) {return d.split(" ")[0]});
+
+  // Add y-axis rules.
+  /*
+  var rule = svgbar.selectAll("g.rule")
+      .data(ybar.ticks(5))
+    .enter().append("svg:g")
+      .attr("class", "rule")
+      .attr("transform", function(d) { return "translate(0," + -ybar(d) + ")"; });
+
+  rule.append("svg:line")
+      .attr("x2", wbar - pbar[1] - pbar[3])
+      .style("stroke", function(d) { return d ? "#fff" : "#000"; })
+      .style("stroke-opacity", function(d) { return d ? .7 : null; });
+
+  rule.append("svg:text")
+      .attr("x", wbar - pbar[1] - pbar[3] + 6)
+      .attr("dy", ".35em")
+      .text(d3.format(",d"));
+	  */
+});
+
+//End of bar chart code
+
+
+
+
+
 
 /*var titlebox = d3.select("#mapdiv").append("svg")
         .attr("id", "titlebox")
@@ -310,22 +423,36 @@ drawNodes();
         .attr("height", 70);
 		*/
 		
-var titlebox = d3.select("#mapdiv").append("div")
-        .attr("id", "titlebox")
+var titlebox = d3.select("#mapdivprofile").append("div")
+        .attr("id", "titlebox2")
         .attr("width", 900)
         .attr("height", 70)
-		.html("<span class=\"title1\">SHARE network activities</span>");
-
-drawLogo("big");
+		.html("<span class=\"title1\">City Profiles</span>");
+		
+drawLogo("big"); 
 		
 //var logobox = d3.select("#mapdiv").append("div")
 var logobox = d3.select("body").append("div")
-        .attr("id", "logobox")
+        .attr("id", "logobox2")
         //.attr("width", 900)
         //.attr("height", 70)
 		.html("<img width=\"120px\" src=\"img/sharelogo.png\">");
 		
-		
+
+function drawLogo(size) {
+  size = size || "big";
+  var logo = {width:120,height:37};
+  var $logo= d3.select("#logo");
+  if (size == "big") {
+    $logo.transition().duration(2000)
+     .style({right:"500px",top:"140px" })
+     .attr({width:logo.width*6,height:logo.height*6 });
+  } else {
+    $logo.transition().duration(2000)
+     .style({right:"10px",top:"10px" })
+     .attr({"height":logo.height,"width":logo.width})
+  }
+} 		
 		/*
       .append("g")
         .attr("transform", "translate("+w/2+","+h/2+")")
@@ -414,12 +541,24 @@ if(d.Name == "Sheffield"){
                 .duration(200)      
                 .style("opacity", .9);      
             cityprofile .html("<h2>"+d.Name+"</h2><div class='body'>" +pbody +"</div>")  
-                .style("left", (20) + "px")     
-                .style("top", (90) + "px")
+                //.style("left", (20) + "px")     
+                //.style("top", (90) + "px")
 				.style("display", "block")
 				.on("click", function(d) {
 					cityprofileout();	
 				})	
+}
+}
+
+cprofile = d3.select("#profilediv");
+
+function cityprofilein2(d){
+	
+	var pbody = "<b>Total population:</b> 551,800<br /><b>Population density:</b> 4,000/sq mi<br /><b>GDP (per inhabitant):</b> average income of £ 441 per week (2012)<br /><b>Nationals:</b> 476,000<br /><b>EU foreigners:</b> 9,000<br /><b>Non-EU foreigners:</b> 50,000<br /><br /><b>Resettlement city?</b>  Yes<br /><b>Year programme began:</b> 2004<br /><b>Annual resettlement quota:</b> 90<br /><br /><b>Groups received:</b> Burmese  from Thailand, Iraqis  from Syria and  Jordan, Congolese  from Uganda, Ethiopians and Somalis from Kenya, Bhutanese from Nepal<br /><b>Lead resettlement partners:</b> Sheffield City Council, British Refugee Council, Mulberry Practice (NHS)<br /><br /><a href='http://www.resettlement.eu/city/sheffield'>City profile</a>";
+	
+if(d.Name == "Sheffield"){	
+cprofile
+.html("<h2>"+d.Name+"</h2><div class='body'>" +pbody +"</div>");	
 }
 }
 
@@ -449,7 +588,7 @@ function click(d) {
   return reset();
   }
   
-  if (getquota(getiso(d)) == 0)  return reset ();
+ 
 
   g.selectAll(".active").classed("active", false);
   d3.select(this).classed("active", active = d);
@@ -496,7 +635,7 @@ var fcitynodes;
 
 fcitynodes
 	.on("click", function(d) {
-	cityprofilein(d);	
+	cityprofilein2(d);	
 	})
 	.on("mouseover", function(d) { 
 	//alert(d.Name);
@@ -615,6 +754,9 @@ function drawCountriesLabel() {
 };
 
 
+
+
+
 function reset() {
   g.selectAll(".active").classed("active", active = false);
   g.transition().duration(750).attr("transform", "");
@@ -622,20 +764,6 @@ function reset() {
 
 
 
-function drawLogo(size) {
-  size = size || "big";
-  var logo = {width:120,height:37};
-  var $logo= d3.select("#logo");
-  if (size == "big") {
-    $logo.transition().duration(2000)
-     .style({right:"500px",top:"140px" })
-     .attr({width:logo.width*6,height:logo.height*6 });
-  } else {
-    $logo.transition().duration(2000)
-     .style({right:"10px",top:"10px" })
-     .attr({"height":logo.height,"width":logo.width})
-  }
-}
 
 
 </script>
