@@ -16,7 +16,11 @@
 <!--script src="http://d3js.org/colorbrewer.v1.min.js"></script-->
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <div id="container2">
-<div id="mapdivprofile"></div>
+<div id="mapdivprofile">
+	<div id="buttonsdiv">
+    	<button id="btn_n">Nationals</button><button id="btn_euf">EU foreigners</button><button id="btn_neuf">Non-EU foreigners</button>
+	</div>
+</div>
 <div id="sidediv">
 	<div id="barchart">
 
@@ -320,7 +324,7 @@ var wbar = 350,
     //x = d3.scale.ordinal().rangeRoundBands([0, w - p[1] - p[3]]),
 	xbar = d3.scale.ordinal().rangeRoundBands([0, wbar - pbar[1] - pbar[3]]),
     ybar = d3.scale.linear().range([0, hbar - pbar[0] - pbar[2]]),
-    zbar = d3.scale.ordinal().range(["#f90", "#ccc", "#9cf"]),
+    zbar = d3.scale.ordinal().range(["#f90", "#9cf", "#d53f6e"]),
     parse = d3.time.format("%m/%Y").parse,
     //format = d3.time.format("%b");
 	format = "test";
@@ -442,6 +446,8 @@ var titlebox = d3.select("#mapdivprofile").append("div")
         .attr("width", 900)
         .attr("height", 70)
 		.html("<span class=\"title1\">City Profiles</span>");
+		
+
 		
 drawLogo("big"); 
 		
@@ -715,6 +721,22 @@ g.selectAll(".city-label")
 }
 //End draw nodes
 
+d3.select("#btn_n")
+.on("click", function(d) {
+	changemapdata("pnat");	
+	});
+	
+d3.select("#btn_euf")
+.on("click", function(d) {
+	changemapdata("peuf");	
+	});
+	
+d3.select("#btn_neuf")
+.on("click", function(d) {
+	changemapdata("pneuf");	
+	});
+
+
 function changemapdata(type) {
 
 
@@ -729,14 +751,14 @@ if(type == "peuf"){
 fcitynodes2	
 .transition().duration(1000)
 .attr("r",function(d){return d.totpop != null ? popradius(d.peuf) : 0;})
-.style("fill", "#666");
+.style("fill", "#9cf");
 }
 
 if(type == "pneuf"){
 fcitynodes2	
 .transition().duration(1000)
 .attr("r",function(d){return d.totpop != null ? popradius(d.pneuf) : 0;})
-.style("fill", "#9cf");
+.style("fill", "#d53f6e");
 }
 
 }
