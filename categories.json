@@ -12,9 +12,11 @@
 	{"name": "visit7", "size": 1},
 	{"name": "visit8", "size": 2},
 	{"name": "visit9", "size": 2},
-	{"name": "visit11", "size": 7},
+	{"name": "visit11", "size": 3},
 	{"name": "visit12", "size": 2},
-	{"name": "visit13", "size": 7}    
+	{"name": "visit13", "size": 7},
+	{"name": "visit14", "size": 7},
+	{"name": "visit15", "size": 12}    
    ]
   },
   {
@@ -26,7 +28,9 @@
 	{"name": "visit6", "size": 2},
 	{"name": "visit10", "size": 6},
 	{"name": "visit12", "size": 2},
-	{"name": "visit13", "size": 1}    
+	{"name": "visit11", "size": 1},
+	{"name": "visit13", "size": 1},
+	{"name": "visit15", "size": 1}    
    ]
   },
   {
@@ -40,16 +44,18 @@
 	{"name": "visit7", "size": 3},
 	{"name": "visit8", "size": 6},
 	{"name": "visit9", "size": 4},
-	{"name": "visit11", "size": 1},
+	{"name": "visit11", "size": 10},
 	{"name": "visit12", "size": 41},
-	{"name": "visit13", "size": 23}   
+	{"name": "visit13", "size": 23},
+	{"name": "visit14", "size": 2}	
    ]
   },
   {
    "name": "NGO_PO",
    "fullname": "NGO Press Officer",
    "children": [
-    {"name": "visit2", "size": 5}  
+    {"name": "visit2", "size": 5},
+	{"name": "visit15", "size": 38}	
    ]
   },
   {
@@ -59,7 +65,8 @@
     {"name": "visit1", "size": 1},
     {"name": "visit4", "size": 1},
 	{"name": "visit11", "size": 1},
-	{"name": "visit12", "size": 5}    
+	{"name": "visit12", "size": 5},
+	{"name": "visit15", "size": 1}    
    ]
   },
   {
@@ -67,14 +74,16 @@
    "fullname": "Journalist",
    "children": [
     {"name": "visit2", "size": 6},
-	{"name": "visit7", "size": 1}    
+	{"name": "visit7", "size": 1},
+	{"name": "visit15", "size": 1}    
    ]
   },
   {
    "name": "JC",
    "fullname": "Job Centre",
    "children": [
-    {"name": "visit2", "size": 2}    
+    {"name": "visit2", "size": 2},
+	{"name": "visit11", "size": 1}    
    ]
   },
   {
@@ -83,21 +92,25 @@
    "children": [
     {"name": "visit2", "size": 1},
 	{"name": "visit12", "size": 23},
-	{"name": "visit13", "size": 2}   
+	{"name": "visit11", "size": 1},
+	{"name": "visit13", "size": 2},
+	{"name": "visit15", "size": 10}	
    ]
   },
   {
    "name": "HA",
    "fullname": "Housing Agency",
    "children": [
-	{"name": "visit13", "size": 8}   
+	{"name": "visit13", "size": 8},
+	{"name": "visit14", "size": 1}	
    ]
   },
   {
    "name": "I",
    "fullname": "Independent Consultant",
    "children": [
-	{"name": "visit12", "size": 1}   
+	{"name": "visit12", "size": 1},
+	{"name": "visit15", "size": 1}	
    ]
   },
   {
@@ -118,9 +131,11 @@
    "fullname": "Regional/county government",
    "children": [
     {"name": "visit3", "size": 3},
-	{"name": "visit11", "size": 5},
+	{"name": "visit11", "size": 3},
 	{"name": "visit12", "size": 4},
-	{"name": "visit13", "size": 4}   
+	{"name": "visit13", "size": 4},
+	{"name": "visit14", "size": 2},
+	{"name": "visit15", "size": 2}	
    ]
   },
   {
@@ -131,8 +146,10 @@
 	{"name": "visit6", "size": 1},
 	{"name": "visit7", "size": 1},
 	{"name": "visit9", "size": 1},
+	{"name": "visit11", "size": 1},
 	{"name": "visit12", "size": 6},
-	{"name": "visit13", "size": 2}    
+	{"name": "visit13", "size": 2},
+	{"name": "visit15", "size": 9}    
    ]
   },
   {
@@ -140,7 +157,15 @@
    "fullname": "Associations for cities & municipalities - representative or membership bodies for local government",
    "children": [
     {"name": "visit7", "size": 2},
-	{"name": "visit12", "size": 5}   
+	{"name": "visit12", "size": 5},
+	{"name": "visit15", "size": 2}	
+   ]
+  },
+  {
+   "name": "R",
+   "fullname": "Refugee",
+   "children": [
+	{"name": "visit15", "size": 1}	
    ]
   }
  ]

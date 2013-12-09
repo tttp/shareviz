@@ -371,7 +371,7 @@ d3.select("body")
 		  selectedvisit = 8;	
 		  break;
 		case 10:
-		  selectedvisit = 0;	
+		  selectedvisit = 14;	
 		  break;
 		case 11:
 		  selectedvisit = 1;	
@@ -382,8 +382,14 @@ d3.select("body")
 		case 13:
 		  selectedvisit = 6;	
 		  break;
-		case 100:
+		case 14:
+		  selectedvisit = 0;	
+		  break;
+		case 15:
 		  selectedvisit = 9;	
+		  break;
+		case 100:
+		  selectedvisit = 15;	
 		  break;
 		}
         //selectedvisit --;
@@ -394,7 +400,7 @@ d3.select("body")
 		if(d3.event.keyCode == 39){
 			switch(parseInt(selectedvisit)){
 		case 0:
-		  selectedvisit = 10;	
+		  selectedvisit = 14;	
 		  break;
 		case 1:
 		  selectedvisit = 11;	
@@ -421,7 +427,7 @@ d3.select("body")
 		  selectedvisit = 9;	
 		  break;
 		case 9:
-		  selectedvisit = 100;	
+		  selectedvisit = 15;	
 		  break;
 		case 10:
 		  selectedvisit = 1;	
@@ -434,6 +440,12 @@ d3.select("body")
 		  break;
 		case 13:
 		  selectedvisit = 7;	
+		  break;
+		case 14:
+		  selectedvisit = 10;	
+		  break;
+		case 15:
+		  selectedvisit = 100;	
 		  break;
 		case 100:
 		  selectedvisit = 0;	
