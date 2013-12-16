@@ -23,7 +23,7 @@
 	</div>
 </div>
 
-<img src="img/share.svg" id="logo"/>
+<a href="http://www.resettlement.eu/page/welcome-share-network" target="_blank"><img src="img/share.svg" id="logo"/></a>
 <script>
 
 var active= null,
@@ -386,6 +386,9 @@ d3.select("body")
 		  selectedvisit = 0;	
 		  break;
 		case 15:
+		  selectedvisit = 16;	
+		  break;
+		case 16:
 		  selectedvisit = 9;	
 		  break;
 		case 100:
@@ -427,7 +430,7 @@ d3.select("body")
 		  selectedvisit = 9;	
 		  break;
 		case 9:
-		  selectedvisit = 15;	
+		  selectedvisit = 16;	
 		  break;
 		case 10:
 		  selectedvisit = 1;	
@@ -446,6 +449,9 @@ d3.select("body")
 		  break;
 		case 15:
 		  selectedvisit = 100;	
+		  break;
+		case 16:
+		  selectedvisit = 15;	
 		  break;
 		case 100:
 		  selectedvisit = 0;	
@@ -512,7 +518,7 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("id", "titlebox")
         .attr("width", 900)
         .attr("height", 70)
-		.html("<span class=\"title1\">SHARE network activities</span>");
+		.html("<span class=\"title1\">The SHARE network</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");
 		
 		
 		/*
@@ -565,12 +571,68 @@ var visitinfo = titlebox.append("text")
   function drawtitle(visitn, title, origin, dest, pnum){
 	  var image = "<img src=\"img/"+visitn+".jpg\" class=\"eventimage\">";
 	  
+	  var readmore = "";
+	  
+	  switch(visitn){
+		case '1':
+		readmore = "http://www.resettlement.eu/news/first-share-city-exchange-visit-uk-11-12-october-2012";
+		break; 
+		case '2':
+		readmore = "http://www.resettlement.eu/page/reporting-resettlement-share-media-visit-uk";
+		break; 
+		case '3':
+		readmore = "http://www.resettlement.eu/page/visit-swedish-delegation-25-26-march-2013";
+		break; 
+		case '4':
+		readmore = "http://www.resettlement.eu/page/visit-munich-delegation-11-12-april-2013-0";
+		break; 
+		case '5':
+		readmore = "http://www.resettlement.eu/page/visit-finnish-delegation-13-14-may-2013";
+		break; 
+		case '6':
+		readmore = "http://www.resettlement.eu/page/visit-czech-delegation-13-14-june-2013";
+		break; 
+		case '7':
+		readmore = "http://www.resettlement.eu/page/visit-austrian-polish-delegation-4-5-july-2013";
+		break; 
+		case '8':
+		readmore = "http://www.resettlement.eu/page/visit-belgian-dutch-delegation-12-13-september-2013";
+		break; 
+		case '9':
+		readmore = "http://www.resettlement.eu/page/visit-french-delegation-19-20-september-2013";
+		break; 
+		case '10':
+		readmore = "http://www.resettlement.eu/page/look-learn-visit-denmark-june-2012";
+		break; 
+		case '11':
+		readmore = "http://www.resettlement.eu/page/resettlement-fachtagung-partnerschaften-im-resettlementverfahren";
+		break; 
+		case '12':
+		readmore = "http://www.resettlement.eu/page/city-says-yes-welcoming-resettled-refugees-europe-may-8th-2013-brussels";
+		break; 
+		case '13':
+		readmore = "http://www.resettlement.eu/page/refugee-resettlement-partnerships-durable-protection-and-reception-20-june-2013-lyon-france";
+		break; 
+		case '14':
+		readmore = "http://www.resettlement.eu/page/eu-resettlement-skills-share-day-may-2012";
+		break; 
+		case '15':
+		readmore = "http://www.resettlement.eu/news/share-network-conference-oct-21-22-brussels";
+		break; 
+		case '16':
+		readmore = "http://www.resettlement.eu/page/business-case-diversity-partnerships-labour-market-integration-resettled-refugees-october-2013";
+		break;
+		default:
+		readmore = "";
+	  }
+	  //alert(visitn + readmore);
+	  
 	  if(visitn == 0 || visitn == 100){
 		titlebox
-		.html("<span class=\"title1\">"+title+"</span>");  
+		.html("<span class=\"title1\">"+title+"</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");  
 	  } else {
 	titlebox
-		.html("<span class=\"title1\">"+title+"</span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br />"+image)  ; 
+		.html("<span class=\"title1\">"+title+"</span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br /><a href=\""+readmore+"\" class=\"readmore\" target=\"_BLANK\">Read more ...</a><br />"+image)  ; 
 	  }
   }
 
@@ -1547,21 +1609,27 @@ function reset() {
 
 
 function drawLogo(size) {
+	//alert(width - 60 - 160);
   size = size || "big";
   var logo = {width:120,height:37};
   var $logo= d3.select("#logo");
   if (size == "big") {
     $logo.transition().duration(2000)
-     .style({right:"500px",top:"140px" })
-     .attr({width:logo.width*6,height:logo.height*6 });
+     //.style({right:"500px",top:"140px" })
+	 .style({left:"20px",top:"230px" })
+     .attr({width:logo.width*5,height:logo.height*5 });
   } else {
     $logo.transition().duration(2000)
-     .style({right:"10px",top:"10px" })
+     //.style({right:"10px",top:"10px" })
+	 .style({left: width - 160+"px",top:"10px" })
      .attr({"height":logo.height,"width":logo.width})
   }
 }
 
 </script>
-
+<div id="footer">
+<span>For additional information or questions about the SHARE Network, please contact Rachel Westerby, City Coordinator at ICMC Europe (<a href="mailto:city.coordinator@icmc.net">city.coordinator@icmc.net</a>).
+</span>
+</div>
 </body>
 </html>

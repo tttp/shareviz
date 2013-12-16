@@ -1,5 +1,5 @@
 date,value,type,visit,participants,name
-20120501,1,limit,0,0,SHARE network activities
+20120501,1,limit,0,0,The SHARE Network
 20120514,1,event,14,12,EU Resettlement Skills Share Day
 20120515,1,event,14,12,EU Resettlement Skills Share Day
 20120611,1,event,10,7,'Look & Learn visit' in Denmark
@@ -21,16 +21,18 @@ date,value,type,visit,participants,name
 20130514,1,visit,5,9,SHARE City Exchange Visit - Finnish delegation
 20130613,1,visit,6,9,SHARE City Exchange Visit - Czech delegation
 20130614,1,visit,6,9,SHARE City Exchange Visit - Czech delegation
-20130620,1,event,13,50,Refugee Resettlement - Partnerships for a Durable Protection and Reception
+20130620,1,event,13,51,Refugee Resettlement - Partnerships for a Durable Protection and Reception
 20130704,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation
 20130705,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation
 20130912,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation
 20130913,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation
 20130919,1,visit,9,7,SHARE City Exchange Visit - French delegation
 20130920,1,visit,9,7,SHARE City Exchange Visit - French delegation
-20131021,1,event,15,77,SHARE Network Conference
-20131022,1,event,15,77,SHARE Network Conference
-20131101,1,limit,100,0,SHARE Network activities
+20131003,1,event,16,24,The Business Case for Diversity: Partnerships for the Labour Market Integration of Resettled Refugees
+20131004,1,event,16,24,The Business Case for Diversity: Partnerships for the Labour Market Integration of Resettled Refugees
+20131021,1,event,15,64,SHARE Network Conference
+20131022,1,event,15,64,SHARE Network Conference
+20131101,1,limit,100,0,The SHARE Network
 
 
 

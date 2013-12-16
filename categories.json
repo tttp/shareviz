@@ -12,11 +12,11 @@
 	{"name": "visit7", "size": 1},
 	{"name": "visit8", "size": 2},
 	{"name": "visit9", "size": 2},
-	{"name": "visit11", "size": 3},
+	{"name": "visit11", "size": 4},
 	{"name": "visit12", "size": 2},
 	{"name": "visit13", "size": 7},
 	{"name": "visit14", "size": 7},
-	{"name": "visit15", "size": 12}    
+	{"name": "visit16", "size": 1}    
    ]
   },
   {
@@ -46,8 +46,9 @@
 	{"name": "visit9", "size": 4},
 	{"name": "visit11", "size": 10},
 	{"name": "visit12", "size": 41},
-	{"name": "visit13", "size": 23},
-	{"name": "visit14", "size": 2}	
+	{"name": "visit13", "size": 24},
+	{"name": "visit14", "size": 2},
+	{"name": "visit16", "size": 14}
    ]
   },
   {
@@ -79,14 +80,6 @@
    ]
   },
   {
-   "name": "JC",
-   "fullname": "Job Centre",
-   "children": [
-    {"name": "visit2", "size": 2},
-	{"name": "visit11", "size": 1}    
-   ]
-  },
-  {
    "name": "IO",
    "fullname": "International organization",
    "children": [
@@ -94,12 +87,13 @@
 	{"name": "visit12", "size": 23},
 	{"name": "visit11", "size": 1},
 	{"name": "visit13", "size": 2},
-	{"name": "visit15", "size": 10}	
+	{"name": "visit15", "size": 10},
+	{"name": "visit16", "size": 4}	
    ]
   },
   {
-   "name": "HA",
-   "fullname": "Housing Agency",
+   "name": "HP",
+   "fullname": "Housing Provider",
    "children": [
 	{"name": "visit13", "size": 8},
 	{"name": "visit14", "size": 1}	
@@ -123,7 +117,8 @@
 	{"name": "visit10", "size": 1},
 	{"name": "visit11", "size": 1},
 	{"name": "visit12", "size": 1},
-	{"name": "visit13", "size": 3}   
+	{"name": "visit13", "size": 3},
+	{"name": "visit16", "size": 1}	
    ]
   },
   {
@@ -134,8 +129,7 @@
 	{"name": "visit11", "size": 3},
 	{"name": "visit12", "size": 4},
 	{"name": "visit13", "size": 4},
-	{"name": "visit14", "size": 2},
-	{"name": "visit15", "size": 2}	
+	{"name": "visit14", "size": 2}
    ]
   },
   {
@@ -149,7 +143,8 @@
 	{"name": "visit11", "size": 1},
 	{"name": "visit12", "size": 6},
 	{"name": "visit13", "size": 2},
-	{"name": "visit15", "size": 9}    
+	{"name": "visit15", "size": 9},
+	{"name": "visit16", "size": 1}    
    ]
   },
   {
@@ -165,7 +160,16 @@
    "name": "R",
    "fullname": "Refugee",
    "children": [
+	{"name": "visit11", "size": 2},
+	{"name": "visit13", "size": 8},
 	{"name": "visit15", "size": 1}	
+   ]
+  },
+  {
+   "name": "EMPL",
+   "fullname": "Employer/employers association",
+   "children": [
+	{"name": "visit16", "size": 3}	
    ]
   }
  ]
