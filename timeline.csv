@@ -1,38 +1,38 @@
-date,value,type,visit,participants,name
-20120501,1,limit,0,0,The SHARE Network
-20120514,1,event,14,12,EU Resettlement Skills Share Day
-20120515,1,event,14,12,EU Resettlement Skills Share Day
-20120611,1,event,10,7,'Look & Learn visit' in Denmark
-20120612,1,event,10,7,'Look & Learn visit' in Denmark
-20120613,1,event,10,7,'Look & Learn visit' in Denmark
-20120614,1,event,10,7,'Look & Learn visit' in Denmark
-20121011,1,visit,1,6,SHARE City Exchange Visit - North Rhine Westphalia delegation
-20121012,1,visit,1,6,SHARE City Exchange Visit - North Rhine Westphalia delegation
-20121115,1,event,11,22,Symposium: Partnerships in the Resettlement Procedure
-20121116,1,event,11,22,Symposium: Partnerships in the Resettlement Procedure
-20130227,1,visit,2,12,Reporting Resettlement - SHARE Media Visit
-20130228,1,visit,2,12,Reporting Resettlement - SHARE Media Visit
-20130325,1,visit,3,16,SHARE City Exchange Visit - Swedish delegation
-20130326,1,visit,3,16,SHARE City Exchange Visit - Swedish delegation
-20130411,1,visit,4,6,SHARE City Exchange Visit - Munich delegation
-20130412,1,visit,4,6,SHARE City Exchange Visit - Munich delegation
-20130508,1,event,12,90,'A City Says Yes!' Welcoming Resettled Refugees in Europe
-20130513,1,visit,5,9,SHARE City Exchange Visit - Finnish delegation
-20130514,1,visit,5,9,SHARE City Exchange Visit - Finnish delegation
-20130613,1,visit,6,9,SHARE City Exchange Visit - Czech delegation
-20130614,1,visit,6,9,SHARE City Exchange Visit - Czech delegation
-20130620,1,event,13,51,Refugee Resettlement - Partnerships for a Durable Protection and Reception
-20130704,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation
-20130705,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation
-20130912,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation
-20130913,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation
-20130919,1,visit,9,7,SHARE City Exchange Visit - French delegation
-20130920,1,visit,9,7,SHARE City Exchange Visit - French delegation
-20131003,1,event,16,24,The Business Case for Diversity: Partnerships for the Labour Market Integration of Resettled Refugees
-20131004,1,event,16,24,The Business Case for Diversity: Partnerships for the Labour Market Integration of Resettled Refugees
-20131021,1,event,15,64,SHARE Network Conference
-20131022,1,event,15,64,SHARE Network Conference
-20131101,1,limit,100,0,The SHARE Network
+date,value,type,visit,participants,name,datename
+20120501,1,limit,0,0,The SHARE Network,
+20120514,1,event,14,12,EU Resettlement Skills Share Day,14-15 May 2012
+20120515,1,event,14,12,EU Resettlement Skills Share Day,14-15 May 2012
+20120611,1,event,10,7,'Look & Learn visit' in Denmark,11-14 June 2012
+20120612,1,event,10,7,'Look & Learn visit' in Denmark,11-14 June 2012
+20120613,1,event,10,7,'Look & Learn visit' in Denmark,11-14 June 2012
+20120614,1,event,10,7,'Look & Learn visit' in Denmark,11-14 June 2012
+20121011,1,visit,1,6,SHARE City Exchange Visit - North Rhine Westphalia delegation,11-12 October 2012
+20121012,1,visit,1,6,SHARE City Exchange Visit - North Rhine Westphalia delegation,11-12 October 2012
+20121115,1,event,11,22,Symposium: Partnerships in the Resettlement Procedure,15-16 November 2012
+20121116,1,event,11,22,Symposium: Partnerships in the Resettlement Procedure,15-16 November 2012
+20130227,1,visit,2,12,Reporting Resettlement - SHARE Media Visit,27-28 February 2013
+20130228,1,visit,2,12,Reporting Resettlement - SHARE Media Visit,27-28 February 2013
+20130325,1,visit,3,16,SHARE City Exchange Visit - Swedish delegation,25-26 March 2013
+20130326,1,visit,3,16,SHARE City Exchange Visit - Swedish delegation,25-26 March 2013
+20130411,1,visit,4,6,SHARE City Exchange Visit - Munich delegation,11-12 April 2013
+20130412,1,visit,4,6,SHARE City Exchange Visit - Munich delegation,11-12 April 2013
+20130508,1,event,12,90,'A City Says Yes!' Welcoming Resettled Refugees in Europe,8 May 2013
+20130513,1,visit,5,9,SHARE City Exchange Visit - Finnish delegation,13-14 May 2013
+20130514,1,visit,5,9,SHARE City Exchange Visit - Finnish delegation,13-14 May 2013
+20130613,1,visit,6,9,SHARE City Exchange Visit - Czech delegation,13-14 June 2013
+20130614,1,visit,6,9,SHARE City Exchange Visit - Czech delegation,13-14 June 2013
+20130620,1,event,13,51,Refugee Resettlement - Partnerships for a Durable Protection and Reception,20 June 2013
+20130704,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation,4-5 July 2013
+20130705,1,visit,7,10,SHARE City Exchange Visit - Austrian-Polish delegation,4-5 July 2013
+20130912,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation,12-13 September 2013
+20130913,1,visit,8,10,SHARE City Exchange Visit - Dutch-Belgian delegation,12-13 September 2013
+20130919,1,visit,9,7,SHARE City Exchange Visit - French delegation,19-20 September 2013
+20130920,1,visit,9,7,SHARE City Exchange Visit - French delegation,19-20 September 2013
+20131003,1,event,16,24,The Business Case for Diversity: Partnerships for the Labour Market Integration of Resettled Refugees,3 October 2013
+20131004,1,event,16,24,The Business Case for Diversity: Partnerships for the Labour Market Integration of Resettled Refugees,3 October 2013
+20131021,1,event,15,64,SHARE Network Conference,21-22 October 2013
+20131022,1,event,15,64,SHARE Network Conference,21-22 October 2013
+20131101,1,limit,100,0,The SHARE Network,
 
 
 

@@ -48,6 +48,7 @@
 	{"name": "visit12", "size": 41},
 	{"name": "visit13", "size": 24},
 	{"name": "visit14", "size": 2},
+	{"name": "visit15", "size": 36},
 	{"name": "visit16", "size": 14}
    ]
   },
@@ -56,7 +57,7 @@
    "fullname": "NGO Press Officer",
    "children": [
     {"name": "visit2", "size": 5},
-	{"name": "visit15", "size": 38}	
+	{"name": "visit15", "size": 1}	
    ]
   },
   {
@@ -153,7 +154,7 @@
    "children": [
     {"name": "visit7", "size": 2},
 	{"name": "visit12", "size": 5},
-	{"name": "visit15", "size": 2}	
+	{"name": "visit15", "size": 1}	
    ]
   },
   {

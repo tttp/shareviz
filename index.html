@@ -469,6 +469,7 @@ function finddate(visitn){
 	var destinations = [];
 	var title = "";
 	var pnum = 0;
+	var titledata = "";
 	selectedestinations = [];
 	
 	timelinedata.forEach(function(d) {
@@ -476,6 +477,7 @@ function finddate(visitn){
 		selecteddate = d.date1;
 		selecteddate1 = d.date;
 		title = d.name;
+		titledata = d.datename;
 		pnum = d.participants;
 		//drawtitle(d.name);
 		}
@@ -501,7 +503,7 @@ function finddate(visitn){
 		
 		}
 	});
-	drawtitle(visitn,title,sources,destinations,pnum);
+	drawtitle(visitn,title,sources,destinations,pnum,titledata);
 	var sources = [];
 	var destinations = [];
 }
@@ -518,7 +520,7 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("id", "titlebox")
         .attr("width", 900)
         .attr("height", 70)
-		.html("<span class=\"title1\">The SHARE network</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");
+		.html("<span class=\"title1\">The SHARE Network</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");
 		
 		
 		/*
@@ -568,9 +570,9 @@ var visitinfo = titlebox.append("text")
   }
   */
   
-  function drawtitle(visitn, title, origin, dest, pnum){
+  function drawtitle(visitn, title, origin, dest, pnum, titledata){
 	  var image = "<img src=\"img/"+visitn+".jpg\" class=\"eventimage\">";
-	  
+
 	  var readmore = "";
 	  
 	  switch(visitn){
@@ -632,7 +634,7 @@ var visitinfo = titlebox.append("text")
 		.html("<span class=\"title1\">"+title+"</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");  
 	  } else {
 	titlebox
-		.html("<span class=\"title1\">"+title+"</span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br /><a href=\""+readmore+"\" class=\"readmore\" target=\"_BLANK\">Read more ...</a><br />"+image)  ; 
+		.html("<span class=\"title1\">"+title+" &nbsp;&nbsp;&nbsp;<span class=\"titledata\">"+titledata+"</span></span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br /><a href=\""+readmore+"\" class=\"readmore\" target=\"_BLANK\">Read more ...</a><br />"+image)  ; 
 	  }
   }
 
