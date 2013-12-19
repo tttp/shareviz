@@ -520,7 +520,7 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("id", "titlebox")
         .attr("width", 900)
         .attr("height", 70)
-		.html("<span class=\"title1\">The SHARE Network</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");
+		.html("<span class=\"title1\">The SHARE Network</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the above timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");
 		
 		
 		/*
@@ -631,7 +631,7 @@ var visitinfo = titlebox.append("text")
 	  
 	  if(visitn == 0 || visitn == 100){
 		titlebox
-		.html("<span class=\"title1\">"+title+"</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");  
+		.html("<span class=\"title1\">"+title+"</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the above timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");  
 	  } else {
 	titlebox
 		.html("<span class=\"title1\">"+title+" &nbsp;&nbsp;&nbsp;<span class=\"titledata\">"+titledata+"</span></span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br /><a href=\""+readmore+"\" class=\"readmore\" target=\"_BLANK\">Read more ...</a><br />"+image)  ; 
@@ -777,7 +777,7 @@ svgsun.append("text")
 .style("font-size", "18px" )
 .style("fill", "#666" )
 .style("font-family", "Impact") 
-.text("Delegates");
+.text("Participants");
 
 var partition = d3.layout.partition()
     .sort(null)
