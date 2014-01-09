@@ -212,6 +212,17 @@ queue()
       callback();
     });
   })
+  .defer (function(callback) {
+    d3.text("piedata.csv", function(error, text) {
+      //datapie=tsv1;
+	  datapie = d3.csv.parseRows(text).map(function(row) {
+        return row.map(function(value) {
+            return +value;
+        });
+		});
+      callback();
+    });
+  })
   .await(function (){
      map(europe);
   });
@@ -520,7 +531,7 @@ var titlebox = d3.select("#mapdiv").append("div")
         .attr("id", "titlebox")
         .attr("width", 900)
         .attr("height", 70)
-		.html("<span class=\"title1\">The SHARE Network</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the above timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");
+		.html("<span class=\"title1\"><b>The SHARE Network</b></span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the above timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");
 		
 		
 		/*
@@ -631,7 +642,7 @@ var visitinfo = titlebox.append("text")
 	  
 	  if(visitn == 0 || visitn == 100){
 		titlebox
-		.html("<span class=\"title1\">"+title+"</span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the above timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");  
+		.html("<span class=\"title1\"><b>"+title+"</b></span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the above timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");  
 	  } else {
 	titlebox
 		.html("<span class=\"title1\">"+title+" &nbsp;&nbsp;&nbsp;<span class=\"titledata\">"+titledata+"</span></span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br /><a href=\""+readmore+"\" class=\"readmore\" target=\"_BLANK\">Read more ...</a><br />"+image)  ; 
@@ -741,151 +752,97 @@ function arcTween(d) {
 
 //topics pie/sunburst
 
-function changesun(){
-//alert(selectedvisit);	
-pathsun
-.transition()
-.duration(500)
-.style("opacity", function(d) {return d.children ? 0.7 : (d.name == "visit" + selectedvisit ? 1 : 0); });
-}
+var widthpie = 300,
+    heightpie = 280,
+    //radiuspie = Math.min(widthpie, heightpie) / 2;
+	radiuspie = 110;
 
-//var widthsun = 250,
-    //heightsun = 280,
-var widthsun = 300,
-    heightsun = 280,
-	radiussun = 110,
-	//var widthsun = sidewidth2,
-    //heightsun = sideheight2,
-	//radiussun = sidewidth2/3,
-    //radiussun = Math.min(widthsun, heightsun) / 2,
-    colorsun = d3.scale.category20c();
+var colorpie = d3.scale.category20c();
+//var colorsun = d3.scale.category20c();
 
-var svgsun = d3.select("#pie2div").append("svg")
-    .attr("width", widthsun)
-    .attr("height", heightsun)
-	//.attr("transform", "translate(" + 0 + "," + (height - heightsun) + ")")
+var piepie = d3.layout.pie()
+    .value(function(d) {return d[0]; })
+    .sort(null);
+
+
+
+datapie.forEach(function(d) {
+		//alert(d);
+  });
+
+var arcpie = d3.svg.arc()
+    .innerRadius(radiuspie - 60)
+    .outerRadius(radiuspie - 20);
+
+var svgpie = d3.select("#pie2div").append("svg")
+    .attr("width", widthpie)
+    .attr("height", heightpie)
   .append("g")
-  //.attr("transform", "translate(" + 0 + "," + (height - heightsun) + ")")
-    .attr("transform", "translate(" + (widthsun / 2) + "," + heightsun * .52 + ")");
-	//.attr("transform", "translate(" + 150 + "," + heightsun * .52 + ")");
-	//.attr("transform", "translate(" + 0+ "," + 0 + ")");
+    .attr("transform", "translate(" + widthpie / 2 + "," + heightpie / 2 + ")");
 
-//Sunburst title
-svgsun.append("text")
+//d3.tsv("piedata.tsv", typepie, function(error, datapie) {
+	
+  var pathpie = svgpie.datum(datapie).selectAll("path")
+      .data(piepie)
+    .enter().append("path")
+      .attr("fill", function(d, i) { return colorpie(i); })
+      .attr("d", arcpie)
+      .each(function(d) {this._current = d; }); // store the initial angles
+
+ svgpie.append("text")
 .attr("transform", "translate(" + 0 + "," + 5 + ")")
 .attr("text-anchor", "middle")
 .style("font-size", "18px" )
 .style("fill", "#666" )
 .style("font-family", "Impact") 
-.text("Participants");
+.text("Participants"); 
 
-var partition = d3.layout.partition()
-    .sort(null)
-    .size([2 * Math.PI, radiussun * radiussun])
-    .value(function(d) { return d.size; });
-
-var arcsun = d3.svg.arc()
-    .startAngle(function(d) { return d.x; })
-    .endAngle(function(d) { return d.x + d.dx; })
-    .innerRadius(function(d) { return d.children ? 60 : Math.sqrt(d.y); })
-    .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
-
-//d3.json("topics.json", function(error, topicsdata) {
-  var pathsun = svgsun.datum(categories).selectAll("path")
-      .data(partition.nodes)
-    .enter().append("path")
-      .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
-      .attr("d", arcsun)
-      .style("stroke", "#fff")
-      .style("fill", function(d) { return colorsun((d.children ? d : d.parent).name); })
-	  .style("opacity", function(d) { return d.children ? 0.7 : (d.name == "visit" + selectedvisit ? 1 : 0); })
-      .style("fill-rule", "evenodd")
-      .each(stash);
-	  
-	  pathsun.on("mouseover", function(d) { 
+/*
+pathpie.on("mouseover", function(d) { 
 	//alert(d.Name);
-	(d.children && d.depth) ? nametooltipin(d.fullname) : null;
+	nametooltipin(d.value);
     })
 	.on("mouseout", function(d) { 
 	//alert(d.Name);
 	tooltipout(d);
     });
-
-/*	  
-	  svgsun.datum(categories).selectAll("text")
-	  .data(partition.nodes)
-    .enter().append("text")
-	.attr("class", "suntext")
-	.attr("text-anchor", function(d) {
-        return d.x + d.dx / 2 > Math.PI ? "end" : "start";
-      })
-      
-	  //.attr("transform", function(d, i) {return "translate(0, "+ i*3 +")"})
-      .attr("dy", ".35em") // vertical-align
-	  .style("fill", function(d){ "#666" })
-      .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner
-      .text(function(d) {return d.children ? d.name : null; });
-	  
-	  */
-
-/*
-.attr("transform", function(d) {
-        var angle = (d.x + d.dx / 2) * 180 / Math.PI - 90;
-           //if (angle > 90) { angle = angle - 180; }
-         //alert(d.y);  
-        return "rotate(" + angle + ")translate(" + (d.y/1000  + 100)  + ")rotate(" + (angle > 90 ? -180 : 0) + ")"
-       })
-	   */	  
-/*
-var legend = svgsun.datum(categories)
-	  .data(partition.nodes)
-	  .append("svg")
-    .attr("class", "legend")
-    .attr("width", 300)
-    .attr("height", 300)
-    .selectAll("g")
-    .enter().append("g");
-    //.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-legend.append("rect")
-    .attr("width", 18)
-    .attr("height", 18)
-    .style("fill", function(d) { return colorsun((d.children ? d : d.parent).name); });
-
-legend.append("text")
-    .attr("x", 24)
-    .attr("y", 9)
-    .attr("dy", ".35em")
-    .text(function(d) { return d.name; });
 	*/
-/*
-//Sun text
-pathsun.append("svg:text")
-      .attr("transform", function(d) { return "rotate(" + (d.x + d.dx / 2 - Math.PI / 2) / Math.PI * 180 + ")"; })
-      .attr("x", function(d) { alert(d.y); return d.y; })
-      .attr("dx", "6") // margin
-      .attr("dy", ".35em") // vertical-align
-      //.attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner
-      .text(function(d) { return d.name; });
-	  
-	  */
-  
+
+//changepie2(100);
+
+
 //});
 
-// Stash the old values for transition.
-function stash(d) {
-  d.x0 = d.x;
-  d.dx0 = d.dx;
+//changepie2(2);
+
+function changepie(visit) {
+    //var value = this.value;
+	//var value = "v"+visit;
+	//alert(visit);
+    //clearTimeout(timeout);
+    if(visit == 0 || visit == 100){
+	piepie.value(function(d) {return d[0]; });
+	} else {
+    piepie.value(function(d) {return d[visit]; }); // change the value function
+	}
+    pathpie = pathpie.data(piepie); // compute the new angles
+    pathpie.transition().duration(750).attrTween("d", arcTweenpie); // redraw the arcs
+  }
+
+function typepie(d) {
+  d.apples = +d.apples;
+  d.oranges = +d.oranges;
+  return d;
 }
 
-// Interpolate the arcs in data space.
-function arcTweenSun(a) {
-  var i = d3.interpolate({x: a.x0, dx: a.dx0}, a);
+// Store the displayed angles in _current.
+// Then, interpolate from _current to the new angles.
+// During the transition, _current is updated in-place by d3.interpolate.
+function arcTweenpie(a) {
+  var i = d3.interpolate(this._current, a);
+  this._current = i(0);
   return function(t) {
-    var b = i(t);
-    a.x0 = b.x;
-    a.dx0 = b.dx;
-    return arcsun(b);
+    return arcpie(i(t));
   };
 }
 
@@ -1510,7 +1467,10 @@ arcNodes
 }
 
 function clickflow(){
-changesun();
+	
+	//alert(selectedvisit);
+changepie(selectedvisit);
+//alert(selectedvisit);
 
   if (selectedvisit == 100) 
     drawLogo("big");
