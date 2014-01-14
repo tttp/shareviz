@@ -757,8 +757,12 @@ var widthpie = 300,
     //radiuspie = Math.min(widthpie, heightpie) / 2;
 	radiuspie = 110;
 
-var colorpie = d3.scale.category20c();
+var colorpie2 = d3.scale.category20c();
 //var colorsun = d3.scale.category20c();
+
+var colorpie = d3.scale.ordinal()
+    .domain([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19])
+    .range(["#185d90","#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9"]);
 
 var piepie = d3.layout.pie()
     .value(function(d) {return d[0]; })
@@ -785,7 +789,7 @@ var svgpie = d3.select("#pie2div").append("svg")
   var pathpie = svgpie.datum(datapie).selectAll("path")
       .data(piepie)
     .enter().append("path")
-      .attr("fill", function(d, i) { return colorpie(i); })
+      .attr("fill", function(d, i) {return colorpie(i); })
       .attr("d", arcpie)
       .each(function(d) {this._current = d; }); // store the initial angles
 
