@@ -119,6 +119,7 @@ var color = d3.scale.linear()
         .interpolate(d3.interpolateHcl);
 		
 var popradius = d3.scale.linear().domain([0,300000]).range([3,40]);
+var popradiusbig = d3.scale.linear().domain([0,3000000]).range([3,40]);
 		
 //Defining some colors
 var c_eventdot = "#7c3";
@@ -319,7 +320,10 @@ drawNodes();
 
 //Bar chart
 var wbar = 350,
-    hbar = 270,
+	//wbar = 350,
+    //hbar = 270,
+	hbar = 270,
+	hhbar = 500,
     pbar = [20, 50, 30, 20],
     //x = d3.scale.ordinal().rangeRoundBands([0, w - p[1] - p[3]]),
 	xbar = d3.scale.ordinal().rangeRoundBands([0, wbar - pbar[1] - pbar[3]]),
@@ -331,7 +335,7 @@ var wbar = 350,
 
 var svgbar = d3.select("#barchart").append("svg:svg")
     .attr("width", wbar)
-    .attr("height", hbar)
+    .attr("height", hhbar)
   .append("svg:g")
     //.attr("transform", "translate(" + p[3] + "," + (h - p[2]) + ")");
 	.attr("transform", "translate(" + (pbar[3] + 40) + "," + pbar[2] + ")");
@@ -398,6 +402,7 @@ d3.csv("population.csv", function(population) {
 	  .attr("height", 20);
 
   // Add a label per date.
+  /*
   var label = svgbar.selectAll("text")
       .data(xbar.domain())
     .enter().append("svg:text")
@@ -407,7 +412,26 @@ d3.csv("population.csv", function(population) {
       .attr("text-anchor", "middle")
       .attr("dy", ".71em")
       .text(function(d) {return d.split(" ")[0]});
+	  */
+  var label = svgbar.selectAll("text")
+      .data(xbar.domain())
+    .enter().append("svg:text")
+      //.attr("y", function(d) {return xbar(d) + xbar.rangeBand() / 2; })
+	  .attr("y", function(d,i) {return i*25 + 6; })
+      .attr("x", -45)
+      .attr("text-anchor", "left")
+      .attr("dy", ".71em")
+      .text(function(d) {return parselabel(d)});
 
+
+function parselabel(d){
+	if(d.length > 13){
+		d = d.substring(0,10) + "...";
+	}
+	
+	return d;
+//return d.split(" ")[0];	
+}
   // Add y-axis rules.
   /*
   var rule = svgbar.selectAll("g.rule")
@@ -560,7 +584,7 @@ function cityprofilein(d){
 	
 	if(d.totpop != null){
 	
-	pbody = "<b>Total population:</b> "+d.totpop+"<br /><br /><b>Population density:</b> "+d.pdensity+"<br /><br /><b>GDP (per inhabitant):</b> "+d.gdp+"<br /><br /><b>Nationals:</b> "+d.pnat+"<br /><br /><b>EU foreigners:</b> "+d.peuf+"<br /><br /><b>Non-EU foreigners:</b> "+d.pneuf+"<br /><br /><b>Resettlement city?</b>  "+d.rescity+"<br /><br /><b>Year programme began:</b> "+d.programmeyear+"<br /><br /><b>Annual resettlement quota:</b> "+d.resquota+"<br /><br /><b>Groups received:</b> "+d.groups+"<br /><br /><b>Lead resettlement partners:</b> "+d.partners+"<br /><br /><a href='http://www.resettlement.eu/city/sheffield'>City profile</a>";	
+	pbody = "<b>Total population:</b> "+d.totpop+"<br /><br /><b>Population density:</b> "+d.pdensity+"<br /><br /><b>GDP (per inhabitant):</b> "+d.gdp+"<br /><br /><b>Nationals:</b> "+d.pnat+"<br /><br /><b>EU foreigners:</b> "+d.peuf+"<br /><br /><b>Non-EU foreigners:</b> "+d.pneuf+"<br /><br /><b>Resettlement city?</b>  "+d.rescity+"<br /><br /><b>Year programme began:</b> "+d.programmeyear+"<br /><br /><b>Annual resettlement quota:</b> "+d.resquota+"<br /><br /><b>Groups received:</b> "+d.groups+"<br /><br /><b>Lead resettlement partners:</b> "+d.partners+"<br /><br /><a href='http://www.resettlement.eu/city/"+d.Name+"'>City profile</a>";	
 	}
 	
 if(d.Name == "Sheffield"){
@@ -585,12 +609,24 @@ function cityprofilein2(d){
 	
 	if(d.totpop != null){
 	
-	pbody = "<b>Total population:</b> "+d.totpop+"<br /><b>Population density:</b> "+d.pdensity+"<br /><b>GDP (per inhabitant):</b> "+d.gdp+"<br /><b>Nationals:</b> "+d.pnat+"<br /><b>EU foreigners:</b> "+d.peuf+"<br /><b>Non-EU foreigners:</b> "+d.pneuf+"<br /><br /><b>Resettlement city?</b>  "+d.rescity+"<br /><b>Year programme began:</b> "+d.programmeyear+"<br /><b>Annual resettlement quota:</b> "+d.resquota+"<br /><br /><b>Groups received:</b> "+d.groups.replace(/;/g,",")+"<br /><b>Lead resettlement partners:</b> "+d.partners.replace(/;/g,",")+"<br /><br /><a href='http://www.resettlement.eu/city/sheffield'>City profile</a>";	
+	pbody = "<b>Total population:</b> "+d.totpop+"<br /><b>Population density:</b> "+d.pdensity+"<br /><b>GDP (per inhabitant):</b> "+d.gdp+"<br /><b>Nationals:</b> "+d.pnat+"<br /><b>EU foreigners:</b> "+d.peuf+"<br /><b>Non-EU foreigners:</b> "+d.pneuf+"<br /><b>Unemployment Rate:</b> "+d.unemployment+"<br /><b>Receives asylum seekers?:</b> "+d.asylumseekers+"<br /><b>Number of asylum seekers:</b> "+d.asylumseekersn+"<br /><br /><b>Resettlement city?</b>  "+d.rescity+"<br />";
+	
+	if(d.rescity == "Yes" || d.rescity == "yes"){
+	pbody = pbody+"<b>Year programme began:</b> "+d.programmeyear+"<br /><b>Annual resettlement quota:</b> "+d.resquota+"<br /><b>Groups received:</b> "+d.groups.replace(/;/g,",")+"<br /><b>Lead resettlement partners:</b> "+d.partners.replace(/;/g,",")+"<br />";
+	}
+	
+	pbody = pbody+"<br /><b>Humanitarian city?</b> "+d.humanitarian+"<br />";
+	
+	if(d.humanitarian == "Yes" || d.humanitarian == "yes"){
+	pbody = pbody + "<b>Humanitarian network membership:</b>"+d.h_network+"<br /><b>City humanitarian pledges/statements:</b>"+d.h_pledges+"<br />";	
+}
+	
+	pbody = pbody + "<br /><a href='http://www.resettlement.eu/city/"+d.Name+"'>City profile</a>";	
 	}
 	
 
 cprofile
-.html("<h2>"+d.Name+"</h2><div class='body'>" +pbody +"</div>");	
+.html("<a class='citytitlea' href='http://www.resettlement.eu/city/"+d.Name+"'><h2>"+d.Name+"</h2></a><div class='body'>" +pbody +"</div>");	
 
 }
 
@@ -737,27 +773,36 @@ d3.select("#btn_neuf")
 	});
 
 
-function changemapdata(type) {
+function calcpercent(totpop,inival){
 
+//If the value is in percent, calculate it
+
+inival = inival.replace('%','');
+var thisresult = (totpop/100)*inival;
+//alert(thisresult);	
+return thisresult;
+}
+
+function changemapdata(type) {
 
 if(type == "pnat"){
 fcitynodes2	
 .transition().duration(1000)
-.attr("r",function(d){return d.totpop != null ? popradius(d.pnat) : 0;})
+.attr("r",function(d){return d.totpop != null ? (d.pnat.indexOf('%') != -1 ? popradiusbig(calcpercent(d.totpop,d.pnat)) : popradius(d.pnat)) : 0;})
 .style("fill", "#f90");
 }
 
 if(type == "peuf"){
 fcitynodes2	
 .transition().duration(1000)
-.attr("r",function(d){return d.totpop != null ? popradius(d.peuf) : 0;})
+.attr("r",function(d){return d.totpop != null ? (d.peuf.indexOf('%') != -1 ? popradius(calcpercent(d.totpop,d.peuf)) : popradius(d.peuf)) : 0;})
 .style("fill", "#9cf");
 }
 
 if(type == "pneuf"){
 fcitynodes2	
 .transition().duration(1000)
-.attr("r",function(d){return d.totpop != null ? popradius(d.pneuf) : 0;})
+.attr("r",function(d){return d.totpop != null ? (d.pneuf.indexOf('%') != -1 ? popradius(calcpercent(d.totpop,d.pneuf)) : popradius(d.pneuf)) : 0;})
 .style("fill", "#d53f6e");
 }
 
