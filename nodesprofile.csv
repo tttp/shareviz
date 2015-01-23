@@ -1,54 +1,57 @@
 ﻿Code,Name,Lat,Lon,country code,country,isdestination,totpop,pdensity,gdp,pnat,peuf,pneuf,unemployment,asylumseekers,asylumseekersn,rescity,programmeyear,resquota,groups,partners,humanitarian,h_network,h_pledges
-Aac,Aachen,50.8,6.1,DE,Germany,0,248137,800/sq km (2011),27317.5 Euro (2010),83.4%,5.3%,11.3%,9.4%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Bon,Bonn,50.7,7.1,DE,Germany,0,319606,715.3/sq km (2011),35789 Euro (2010),85%,4.9%,10.1%,5.9,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Dus,Dusseldorf,51.2,6.8,DE,Germany,0,593057,1273.2/sq km (2011),44822.2 Euro (2010),81.7%,7.3%,11%,8%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Aac,Aachen,50.8,6.1,DE,Germany,0,248137,800/sq km (2011),27317.5 Euro (2010),83.4%,5.3%,11.3%,9.4%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Bon,Bonn,50.7,7.1,DE,Germany,0,319606,715.3/sq km (2011),35789 Euro (2010),85%,4.9%,10.1%,5.9,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Dus,Dusseldorf,51.2,6.8,DE,Germany,0,593057,1273.2/sq km (2011),44822.2 Euro (2010),81.7%,7.3%,11%,8%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Pra,Prague,50.1,14.4,CZ,Czech Republic,0
-Par,Paris,48.9,2.4,FR,France,0,2268313,989.2/sq km (2011),49832.9 Euro (2010),85%,4.5%,10.5%,9.4%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Ber,Berlin,52.5,13.4,DE,Germany,0,3375000,292/sq km (2011),26164.8 Euro (2010),85.9%,4.9%,9.2%,13.2%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Par,Paris,48.9,2.4,FR,France,0,2268313,989.2/sq km (2011),49832.9 Euro (2010),85%,4.5%,10.5%,9.4%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Ber,Berlin,52.5,13.4,DE,Germany,0,3375000,292/sq km (2011),26164.8 Euro (2010),85.9%,4.9%,9.2%,13.2%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Ams,Amsterdam,52.3708305359,4.904009819,NL,Netherlands,0
 War,Warsaw,52.2,21,PL,Poland,0,1711324,3303/sq km (2011),14279.23 Euro (2010),99.3%,0.7%,3.9%,n/a,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Bru,Brussels,50.9,4.4,BE,Belgium,0
-Gäv,Gävleborg,61.3,16.2,SE,Sweden,0,276637,15.2/sq km (2011),34667.05 Euro (2010),95.9%,4.1%,8.8%,n/a,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Gäv,Gävleborg,61.3,16.2,SE,Sweden,0,276637,15.2/sq km (2011),34667.05 Euro (2010),95.9%,4.1%,8.8%,n/a,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Bol,Bollnäs,61.3,16.4,SE,Sweden,0
 Ova,Ovanåker,61.6,15.6,SE,Sweden,0
 Ock,Ockelbo,60.9,16.7,SE,Sweden,0
 Hud,Hudiksvall,61.7,17.1,SE,Sweden,0
 Lju,Ljusdal,61.8,16.1,SE,Sweden,0
 San,Sandviken,60.6,16.8,SE,Sweden,0
-Vas,Vasterbotten,65.3,16.5,SE,Sweden,0,260217,4.7/sq km (2011),35917.34 Euro (2010),96.7%,3.3%,8%,n/a,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Vas,Vasterbotten,65.3,16.5,SE,Sweden,0,260217,4.7/sq km (2011),35917.34 Euro (2010),96.7%,3.3%,8%,n/a,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Jam,Jamtland,63.2,14.9,SE,Sweden,0,126201,2.6/sq km (2011),39554.54 Euro (2010),97.6%,2.4%,8.8%,n/a,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Lyc,Lycksele,64.6,18.7,SE,Sweden,0
 Nor,Norsjo,64.9,19.5,SE,Sweden,0
 Ske,Skelleftea,64.8,21,SE,Sweden,0
 Str,Stromsund,63.9,15.6,SE,Sweden,0
 Ost,Ostersund,63.2,14.6,SE,Sweden,0
-Mun,Munich,48.1,11.6,DE,Germany,0,1439474,491.8/sq km (2011),48606.9 Euro (2010),75.8%,10.4%,13.8%,2.6%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Tam,Tampere,61.5,23.8,FI,Finland,0,217421,39.3/sq km (2011),31493.6 Euro (2010),95.8%,1.2%,3%,11%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Oul,Oulu,65,25.5,FI,Finland,0,190847,102.03/sq km (2011),n/a,98.6%,0.8%,0.6%,11.6%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Mun,Munich,48.1,11.6,DE,Germany,0,1439474,491.8/sq km (2011),48606.9 Euro (2010),75.8%,10.4%,13.8%,2.6%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Tam,Tampere,61.5,23.8,FI,Finland,0,217421,39.3/sq km (2011),31493.6 Euro (2010),95.8%,1.2%,3%,11%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Oul,Oulu,65,25.5,FI,Finland,0,190847,102.03/sq km (2011),n/a,98.6%,0.8%,0.6%,11.6%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Hel,Helsinki,60.2,24.9,FI,Finland,0
-Kut,Kutna Hora,50,15.3,CZ,Czech Republic,0,74359,81/sq km (2011),11597.25 Euro (2010),97.8%,0.8%,1.4%,5.1% (Regional),No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Bra,Brandys nad Labem,50.2,14.7,CZ,Czech Republic,0,17503,116/sq km (2011),11597.25 Euro (2010),95.4%,1.5%,3%,5.1% (Regional),No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Pod,Podebrady,50.1,15.1,CZ,Czech Republic,0,13906,116/sq km (2011),11597.25 Euro (2010),95.4%,1.5%,3%,5.1% (Regional),No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Bze,Bzenec,49,17.3,CZ,Czech Republic,0,4295,106.5/sq km (2011),11067.71 Euro (2010),98.1%,0.6%,1.3%,9.3% (Regional),No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Kut,Kutna Hora,50,15.3,CZ,Czech Republic,0,74359,81/sq km (2011),11597.25 Euro (2010),97.8%,0.8%,1.4%,5.1% (Regional),No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Bra,Brandys nad Labem,50.2,14.7,CZ,Czech Republic,0,17503,116/sq km (2011),11597.25 Euro (2010),95.4%,1.5%,3%,5.1% (Regional),No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Pod,Podebrady,50.1,15.1,CZ,Czech Republic,0,13906,116/sq km (2011),11597.25 Euro (2010),95.4%,1.5%,3%,5.1% (Regional),No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Bze,Bzenec,49,17.3,CZ,Czech Republic,0,4295,106.5/sq km (2011),11067.71 Euro (2010),98.1%,0.6%,1.3%,9.3% (Regional),No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Vie,Vienna,48.2,16.4,AT,Austria,0
 Lub,Lublin,51.2,22.6,PL,Poland,0,147935,88/sq km (2011),5889.48 Euro (2010),99.8%,0.2%,11.2%,n/a,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Zav,Zaventem,50.9,4.5,BE,Belgium,0,31715,1102/sq km (2011),32500 Euro (2010),81.6%,18.4%,4.3%,n/a,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Wet,Wetteren,51,3.9,BE,Belgium,0,24130,642/sq km (2011),32500 Euro (2010),97.6%,2.4%,4.3%,n/a,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Sit,Sittard-Geleen,51,5.8,NL,Netherlands,0
-Lim,Limburg,50.4,8.1,DE,Germany,0,1123075,522/sq km (2011),31362 Euro (2010),95.5%,2.7%,1.8%,4.3%,Yes,Heerlen(412); Venlo(480); Baexem(425); Echt(425); Sweikhuisen(242),n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Zav,Zaventem,50.9,4.5,BE,Belgium,0,31715,1102/sq km (2011),32500 Euro (2010),81.6%,18.4%,4.3%,n/a,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Wet,Wetteren,51,3.9,BE,Belgium,0,24130,642/sq km (2011),32500 Euro (2010),97.6%,2.4%,4.3%,n/a,No,0,n/a,Yes,n/a,n/a,n/a,n/a,n/a,n/a
+Sit,Sittard-Geleen,51,5.8,NL,Netherlands,0,0,n/a,n/a,n/a,n/a,n/a,n/a,No,0,n/a,Yes,n/a,n/a,n/a,n/a,n/a,n/a
+Crl,Carlow,53.8,10.9,IE,Ireland,0,0,n/a,n/a,n/a,n/a,n/a,n/a,No,0,n/a,Yes,n/a,n/a,n/a,n/a,n/a,n/a
+Pur,Purmerend,52.5,5,NL,Netherlands,79265,3386/sq km (2011),96.6%,1.3%,1.8%,4.4%,n/a,n/a,No,0,n/a,Yes,n/a,n/a,n/a,n/a,n/a,n/a
+Lim,Limburg,50.4,8.1,DE,Germany,0,1123075,522/sq km (2011),31362 Euro (2010),95.5%,2.7%,1.8%,4.3%,Yes,Heerlen(412); Venlo(480); Baexem(425); Echt(425); Sweikhuisen(242),Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Zaa,Zaanstad,52.4,4.8,NL,Netherlands,0
 Utr,Utrecht,52,5.4,NL,Netherlands,0
-Lyo,Lyon,45.8,4.8,FR,France,0,491268,538.1/sq km (2011),38673.7 Euro (2010),91%,2.3%,6.7%,8%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Pau,Pau,43.3,-0.4,FR,France,0,79798,86.6/sq km (2011),27146.1 Euro (2010),94.5%,2.7%,2.8%,9.3%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Lyo,Lyon,45.8,4.8,FR,France,0,491268,538.1/sq km (2011),38673.7 Euro (2010),91%,2.3%,6.7%,8%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Pau,Pau,43.3,-0.4,FR,France,0,79798,86.6/sq km (2011),27146.1 Euro (2010),94.5%,2.7%,2.8%,9.3%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Nan,Nantes,47.2,-1.6,FR,France,0
-She,Sheffield,53.4,-1.5,GB,United Kingdom,0,557400,4000/sq mi,average income of £ 441 per week (2012),92.5%,1.1%,6.4%,9%,asylum,asylum n,Yes,2004,90,Burmese from Thailand; Iraqis from Syria and Jordan; Congolese from Uganda; Ethiopians and Somalis from Kenya; Bhutanese from Nepal,Sheffield City Council; British Refugee Council; Mulberry Practice (NHS),Yes,h_network,h_pledges
-Hul,Hull,53.7,-0.3,GB,United Kingdom,0,257200,3600/sq km (2011),19285.2 Euro (2010),94.5%,4.8%,2.7%,15.4%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Brd,Bradford,53.8,-1.8,GB,United Kingdom,0,524600,1432/sq km (2011),20736.8 Euro (2010),91.5%,3.5%,3.3%,11.4%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Man,Manchester,53.5,-2.2,GB,United Kingdom,0,510800,4417/sq km (2011),23687.3 Euro (2010),83.5%,6.3%,11.2%,5.6%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+She,Sheffield,53.4,-1.5,GB,United Kingdom,0,557400,4000/sq mi,average income of £ 441 per week (2012),92.5%,1.1%,6.4%,9%,Yes,n/a,Yes,2004,90,Burmese from Thailand; Iraqis from Syria and Jordan; Congolese from Uganda; Ethiopians and Somalis from Kenya; Bhutanese from Nepal,Sheffield City Council; British Refugee Council; Mulberry Practice (NHS),Yes,n/a,n/a
+Hul,Hull,53.7,-0.3,GB,United Kingdom,0,257200,3600/sq km (2011),19285.2 Euro (2010),94.5%,4.8%,2.7%,15.4%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Brd,Bradford,53.8,-1.8,GB,United Kingdom,0,524600,1432/sq km (2011),20736.8 Euro (2010),91.5%,3.5%,3.3%,11.4%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Man,Manchester,53.5,-2.2,GB,United Kingdom,0,510800,4417/sq km (2011),23687.3 Euro (2010),83.5%,6.3%,11.2%,5.6%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Cop,Copenhagen,55.7,12.6,DK,Denmark,2
-Faa,Faaborg-Midfyn,55.2,10.4,DK,Denmark,2,51467,81.1/sq km (2011),n/a,97.3%,1.3%,1.4%,7.7%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Fax,Faxe,55.3,12.1,DK,Denmark,2,35132,86.7/sq km (2011),n/a,97.2%,1%,1.8%,7.2%,Yes,66,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Faa,Faaborg-Midfyn,55.2,10.4,DK,Denmark,2,51467,81.1/sq km (2011),n/a,97.3%,1.3%,1.4%,7.7%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Fax,Faxe,55.3,12.1,DK,Denmark,2,35132,86.7/sq km (2011),n/a,97.2%,1%,1.8%,7.2%,Yes,66,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Nur,Nurnberg,49.5,11.1,DE,Germany,2,503402,445/sq km (2011),35214.5 Euro (2010),83%,6.4%,10.6%,7.5%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
-Sch,Schleswig-Holstein,54.2,9.7,DE,Germany,0,2806531,179.6/sq km (2011),27220 Euro (2010),95.3%,1.7%,3%,7.2%,Yes,3.36%,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Sch,Schleswig-Holstein,54.2,9.7,DE,Germany,0,2806531,179.6/sq km (2011),27220 Euro (2010),95.3%,1.7%,3%,7.2%,Yes,3.36%,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Dar,Darmstadt,49.9,8.7,DE,Germany,0
 Munc,Munchen,48.1,11.6,DE,Germany,0
 Bav,Bavaria,48.8,11.5,DE,Germany,0,12519571,178.5/sq km (2011),36865 Euro (2010),91.3%,3.5%,5.2%,3.8%,Yes,15.23%,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
@@ -60,13 +63,13 @@ Ant,Antwerpen,51.2,4.4,BE,Belgium,0
 Nic,Nicosia,35.2,33.4,CY,Cyprus,0
 Col,Cologne,50.9,7,DE,Germany,0
 Fra,Frankfurt,50.1,8.7,DE,Germany,0
-Lis,Lisbon,38.7,-9.2,PR,Portugal,0,537412,940.5/sq km (2011),22668.9 Euro (2010),93.7%,1.4%,4.9%,14.4%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Lis,Lisbon,38.7,-9.2,PR,Portugal,0,537412,940.5/sq km (2011),22668.9 Euro (2010),93.7%,1.4%,4.9%,14.4%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Buc,Bucharest,44.4,26.1,RO,Romania,0
 Mad,Madrid,40.4,-3.7,ES,Spain,0,3233527,801.2/sq km (2011),2957.3 Euro (2010),84.5%,3.9%,11.6%,16.7%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Sto,Stockholm,59.3,18.1,SE,Sweden,0
 The,The Hague,52.1,4.3,NL,Netherlands,0
 Ein,Eindhoven,51.4,5.5,NL,Netherlands,0
-Lee,Leeds,53.8,-1.5,UK,UK,0
+Lee,Leeds,53.8,-1.5,GB,United Kingdom,0
 Ita,Italy,41.9,12.6,IT,Italy,0
 Usa,US,37.1,-95.7,US,US,0
 Hun,Hungary,47.2,19.5,HU,Hungary,
@@ -74,3 +77,39 @@ Bes,Besancon,47.2,6,FR,France,0
 Gra,Grand Lyon,45.7,4.8,FR,France,0
 Rho,Rhone-Alpes,45.2,5.5,FR,France,0
 Por,Portugal,39.4,-8.2,PT,Portugal,0
+Ste,Steyr,48.0,14.4,AT,Austria,0
+Kru,Kruibeke,51.1,4.3,BE,Belgium,0
+Alc,Alcobendas,40.5,-3.6,ES,Spain,0
+Bil,Bilbao,43.2,-2.9,ES,Spain,0
+Log,Logroño,42.4,-2.4,ES,Spain,0
+Tor,Torrelavega,43.3,-4.0,ES,Spain,0
+Ali,Alicante,38.3,-0.4,ES,Spain,0
+Bar,Barcelona,41.3,2.1,ES,Spain,0
+Gua,Guadalajara,40.6,-3.1,ES,Spain,0
+Sig,Sigüenza,41.0,-2.6,ES,Spain,0
+Leo,Leon,42.5,-5.5,ES,Spain,0
+Van,Vantaa,60.2,25.0,FI,Finland,0
+Esp,Espoo,60.2,24.6,FI,Finland,0
+LeH,Le Havre,49.4,0.1,FR,France,0
+Lao,Laon,49.5,3.6,FR,France,0
+Mai,Mainz,49.9,8.2,DE,Germany,0
+Bre,Bremen,53.0,8.8,DE,Germany,0
+Fre,Freiburg,47.9,7.842104,DE,Germany,0
+Han,Hannover,52.3,9.7,DE,Germany,0
+Hei,Heidelberg,49.3,8.6,DE,Germany,0
+Wup,Wuppertal,51.2,7.1,DE,Germany,0
+Maa,Maastricht,50.8,5.6,NL,Netherlands,0
+Beg,Bergen,60.3,5.3,NO,Norway,0
+Not,Norrtälje,59.7,18.7,SE,Sweden,0
+Gla,Glasgow,55.8,-4.2,GB,United Kingdom,0
+Edi,Edinburgh,55.9,-3.1,GB,United Kingdom,0
+Pin,Pinon,49.4,3.4,FR,France,0
+Ren,Rennes,48.1,-1.6,FR,France,0
+Châ,Châtillon-sur-Seine,47.8,4.5,FR,France,0
+Sai,Saint-Brieuc,48.5,-2.7,FR,France,0
+Bou,Bourgouin-Jallieu,45.5,5.2,FR,France,0
+Laq,La Coquille,45.540592,0.97896,FR,France,0
+Car,Carlow County,52.7,-6.8,IE,Ireland,0
+Kil,Kilkenny,52.6,-7.2,IE,Ireland,0
+Nie,Niedersachsen,52.6,9.8,DE,Germany,0
+Dre,Dresden,51.0,13.7,DE,Germany,0
