@@ -22,10 +22,10 @@
 	</div>
 </div>
 <div id="sidediv">
-	<div id="barchart">
+	<div id="barchart" style="display:none">
 
 	</div>
-    <div id="profilediv">
+    <div id="profilediv" style="height: 80%;">
 	<h2>Click on a city to view its profile</h2>
 	</div>
 </div>
@@ -36,10 +36,11 @@
 <script>
 
 var active= null,
-    width = 1100,
-	//width = window.innerWidth,
-	//height = window.innerWidth/1.37,
-    height = 700,
+    //width = 1100,
+	width = (window.innerWidth-320),
+	//height = (window.innerWidth-400)/1.37,
+	height = ((window.innerWidth-320)/16)*10,
+    //height = 700,
 	//height = window.innerHeight,
 	width1 = 200,
     height1 = 200;
@@ -52,8 +53,10 @@ height = window.innerHeight;
 */
 
 //width = $("#mapdiv").width();
-$("#mapdivprofile").height(width/1.37);
-$("#sidediv").height(width/1.37);
+//$("#mapdivprofile").height(width/1.37);
+$("#mapdivprofile").height(height);
+//$("#sidediv").height(width/1.37);
+$("#sidediv").height(height);
 height = $("#mapdivprofile").height();
 
 //var sidewidth = width/4.8;

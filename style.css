@@ -66,13 +66,15 @@ max-height: 250px;
 }
 
 #container2 {
-width:1450px;	
+//width:1450px;	
+width:100%;
 }
 
 #mapdivprofile {
 position: relative;
 float:left;	
-min-width: 1100px;
+//width: 80%;
+//min-width: 1100px;
 //height: 600px;
 background-color:#ddd;	
 }
@@ -97,7 +99,9 @@ aabackground-color: #eee;
 }
 
 #sidediv {
-width: 350px;
+//width: 350px;
+//width: 20%;
+width: 300px;
 height: 100%;
 background-color: #eee;
 float:left;
@@ -107,7 +111,8 @@ float:left;
 }
 
 #profilediv {
-width: 340px;
+//width: 340px;
+width: 98%;
 height: 367px;
 background-color: #fff;
 //position:relative;
