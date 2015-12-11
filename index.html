@@ -635,6 +635,24 @@ var visitinfo = titlebox.append("text")
 		case '16':
 		readmore = "http://www.resettlement.eu/page/business-case-diversity-partnerships-labour-market-integration-resettled-refugees-october-2013";
 		break;
+		case '17':
+		readmore = "http://resettlement.eu/news/offering-shelter-support-and-welcome-refugees-european-cities-and-communities-share-expert";
+		break;
+		case '18':
+		readmore = "http://resettlement.eu/page/visit-spanish-delegation-september-24-26-2014";
+		break;
+		case '19':
+		readmore = "http://resettlement.eu/page/%E2%80%98what-makes-volunteering-work%E2%80%99-expert-seminar-volunteering-refugee-resettlement-13-14-october";
+		break;
+		case '20':
+		readmore = "";
+		break;
+		case '21':
+		readmore = "";
+		break;
+		case '22':
+		readmore = "http://resettlement.eu/page/refugee-resettlement-and-integration-europe-share-network-discussed-experiences-and-lessons";
+		break;
 		default:
 		readmore = "";
 	  }
@@ -643,8 +661,11 @@ var visitinfo = titlebox.append("text")
 	  if(visitn == 0 || visitn == 100){
 		titlebox
 		.html("<span class=\"title1\"><b>"+title+"</b></span><br /><div class=\"sharedescription\">Welcome to the interactive map of the <span class=\"sharebold\">SHARE Network</span>!  Use your mouse to explore the above timeline and chart the growth and expansion of the <span class=\"sharebold\">SHARE Network</span> since its establishment in March 2012.  See who has participated in the <span class=\"sharebold\">SHARE Network</span> and the topics and activities they took part in, discover the many <span class=\"sharebold\">connections</span> between regional and local resettlement actors facilitated by <span class=\"sharebold\">SHARE</span>, and find out more about individual <span class=\"sharebold\">SHARE</span> activities and initiatives.</div>");  
+	  } else if(visitn == 20 || visitn == 21) {
+		titlebox
+		.html("<span class=\"title1\">"+title+" &nbsp;&nbsp;&nbsp;<span class=\"titledata\">"+titledata+"</span></span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br />"+image)  ;
 	  } else {
-	titlebox
+		titlebox
 		.html("<span class=\"title1\">"+title+" &nbsp;&nbsp;&nbsp;<span class=\"titledata\">"+titledata+"</span></span><b>From:</b>"+origin+"<br /><b>To:</b>"+dest+"<br /><b>Participants:</b> "+pnum+"<br /><a href=\""+readmore+"\" class=\"readmore\" target=\"_BLANK\">Read more ...</a><br />"+image)  ; 
 	  }
   }
