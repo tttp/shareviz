@@ -590,6 +590,7 @@ function cityprofilein(d){
 	pbody = "<b>Total population:</b> "+d.totpop+"<br /><br /><b>Population density:</b> "+d.pdensity+"<br /><br /><b>GDP (per inhabitant):</b> "+d.gdp+"<br /><br /><b>Nationals:</b> "+d.pnat+"<br /><br /><b>EU foreigners:</b> "+d.peuf+"<br /><br /><b>Non-EU foreigners:</b> "+d.pneuf+"<br /><br /><b>Resettlement city?</b>  "+d.rescity+"<br /><br /><b>Year programme began:</b> "+d.programmeyear+"<br /><br /><b>Annual resettlement quota:</b> "+d.resquota+"<br /><br /><b>Groups received:</b> "+d.groups+"<br /><br /><b>Lead resettlement partners:</b> "+d.partners+"<br /><br /><a href='http://www.resettlement.eu/city/"+d.Name+"'>City profile</a>";	
 	}
 	
+	
 if(d.Name == "Sheffield"){
 	cityprofile.transition()        
                 .duration(200)      
@@ -607,7 +608,7 @@ if(d.Name == "Sheffield"){
 cprofile = d3.select("#profilediv");
 
 function cityprofilein2(d){
-	
+	var citieswithlink = ["Steyr","Alcobendas","Bilbao","Guadalajara","Siguenza","Torrelavega","Jarvenpaa","Jyvaskyla","Sonkajarvi","Vantaa","Sittard-Geleen","Loures"];
 	var pbody = "No data available";
 	
 	if(d.totpop != null){
@@ -625,6 +626,10 @@ function cityprofilein2(d){
 }
 	
 	pbody = pbody + "<br /><a href='http://www.resettlement.eu/city/"+d.Name+"'>City profile</a>";	
+	} else {
+		if(citieswithlink.indexOf(d.Name) > -1){
+		//pbody = "<br /><br /><a href='http://www.resettlement.eu/city/"+d.Name+"'>City profile</a>";	
+		}
 	}
 	
 
