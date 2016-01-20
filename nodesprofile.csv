@@ -65,7 +65,7 @@ Col,Cologne,50.9,7,DE,Germany,0
 Fra,Frankfurt,50.1,8.7,DE,Germany,0
 Lis,Lisbon,38.7,-9.2,PR,Portugal,0,537412,940.5/sq km (2011),22668.9 Euro (2010),93.7%,1.4%,4.9%,14.4%,No,0,Yes,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Buc,Bucharest,44.4,26.1,RO,Romania,0
-Mad,Madrid,40.4,-3.7,ES,Spain,0,3233527,801.2/sq km (2011),2957.3 Euro (2010),84.5%,3.9%,11.6%,16.7%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Mad,Madrid,40.4,-3.7,ES,Spain,0,3233527,801.2/sq km (2011),29570.3 Euro (2010),84.5%,3.9%,11.6%,16.7%,No,0,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Sto,Stockholm,59.3,18.1,SE,Sweden,0
 The,The Hague,52.1,4.3,NL,Netherlands,0
 Ein,Eindhoven,51.4,5.5,NL,Netherlands,0
@@ -77,18 +77,18 @@ Bes,Besancon,47.2,6,FR,France,0
 Gra,Grand Lyon,45.7,4.8,FR,France,0
 Rho,Rhone-Alpes,45.2,5.5,FR,France,0
 Por,Portugal,39.4,-8.2,PT,Portugal,0
-Ste,Steyr,48.0,14.4,AT,Austria,0
+Ste,Steyr,48.0,14.4,AT,Austria,0,38120,1436/km² (2014),€35900 (regional),84.9%,4.7%,10.3%,4%,n/a,n/a,Yes,2013,n/a,Syrians,Red Cross,n/a,n/a,n/a
 Kru,Kruibeke,51.1,4.3,BE,Belgium,0
-Alc,Alcobendas,40.5,-3.6,ES,Spain,0
-Bil,Bilbao,43.2,-2.9,ES,Spain,0
+Alc,Alcobendas,40.5,-3.6,ES,Spain,0,112196,2549.91/sq km (2011),€2957.3 (2010 Madrid),84.5%,4%,11.5%,16.7%,n/a,n/a,Yes,2012,n/a,10 individuals in 2 families from Sudan and Eritrea.,Centro de Acogida de Refugiados de Alcobendas (CAR),Yes,n/a,n/a
+Bil,Bilbao,43.2,-2.9,ES,Spain,0,346574,8525.81 hab./km² (2014),€30.500 (2011 Regional),0%,0%,7.7%,16.6%,n/a,n/a,No,n/a,n/a,n/a,n/a,n/a,n/a,n/a
 Log,Logroño,42.4,-2.4,ES,Spain,0
-Tor,Torrelavega,43.3,-4.0,ES,Spain,0
+Tor,Torrelavega,43.3,-4.0,ES,Spain,0,54827,4100/km² (2009),€22.100 (2011),91.3%,0%,0%,20.4%,n/a,n/a,Yes,2012,n/a,4 families (11 individuals) from relief camps in Ethiopia,Spanish Red Cross & City council Torrelavega,n/a,n/a,n/a
 Ali,Alicante,38.3,-0.4,ES,Spain,0
 Bar,Barcelona,41.3,2.1,ES,Spain,0
-Gua,Guadalajara,40.6,-3.1,ES,Spain,0
-Sig,Siguenza,41.0,-2.6,ES,Spain,0
+Gua,Guadalajara,40.6,-3.1,ES,Spain,0,83720,553.8/km² (2014),€17.661 (2011 Regional),87.1%,5.7%,7.2%,8.2%,n/a,n/a,Yes (regional),n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Sig,Siguenza,41.0,-2.6,ES,Spain,0,4712,12.18/km² (2014),€20.202 (2011 Regional),83.7%,9.1%,7.2%,9.9%,n/a,n/a,Yes,n/a,n/a,n/a,Spanish Catholic Commission Association for Migration (ACCEM),n/a,n/a,n/a
 Leo,Leon,42.5,-5.5,ES,Spain,0
-Van,Vantaa,60.2,25.0,FI,Finland,0
+Van,Vantaa,60.2,25.0,FI,Finland,0,205312,861/km² (2014),n/a,91.3%,0%,8.7%,10.5%,n/a,n/a,Yes,2014,n/a,20 refugees from Syria,City of Vantaa; Housing Services and Immigrant Work Unit & Finnish Red Cross,n/a,n/a,n/a
 Esp,Espoo,60.2,24.6,FI,Finland,0
 LeH,Le Havre,49.4,0.1,FR,France,0
 Lao,Laon,49.5,3.6,FR,France,0
@@ -113,7 +113,7 @@ Car,Carlow County,52.7,-6.8,IE,Ireland,0
 Kil,Kilkenny,52.6,-7.2,IE,Ireland,0
 Nie,Niedersachsen,52.6,9.8,DE,Germany,0
 Dre,Dresden,51.0,13.7,DE,Germany,0
-Jar,Jarvenpaa,60.5,25.1,FI,Finland,0
-Jyv,Jyvaskyla,62.3,25.7,FI,Finland,0
-Son,Sonkajarvi,63.7,27.1,FI,Finland,0
-Lou,Loures,38.8,-9.3,PT,Portugal,0
+Jar,Jarvenpaa,60.5,25.1,FI,Finland,0,39953,1063/km² (2014),n/a,0%,0%,2.8%,7.1%,n/a,n/a,Yes,2013,receives 15 newcomers (including resettled refugees and asylum-seekers),n/a,Immigrant office Verso & Finnish Red Cross,n/a,n/a,n/a
+Jyv,Jyvaskyla,62.3,25.7,FI,Finland,0,135762,116/km² (2014),n/a,97.6%,0.7%,1.7%,16%,n/a,n/a,Yes,1990,receives 50 newcomers (including resettled refugees and asylum-seekers),n/a,Immigrant Services of the City of Jyväskylä & Finnish Red Cross,n/a,n/a,n/a
+Son,Sonkajarvi,63.7,27.1,FI,Finland,0,4350,3/km²,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+Lou,Loures,38.8,-9.3,PT,Portugal,0,205054,1211.2/km² (2011),€22.500 (2011 Regional),88.83%,1.38%,6.74%,18.5%,n/a,n/a,Yes,2006,n/a,n/a,Portuguese Refugee Council (CPR),n/a,n/a,n/a
